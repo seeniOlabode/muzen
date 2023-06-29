@@ -2,7 +2,35 @@
   <div class="site-preloader bg-muzen-light-brown p-4">
     <preloader-images :displayed-image-index="displayedImageIndex" />
     <div class="site-preloader__counter">
-      <div class="counter-column">
+      <div class="counter__wrapper relative overflow-hidden -translate-x-[1px]">
+        <span class="invisible">000</span>
+        <Transition name="loader-counter">
+          <div
+            class="percent-check-point absolute top-0 right-0"
+            :key="currentPercentCheckpoint + loadedCount"
+          >
+            <span
+              class="hundreds inline-block"
+              :class="{ invisible: currentPercentCheckpoint != '100' }"
+            >
+              {{ getPlaceValue(currentPercentCheckpoint, 3) }}
+            </span>
+
+            <span
+              class="tens inline-block"
+              :class="{
+                invisible: parseInt(currentPercentCheckpoint, 10) < 10,
+              }"
+            >
+              {{ getPlaceValue(currentPercentCheckpoint, 2) }}
+            </span>
+            <span class="units inline-block">
+              {{ getPlaceValue(currentPercentCheckpoint, 1) }}
+            </span>
+          </div>
+        </Transition>
+      </div>
+      <!-- <div class="counter-column">
         <span class="invisible">0</span>
 
         <span class="counter-column__numbers-wrapper">
@@ -38,12 +66,14 @@
             >{{ num }}</span
           >
         </span>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
+import { getPlaceValue } from "../../utils/utils";
+
 export default {
   data() {
     return {
@@ -63,14 +93,10 @@ export default {
     },
   },
   computed: {
-    percentagesUnits() {
-      return this.percentages.map((percentage) => percentage.slice(-1));
-    },
-    percentagesTens() {
-      return this.percentages.map((percentage) => percentage.slice(-2, -1));
-    },
-    percentagesHundreds() {
-      return this.percentages.map((percentage) => percentage.slice(-3, -2));
+    currentPercentCheckpoint() {
+      return this.loadedCount > 0
+        ? this.percentages[this.loadedCount - 1]
+        : "000";
     },
   },
   methods: {
@@ -91,8 +117,6 @@ export default {
     async loadAssets() {
       const assets = this.assetsToLoad;
 
-      const counterColumns = gsap.utils.toArray(".counter-column");
-
       for (let i = 0; i < assets.length; i++) {
         await this.preloadImage(assets[i]);
         await new Promise((r) => {
@@ -100,20 +124,8 @@ export default {
             this.displayedImageIndex++;
             this.changeImage = false;
           }
-          const tl = gsap.timeline({
-            paused: true,
-            onComplete: () => {
-              this.loadedCount++;
-              r();
-            },
-          });
-          tl.to(counterColumns, {
-            yPercent: -(100 * (i + 1)),
-            stagger: {
-              amount: 0.1,
-            },
-          });
-          tl.play();
+          this.loadedCount++;
+          r();
         });
       }
     },
@@ -122,6 +134,7 @@ export default {
         setTimeout(r, 2000);
       });
     },
+    getPlaceValue,
   },
   mounted() {
     this.load();
@@ -147,11 +160,9 @@ export default {
   font-size: 64px;
   font-weight: 700;
   letter-spacing: -3px;
-  overflow: hidden;
 
   &::after {
     content: "%";
-    margin-left: 5px;
   }
 }
 
@@ -164,5 +175,93 @@ export default {
   position: absolute;
   display: flex;
   flex-direction: column;
+}
+
+.loader-counter-enter-active {
+  transition: transform 0.7s;
+
+  .hundreds,
+  .tens,
+  .units {
+    transition: transform 0.5s;
+  }
+
+  /* Delays for Each */
+
+  .hundreds {
+    transition-delay: 0.2s;
+  }
+
+  .tens {
+    transition-delay: 0.1s;
+  }
+
+  .units {
+    transition-delay: 0;
+  }
+}
+
+.loader-counter-enter-from {
+  transform: translateY(0%);
+
+  .hundreds,
+  .tens,
+  .units {
+    transform: translateY(100%);
+  }
+}
+
+.loader-counter-enter-to {
+  transform: translateY(0);
+
+  .hundreds,
+  .tens,
+  .units {
+    transform: translateY(0%);
+  }
+}
+
+.loader-counter-leave-active {
+  transition: transform 0.5s;
+
+  .hundreds,
+  .tens,
+  .units {
+    transition: transform 0.5s;
+  }
+
+  /* Delays for Each */
+
+  .hundreds {
+    transition-delay: 0.2s;
+  }
+
+  .tens {
+    transition-delay: 0.1s;
+  }
+
+  .units {
+    transition-delay: 0;
+  }
+}
+
+.loader-counter-leave-from {
+  transform: translateY(0%);
+
+  .hundreds,
+  .tens,
+  .units {
+    transform: translateY(0%);
+  }
+}
+
+.loader-counter-leave-to {
+  transform: translateY(0%);
+
+  .hundreds,
+  .tens,
+  .units {
+    transform: translateY(-100%);
+  }
 }
 </style>
