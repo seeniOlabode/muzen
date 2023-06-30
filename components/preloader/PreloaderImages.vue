@@ -12,8 +12,8 @@
             :src="img"
             alt="Preloader Image"
             class="image-wrapper__image"
-            fit="cover"
             quality="20"
+            loading="eager"
             preload
           />
         </div>
@@ -33,58 +33,22 @@ export default {
     return {
       images: [
         "/images/Preloader/dex-ezekiel-M6KkYlhCwuA-unsplash.jpg",
-        "/images/Preloader/khaled-ghareeb-rBdkjxJlRaI-unsplash.jpg",
         "/images/Preloader/drew-tilk-EhmLEzVSx1Q-unsplash.jpg",
+        "/images/Preloader/khaled-ghareeb-rBdkjxJlRaI-unsplash.jpg",
       ],
     };
-  },
-  setup() {
-    // useHead({
-    //   link: [
-    //     {
-    //       rel: "preload",
-    //       as: "image",
-    //       href: "/images/Preloader/khaled-ghareeb-rBdkjxJlRaI-unsplash.jpg",
-    //     },
-    //     {
-    //       rel: "preload",
-    //       as: "image",
-    //       href: "/images/Preloader/dex-ezekiel-M6KkYlhCwuA-unsplash.jpg",
-    //     },
-    //     {
-    //       rel: "preload",
-    //       as: "image",
-    //       href: "/images/Preloader/drew-tilk-EhmLEzVSx1Q-unsplash.jpg",
-    //     },
-    //   ],
-    // });
-  },
-  // async mounted() {
-  //   this.images.forEach(async (img) => {
-  //     const newImage = new Image();
-  //     newImage.setAttribute("src", img);
-  //     await new Promise((r) => {
-  //       newImage.onload = r;
-  //     });
-  //     console.log("done");
-  //   });
-  // },
-  methods: {
-    // TODO: Remove This
-    handle() {
-      alert("ahh");
-    },
   },
 };
 </script>
 
 <style scoped>
 .site-preloader__images {
-  aspect-ratio: 242/285;
+  aspect-ratio: 22/26;
   background: black;
   position: relative;
   width: 50%;
   min-width: 200px;
+  max-width: 330px;
 }
 
 .site-preloader__image-wrapper {

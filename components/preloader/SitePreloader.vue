@@ -1,80 +1,98 @@
 <template>
-  <div class="site-preloader bg-muzen-light-brown p-4">
+  <div class="site-preloader | bg-muzen-light-brown">
     <preloader-images :displayed-image-index="displayedImageIndex" />
-    <div class="site-preloader__counter">
-      <div class="counter__wrapper relative overflow-hidden -translate-x-[1px]">
-        <span class="invisible">000</span>
-        <Transition name="loader-counter">
+    <div
+      class="site-preloader__counter | overflow-hidden"
+      :class="{ '!translate-y-0': !desktop }"
+      ref="counterEl"
+    >
+      <div class="counter__wrapper | relative -translate-x-[1px]">
+        <span class="invisible inline-block">000</span>
+        <Transition
+          name="loader-counter"
+          @enter="onEnter"
+          @after-enter="onAfterEnter"
+        >
           <div
-            class="percent-check-point absolute top-0 right-0"
+            class="percent-check-point | absolute top-0 right-0"
             :key="currentPercentCheckpoint + loadedCount"
           >
             <span
-              class="hundreds inline-block"
-              :class="{ invisible: currentPercentCheckpoint != '100' }"
+              class="hundreds | inline-block"
+              :class="{
+                invisible: currentPercentCheckpoint != '100',
+                'w-0': currentPercentCheckpoint != '100',
+              }"
             >
               {{ getPlaceValue(currentPercentCheckpoint, 3) }}
             </span>
 
             <span
-              class="tens inline-block"
+              class="tens | inline-block"
               :class="{
                 invisible: parseInt(currentPercentCheckpoint, 10) < 10,
+                'w-0': parseInt(currentPercentCheckpoint, 10) < 10,
               }"
             >
               {{ getPlaceValue(currentPercentCheckpoint, 2) }}
             </span>
-            <span class="units inline-block">
+            <span class="units | inline-block">
               {{ getPlaceValue(currentPercentCheckpoint, 1) }}
             </span>
           </div>
         </Transition>
       </div>
-      <!-- <div class="counter-column">
-        <span class="invisible">0</span>
-
-        <span class="counter-column__numbers-wrapper">
-          <span
-            class="num"
-            :class="{ invisible: num == 0 }"
-            v-for="(num, i) in percentagesHundreds"
-            :key="i + 'hundreds'"
-            >{{ num }}</span
-          >
-        </span>
-      </div>
-      <div class="counter-column">
-        <span class="invisible">0</span>
-
-        <span class="counter-column__numbers-wrapper">
-          <span
-            class="num"
-            v-for="(num, i) in percentagesTens"
-            :key="i + 'tens'"
-            >{{ num }}</span
-          >
-        </span>
-      </div>
-      <div class="counter-column">
-        <span class="">0</span>
-
-        <span class="counter-column__numbers-wrapper">
-          <span
-            class="num"
-            v-for="(num, i) in percentagesUnits"
-            :key="i + 'units'"
-            >{{ num }}</span
-          >
-        </span>
-      </div> -->
     </div>
+    <svg id="preloader-filters">
+      <filter
+        id="zap-out"
+        x="-20%"
+        y="-20%"
+        width="140%"
+        height="140%"
+        ref="zapOutEl"
+      >
+        <feTurbulence
+          type="turbulence"
+          :baseFrequency="`${baseFrequency.x} ${baseFrequency.y}`"
+          numOctaves="2"
+          seed="2"
+          result="NOISE"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="NOISE"
+          xChannelSelector="R"
+          yChannelSelector="G"
+          scale="10"
+        />
+      </filter>
+    </svg>
   </div>
 </template>
 
 <script>
 import { getPlaceValue } from "../../utils/utils";
+import { gsap } from "gsap";
+import { useWindowSize, useElementBounding } from "@vueuse/core";
 
 export default {
+  emits: ["assets-loaded"],
+  setup() {
+    const { width: windowWidth, height: windowHeight } = useWindowSize();
+    let desktop = computed(() => windowWidth.value >= 724);
+
+    const counterEl = ref(null);
+    const { height } = useElementBounding(counterEl);
+
+    return {
+      windowHeight,
+      windowWidth,
+      desktop,
+      counterEl,
+      counterElHeight: height,
+    };
+  },
   data() {
     return {
       displayedImageIndex: 0,
@@ -82,13 +100,38 @@ export default {
       percentages: [],
       loadedCount: 0,
       changeImage: false,
+      baseFrequency: {
+        x: 0,
+        y: 0,
+      },
     };
   },
   watch: {
     loadedCount(value) {
-      let division = this.assetsToLoad.length / 3;
-      if (value % division === 0 && this.displayedImageIndex != 2) {
+      // change preloader image based on loaded count
+      let interval = this.assetsToLoad.length / 3;
+      if (value % interval === 0 && this.displayedImageIndex != 2) {
         this.changeImage = true;
+      }
+    },
+    windowHeight(value) {
+      if (this.loadedCount == this.assetsToLoad.length && this.desktop) {
+        gsap.set(".site-preloader__counter", {
+          y: -(
+            (this.windowHeight - 64 - this.counterElHeight) *
+            (this.loadedCount / this.assetsToLoad.length)
+          ),
+        });
+      }
+    },
+    desktop(value, formerValue) {
+      if (value && !formerValue) {
+        gsap.set(".site-preloader__counter", {
+          y: -(
+            (this.windowHeight - 64 - this.counterElHeight) *
+            (this.loadedCount / this.assetsToLoad.length)
+          ),
+        });
       }
     },
   },
@@ -128,140 +171,82 @@ export default {
           r();
         });
       }
+      console.log("finished");
+      this.finishLoading();
     },
     async preloadImage(img) {
       return new Promise((r) => {
         setTimeout(r, 2000);
       });
     },
+    finishLoading() {
+      setTimeout(() => {
+        this.$emit("assets-loaded", true);
+      }, 2000);
+    },
     getPlaceValue,
+    onEnter,
+    onAfterEnter,
   },
   mounted() {
     this.load();
   },
 };
+
+function onEnter(el, done) {
+  if (!this.desktop) {
+    // allow css based transitions to finish (for 700ms);
+    return setTimeout(done, 700);
+  }
+  const tl = gsap.timeline({
+    paused: true,
+    onComplete: done,
+    duration: 0.7,
+  });
+
+  tl.addLabel("start", 0);
+  tl.addLabel("up-move", "+=0.3");
+
+  const filterTl = gsap.timeline({
+    paused: true,
+  });
+
+  filterTl
+    .to(this.baseFrequency, {
+      x: 0.2,
+      duration: 0.25,
+    })
+    .to(this.baseFrequency, {
+      x: 0,
+      duration: 0.2,
+    });
+
+  tl.add(filterTl.play(), "start");
+
+  const transYTl = gsap.timeline({
+    paused: true,
+  });
+
+  transYTl.to(".site-preloader__counter", {
+    y: -(
+      (this.windowHeight - 64 - this.counterElHeight) *
+      (this.loadedCount / this.assetsToLoad.length)
+    ),
+  });
+
+  tl.add(transYTl.play(), "start");
+  tl.play();
+}
+
+function onAfterEnter(el) {
+  if (this.currentPercentCheckpoint != "100") {
+    return null;
+  } else {
+    this.finishLoading();
+  }
+}
 </script>
 
 <style scoped>
-.site-preloader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-.site-preloader__counter {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  display: flex;
-  align-items: flex-end;
-  text-align: right;
-  font-size: 64px;
-  font-weight: 700;
-  letter-spacing: -3px;
-
-  &::after {
-    content: "%";
-  }
-}
-
-.counter-column {
-  position: relative;
-  transform: translate(0);
-}
-
-.counter-column__numbers-wrapper {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-}
-
-.loader-counter-enter-active {
-  transition: transform 0.7s;
-
-  .hundreds,
-  .tens,
-  .units {
-    transition: transform 0.5s;
-  }
-
-  /* Delays for Each */
-
-  .hundreds {
-    transition-delay: 0.2s;
-  }
-
-  .tens {
-    transition-delay: 0.1s;
-  }
-
-  .units {
-    transition-delay: 0;
-  }
-}
-
-.loader-counter-enter-from {
-  transform: translateY(0%);
-
-  .hundreds,
-  .tens,
-  .units {
-    transform: translateY(100%);
-  }
-}
-
-.loader-counter-enter-to {
-  transform: translateY(0);
-
-  .hundreds,
-  .tens,
-  .units {
-    transform: translateY(0%);
-  }
-}
-
-.loader-counter-leave-active {
-  transition: transform 0.5s;
-
-  .hundreds,
-  .tens,
-  .units {
-    transition: transform 0.5s;
-  }
-
-  /* Delays for Each */
-
-  .hundreds {
-    transition-delay: 0.2s;
-  }
-
-  .tens {
-    transition-delay: 0.1s;
-  }
-
-  .units {
-    transition-delay: 0;
-  }
-}
-
-.loader-counter-leave-from {
-  transform: translateY(0%);
-
-  .hundreds,
-  .tens,
-  .units {
-    transform: translateY(0%);
-  }
-}
-
-.loader-counter-leave-to {
-  transform: translateY(0%);
-
-  .hundreds,
-  .tens,
-  .units {
-    transform: translateY(-100%);
-  }
-}
+@import url("../../styles/components/preloader/SitePreloader.pcss");
 </style>

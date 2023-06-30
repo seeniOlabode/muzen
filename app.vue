@@ -1,6 +1,14 @@
 <template>
   <div>
-    <site-preloader />
+    <Transition @leave="onLeave">
+      <site-preloader
+        v-if="!assetsLoaded"
+        @assets-loaded="assetsLoaded = true"
+      />
+    </Transition>
+    <Transition @enter="onEnter">
+      <Nuxt-Page />
+    </Transition>
   </div>
 </template>
 
@@ -47,7 +55,20 @@ export default {
     };
   },
   mounted() {},
+  methods: {
+    onLeave,
+  },
 };
+function onLeave(_el, done) {
+  const tl = gsap.timeline({
+    paused: true,
+  });
+  gsap.to(_el, {
+    autoAlpha: 0,
+    duration: 1,
+    onComplete: done,
+  });
+}
 </script>
 
 <style scoped>

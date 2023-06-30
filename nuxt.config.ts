@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     plugins: {
       "postcss-nested": {},
       "postcss-import": {},
+      "postcss-media-minmax": {},
     }
   },
    tailwindcss: {

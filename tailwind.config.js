@@ -8,6 +8,7 @@ export default {
           },
           colors: {
             "muzen-light-brown": "#FAF7F0",
+            "muzen-brown": "#4D3D30"
         }
     }
   }
