@@ -1,0 +1,33 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  gap: 50px;
+  padding: 32px 16px;
+}
+
+.desktop-header {
+  display: none;
+}
+
+/* Styles for Desktop */
+@media screen and (width >= 500px) {
+  .mobile-header {
+    display: none;
+  }
+
+  .desktop-header {
+    display: flex;
+    width: 100%;
+  }
+
+  .links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 16px;
+    margin-left: auto;
+    align-items: center;
+  }
+}

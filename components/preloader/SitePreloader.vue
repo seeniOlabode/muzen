@@ -1,42 +1,47 @@
 <template>
-  <div class="site-preloader | bg-muzen-light-brown">
+  <div class="site-preloader">
     <preloader-images :displayed-image-index="displayedImageIndex" />
     <div
-      class="site-preloader__counter | overflow-hidden"
-      :class="{ '!translate-y-0': !desktop }"
+      class="site-preloader__counter"
+      :class="{ mobile: !desktop }"
       ref="counterEl"
     >
-      <div class="counter__wrapper | relative -translate-x-[1px]">
-        <span class="invisible inline-block">000</span>
+      <div class="counter__wrapper">
+        <span class="wrapper__false-text">000</span>
         <Transition
           name="loader-counter"
           @enter="onEnter"
           @after-enter="onAfterEnter"
         >
           <div
-            class="percent-check-point | absolute top-0 right-0"
+            class="percent-check-point"
             :key="currentPercentCheckpoint + loadedCount"
           >
             <span
-              class="hundreds | inline-block"
-              :class="{
-                invisible: currentPercentCheckpoint != '100',
-                'w-0': currentPercentCheckpoint != '100',
+              class="hundreds"
+              :style="{
+                visibility:
+                  currentPercentCheckpoint != '100' ? 'hidden' : 'visible',
+                width: currentPercentCheckpoint != '100' ? '0' : 'auto',
               }"
             >
               {{ getPlaceValue(currentPercentCheckpoint, 3) }}
             </span>
 
             <span
-              class="tens | inline-block"
-              :class="{
-                invisible: parseInt(currentPercentCheckpoint, 10) < 10,
-                'w-0': parseInt(currentPercentCheckpoint, 10) < 10,
+              class="tens"
+              :style="{
+                visibility:
+                  parseInt(currentPercentCheckpoint, 10) < 10
+                    ? 'hidden'
+                    : 'visible',
+                width:
+                  parseInt(currentPercentCheckpoint, 10) < 10 ? '0' : 'auto',
               }"
             >
               {{ getPlaceValue(currentPercentCheckpoint, 2) }}
             </span>
-            <span class="units | inline-block">
+            <span class="units">
               {{ getPlaceValue(currentPercentCheckpoint, 1) }}
             </span>
           </div>
@@ -242,7 +247,7 @@ function onAfterEnter(el) {
   if (this.currentPercentCheckpoint != "100") {
     return null;
   } else {
-    this.finishLoading();
+    // this.finishLoading();
   }
 }
 </script>

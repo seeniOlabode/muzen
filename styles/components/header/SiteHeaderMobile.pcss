@@ -1,0 +1,95 @@
+.mobile-header__controls {
+  position: absolute;
+  top: 32px;
+  right: 16px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.menu-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  padding: 32px 16px;
+}
+
+.menu-container__bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--muzen-dark-brown);
+  z-index: -1;
+}
+
+.menu__logo {
+  color: var(--muzen-light-brown);
+  font-family: var(--muzen-nohemi);
+  font-size: 28.5vw;
+  line-height: 0.6;
+  position: absolute;
+  bottom: 40px;
+  left: 16px;
+  padding-top: 50px;
+  overflow: hidden;
+}
+
+.logo__char {
+  display: inline-block;
+}
+
+.menu-options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.menu-option {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+}
+
+.site-link {
+  display: inline-block;
+}
+
+/* TRANSITIONS */
+
+/* Menu Controls */
+.menu-controls-leave-active {
+  transition: transform 0.5s;
+  position: absolute;
+  left: 0;
+}
+
+.menu-controls-leave-from {
+  transform: rotate(0) translateY(0);
+}
+
+.menu-controls-leave-to {
+  transform: rotate(-5deg) translateY(-100%);
+}
+
+.menu-controls-enter-active {
+  transition: transform 0.5s;
+}
+
+.menu-controls-enter-from {
+  transform: rotate(5deg) translateY(100%);
+}
+
+.menu-controls-enter-to {
+  transform: rotate(0) translateY(0);
+}
+/* End Menu Controls */

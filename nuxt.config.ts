@@ -19,7 +19,7 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/image'],
+  modules: ['@nuxt/image'],
   css: ["~/styles/styles.css"],
   postcss: {
     plugins: {
@@ -28,7 +28,7 @@ export default defineNuxtConfig({
       "postcss-media-minmax": {},
     }
   },
-   tailwindcss: {
-    configPath: "~/tailwind.config.js"
-  },
+  build: {
+    transpile: ["gsap"]
+  }
 })

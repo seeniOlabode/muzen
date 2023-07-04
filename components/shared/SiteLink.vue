@@ -1,78 +1,73 @@
 <template>
-  <a class="site-link">
-    <span class="site-link__false-text">{{ text }}</span>
-    <span class="site-link__hover-wrapper font-[400]">
-      <span class="hover-wrapper__half">{{ text }}</span>
-      <span class="hover-wrapper__half">{{ text }}</span>
-    </span>
-  </a>
+  <NuxtLink class="site-link" :class="[size]" :to="to">{{ text }}</NuxtLink>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      text: "Studio",
-    };
+  props: {
+    to: {
+      type: String,
+    },
+    text: {
+      type: String,
+    },
+    size: {
+      default: "lg",
+    },
+    color: {
+      type: String,
+      default: "#FFF",
+    },
   },
 };
 </script>
 
 <style scoped>
 .site-link {
+  text-decoration: none;
+  color: v-bind(color);
   position: relative;
+  display: inline-block;
   overflow: hidden;
-  cursor: pointer;
 
   &::before {
-    content: "";
-    display: inline-block;
+    content: " ";
+    display: block;
     position: absolute;
     left: 0;
     right: 0;
-    height: 1px;
-    bottom: 0px;
-    background: black;
-    transform: translateX(-100%);
-    transition: transform 0.5s cubic-bezier(0, 0, 0.18, 1);
+    bottom: 0;
+    height: 2px;
+    background-color: v-bind(color);
+    transform: translateX(-150%);
+    transition: transform 0.5s;
+  }
+
+  &.lg {
+    font-size: 56px;
+    line-height: 56px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+  }
+
+  &.md {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: -0.24px;
+    text-transform: capitalize;
+
+    &::before {
+      bottom: 0;
+      height: 1px;
+    }
   }
 
   &:hover {
-    .site-link__hover-wrapper {
-      transform: translateY(-50%);
-
-      .hover-wrapper__half {
-        animation: hoverStatic 0.5s;
-      }
-    }
-
     &::before {
       transform: translateX(0%);
     }
   }
-}
-
-.site-link__false-text {
-  visibility: hidden;
-}
-
-.site-link__svg {
-  width: 0;
-  height: 0;
-}
-
-.site-link__hover-wrapper {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.5s cubic-bezier(0.5, 0, 0.5, 1);
-}
-
-.hover-wrapper__half,
-.site-link__false-text {
-  font-size: 20px;
 }
 </style>

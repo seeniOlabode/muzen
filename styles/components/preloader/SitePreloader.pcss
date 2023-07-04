@@ -11,6 +11,7 @@
   right: 0;
   bottom: 0;
   padding: 16px;
+  background: var(--muzen-light-brown);
 }
 
 .site-preloader__counter {
@@ -24,10 +25,37 @@
   font-weight: 700;
   line-height: 64px;
   letter-spacing: -3px;
+  overflow: hidden;
+
+  &.mobile {
+    transform: translateY(0) !important;
+  }
 
   &::after {
     content: "%";
   }
+}
+
+.counter__wrapper {
+  position: relative;
+  transform: translateX(-1px);
+}
+
+.wrapper__false-text {
+  visibility: hidden;
+  display: inline-block;
+}
+
+.percent-check-point {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.hundreds,
+.tens,
+.units {
+  display: inline-block;
 }
 
 .loader-counter-enter-active {

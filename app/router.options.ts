@@ -4,9 +4,19 @@ import type { RouterConfig } from '@nuxt/schema'
 export default <RouterConfig> {
   routes: (_routes) => [
     {
-      name: 'home',
+      name: 'Home',
       path: '/',
       component: () => import('~/pages/home.vue').then(r => r.default || r)
+    },
+    {
+      name: "Lookbook",
+      path: "/lookbook",
+      component: () => import(`~/pages/lookbook.vue`).then(r => r.default || r),
+    },
+     {
+      name: "Studio",
+      path: "/studio",
+      component: () => import(`~/pages/studio.vue`).then(r => r.default || r),
     }
   ],
 }

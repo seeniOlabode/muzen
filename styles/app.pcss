@@ -1,0 +1,61 @@
+@import url("./typography/typo.pcss");
+
+.app-wrapper {
+  height: 200vh;
+}
+
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--muzen-brown);
+  color: var(--muzen-light-brown);
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.page-transition__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 56px;
+  line-height: 1;
+  font-family: var(--muzen-nohemi);
+}
+
+.content__logo {
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.logo__char {
+  display: inline-block;
+  transform: translateY(10%);
+}
+
+.preloader-leave-active {
+  transition: opacity 0.5s;
+}
+
+.preloader-leave-from {
+  opacity: 1;
+}
+
+.preloader-leave-to {
+  opacity: 0;
+}
+
+@media screen and (width >= 500px) {
+  .page-transition__content {
+    font-size: 96px;
+    line-height: 1;
+  }
+}
