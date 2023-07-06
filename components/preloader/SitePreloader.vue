@@ -8,11 +8,7 @@
     >
       <div class="counter__wrapper">
         <span class="wrapper__false-text">000</span>
-        <Transition
-          name="loader-counter"
-          @enter="onEnter"
-          @after-enter="onAfterEnter"
-        >
+        <Transition name="loader-counter" @enter="onEnter">
           <div
             class="percent-check-point"
             :key="currentPercentCheckpoint + loadedCount"
@@ -90,6 +86,11 @@ export default {
     const counterEl = ref(null);
     const { height } = useElementBounding(counterEl);
 
+    const lock = ref(true);
+    if (process.client) {
+      lockScroll(lock);
+    }
+
     return {
       windowHeight,
       windowWidth,
@@ -113,7 +114,6 @@ export default {
   },
   watch: {
     loadedCount(value) {
-      // change preloader image based on loaded count
       let interval = this.assetsToLoad.length / 3;
       if (value % interval === 0 && this.displayedImageIndex != 2) {
         this.changeImage = true;
@@ -191,7 +191,6 @@ export default {
     },
     getPlaceValue,
     onEnter,
-    onAfterEnter,
   },
   mounted() {
     this.load();
@@ -241,14 +240,6 @@ function onEnter(el, done) {
 
   tl.add(transYTl.play(), "start");
   tl.play();
-}
-
-function onAfterEnter(el) {
-  if (this.currentPercentCheckpoint != "100") {
-    return null;
-  } else {
-    // this.finishLoading();
-  }
 }
 </script>
 

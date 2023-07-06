@@ -1,0 +1,45 @@
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background-color: var(--muzen-brown);
+  color: var(--muzen-light-brown);
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.page-transition__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 56px;
+  line-height: 1;
+  font-family: var(--muzen-nohemi);
+  user-select: none;
+}
+
+.content__logo {
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.logo__char {
+  display: inline-block;
+  transform: translateY(10%);
+}
+
+@media screen and (width >= 724px) {
+  .page-transition__content {
+    font-size: 96px;
+    line-height: 1;
+  }
+}

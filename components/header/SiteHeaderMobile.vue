@@ -1,22 +1,27 @@
 <template>
   <div class="mobile-header">
     <div class="mobile-header__controls">
-      <TransitionGroup name="menu-controls">
+      <Transition name="menu-controls" mode="default">
         <action-button
           v-show="!menuOpen"
-          color="dark"
+          color="#1c1816"
           text="Menu"
           key="open-menu"
+          class="open-menu"
           @click="menuOpen = true"
         />
+      </Transition>
+
+      <Transition name="menu-controls" mode="default">
         <action-button
           v-show="menuOpen"
-          color="light"
+          color="#faf7f0"
           text="Close"
           key="close-menu"
+          class="close-menu"
           @click="menuOpen = false"
         />
-      </TransitionGroup>
+      </Transition>
     </div>
 
     <Transition name="menu-container" @enter="menuEnter" @leave="menuLeave">
@@ -52,13 +57,20 @@
 </template>
 
 <script>
-import { gsap } from "gsap";
-import { selectFrom } from "~/utils/utils";
+import { menuAnimations } from "~/animations/header/SiteHeaderMobile";
 
 export default {
+  setup() {
+    const menuOpen = ref(false);
+    if (process.client) {
+      lockScroll(menuOpen);
+    }
+    return {
+      menuOpen,
+    };
+  },
   data() {
     return {
-      menuOpen: false,
       menuLinks: [
         { text: "home", path: "/" },
         { text: "studio", path: "/studio" },
@@ -71,99 +83,18 @@ export default {
       return "Muzen".split("");
     },
   },
+  mounted() {
+    menuAnimations.init(this.$refs.menuContainer);
+  },
   methods: {
-    menuEnter,
-    menuLeave,
+    menuEnter(el, done) {
+      menuAnimations.enter(el, done);
+    },
+    menuLeave(el, done) {
+      menuAnimations.leave(el, done);
+    },
   },
 };
-
-function menuEnter(el, done) {
-  const tl = gsap.timeline({
-    paused: true,
-    onComplete: () => {
-      done();
-    },
-  });
-
-  const menuContainer = this.$refs.menuContainer;
-  const menuContainerBg = selectFrom(".menu-container__bg", menuContainer);
-  const menuLogoChars = selectAllFrom(".logo__char", menuContainer);
-  const menuSiteLinks = selectAllFrom(".site-link", menuContainer);
-
-  // animate bg in
-  tl.from(menuContainerBg, {
-    autoAlpha: 0,
-  });
-
-  tl.from(
-    menuLogoChars,
-    {
-      yPercent: 150,
-      duration: 0.3,
-      stagger: 0.15,
-      ease: "power2.out",
-    },
-    "<+0.1"
-  );
-
-  tl.from(
-    menuSiteLinks,
-    {
-      yPercent: 150,
-      duration: 0.3,
-      ease: "power2.out",
-      rotate: 10,
-      stagger: {
-        each: 0.15,
-        from: "end",
-      },
-    },
-    "<"
-  );
-
-  tl.play();
-}
-
-function menuLeave(el, done) {
-  const tl = gsap.timeline({
-    paused: true,
-    onComplete: () => {
-      done();
-      tl.revert();
-    },
-  });
-
-  const menuContainer = this.$refs.menuContainer;
-  const menuLogoChars = selectAllFrom(".logo__char", menuContainer);
-  const menuSiteLinks = selectAllFrom(".site-link", menuContainer);
-
-  tl.to(menuSiteLinks, {
-    rotate: -10,
-    yPercent: -150,
-    duration: 0.5,
-    ease: "linear",
-  });
-
-  tl.to(
-    menuLogoChars,
-    {
-      autoAlpha: 0,
-      duration: 0.25,
-      ease: "linear",
-    },
-    "<"
-  );
-
-  tl.to(
-    menuContainer,
-    {
-      autoAlpha: 0,
-    },
-    "<"
-  );
-
-  tl.play();
-}
 </script>
 
 <style scoped>

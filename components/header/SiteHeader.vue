@@ -1,5 +1,5 @@
 <template>
-  <header class="site-header">
+  <header class="site-header container">
     <site-header-mobile class="mobile-header" />
     <nav class="desktop-header">
       <ul class="links">

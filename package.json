@@ -15,7 +15,9 @@
     "nuxt": "^3.6.1"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.16",
     "@vueuse/core": "^10.2.1",
+    "autoprefixer": "^10.4.14",
     "gsap": "^3.12.2",
     "postcss-import": "^15.1.0",
     "postcss-media-minmax": "^5.0.0",

@@ -2,8 +2,11 @@
   position: absolute;
   top: 32px;
   right: 16px;
-  z-index: 10;
+  z-index: 30;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .menu-container {
@@ -60,8 +63,10 @@
   display: inline-block;
 }
 
-.site-link {
-  display: inline-block;
+:deep(.router-link-active) {
+  &::before {
+    transform: translateX(0) !important;
+  }
 }
 
 /* TRANSITIONS */
@@ -70,7 +75,6 @@
 .menu-controls-leave-active {
   transition: transform 0.5s;
   position: absolute;
-  left: 0;
 }
 
 .menu-controls-leave-from {
@@ -78,7 +82,12 @@
 }
 
 .menu-controls-leave-to {
-  transform: rotate(-5deg) translateY(-100%);
+  &.open-menu {
+    transform: rotate(-5deg) translateY(-100%);
+  }
+  &.close-menu {
+    transform: rotate(5deg) translateY(100%);
+  }
 }
 
 .menu-controls-enter-active {
@@ -86,7 +95,12 @@
 }
 
 .menu-controls-enter-from {
-  transform: rotate(5deg) translateY(100%);
+  &.open-menu {
+    transform: rotate(-5deg) translateY(-100%);
+  }
+  &.close-menu {
+    transform: rotate(5deg) translateY(100%);
+  }
 }
 
 .menu-controls-enter-to {

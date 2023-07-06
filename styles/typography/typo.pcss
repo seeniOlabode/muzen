@@ -3,9 +3,15 @@
 p.body {
   color: #1c1816;
   font-size: 16px;
-  font-family: DM Sans;
-  font-style: normal;
+  font-family: var(--muzen-dm);
   font-weight: 400;
   line-height: 20.8px;
   letter-spacing: -0.192px;
+}
+
+/* Styles for Desktop */
+@media screen and (width >= 724px) {
+  p.body {
+    font-size: 20px;
+  }
 }
