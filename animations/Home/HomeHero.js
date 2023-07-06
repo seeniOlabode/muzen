@@ -8,16 +8,18 @@ class animations {
     this.scrollTl = null;
     this.enterAnimations = null;
     this.el = null;
+    this.scrollTrigger = null;
   }
 
   setScrollAnimations() {
-    this.scrollTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: this.el,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
+    this.scrollTl = gsap.timeline();
+    this.scrollTrigger = new ScrollTrigger({
+      animation: this.scrollTl,
+      trigger: this.el,
+      start: "top top",
+      end: "bottom top",
+      scrub: true,
+      invalidateOnRefresh: true,
     });
 
     this.scrollTl.to(this.elVideo, {
@@ -28,14 +30,6 @@ class animations {
       this.elLogo,
       {
         y: -100,
-      },
-      "<"
-    );
-
-    this.scrollTl.to(
-      this.elCopyBody,
-      {
-        y: 100,
       },
       "<"
     );
@@ -51,20 +45,35 @@ class animations {
     });
   }
 
-  init(el) {
-    console.log(el);
-    this.el = el;
-    this.elVideo = selectFrom(".video-wrapper__video", el);
-    this.elLogo = selectFrom(".home-hero__logo", el);
-    this.elCopyBody = selectFrom(".copy__body", el);
-    // this.logoChars = selectAllFrom(".logo__char", el);
-    this.setScrollAnimations();
-    console.log(this);
+  checkWidth(el) {
+    return el.clientWidth > 1;
+  }
+
+  async init(el) {
+    this.scrollTrigger && this.scrollTrigger.kill();
+    this.enterAnimations && this.enterAnimations.kill();
+    const callback = (r) => {
+      if (this.checkWidth(el)) {
+        this.el = el;
+        this.elVideo = selectFrom(".video-wrapper__video", el);
+        this.elLogo = selectFrom(".home-hero__logo", el);
+        this.elCopyBody = selectFrom(".copy__body", el);
+        this.setScrollAnimations();
+        r();
+      } else {
+        console.log("check");
+        setTimeout(callback, 500, r);
+      }
+    };
+    return new Promise((r) => {
+      callback(r);
+    });
   }
 
   remove() {
     this.scrollTl.revert();
     this.scrollTl = null;
+    this.scrollTrigger.kill();
   }
 }
 

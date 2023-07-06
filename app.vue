@@ -12,9 +12,10 @@
       v-if="assetsLoaded"
       :transition="{
         name: 'page-transition',
-        mode: 'default',
+        mode: 'out-in',
         onLeave: pageTransitionLeave,
       }"
+      :transitioning="transitioning"
     />
   </div>
   <page-transition ref="pageTrans" />
@@ -63,6 +64,7 @@ export default {
       this.transitioning = true;
       await appAnimations.leave(el, done);
       this.transitioning = false;
+      console.log("done");
     },
   },
   mounted() {

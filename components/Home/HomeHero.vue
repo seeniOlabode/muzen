@@ -38,29 +38,19 @@
 import { HomeHeroAnimations } from "~/animations/Home/HomeHero";
 
 export default {
-  // setup() {
-  //   const homeHero = ref(null);
-
-  //   watch(homeHero, (value) => {
-  //     if (value.clientHeight > 0) {
-  //       value && HomeHeroAnimations.init(toValue(homeHero));
-  //     }
-  //   });
-
-  //   return {
-  //     homeHero,
-  //   };
-  // },
   data() {
-    return {};
+    return {
+      animationsSet: false,
+    };
   },
   computed: {
     logoSplitText() {
       return "Muzen".split("");
     },
   },
-  mounted() {
-    HomeHeroAnimations.init(this.$refs.homeHero);
+  async mounted() {
+    await HomeHeroAnimations.init(this.$refs.homeHero);
+    this.animationsSet = true;
   },
   beforeUnmount() {
     HomeHeroAnimations.remove();
