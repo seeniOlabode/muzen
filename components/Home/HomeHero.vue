@@ -35,9 +35,22 @@
 </template>
 
 <script>
-// import { HomeHeroAnimations } from "~/animations/Home/HomeHero";
+import { HomeHeroAnimations } from "~/animations/Home/HomeHero";
 
 export default {
+  // setup() {
+  //   const homeHero = ref(null);
+
+  //   watch(homeHero, (value) => {
+  //     if (value.clientHeight > 0) {
+  //       value && HomeHeroAnimations.init(toValue(homeHero));
+  //     }
+  //   });
+
+  //   return {
+  //     homeHero,
+  //   };
+  // },
   data() {
     return {};
   },
@@ -46,33 +59,12 @@ export default {
       return "Muzen".split("");
     },
   },
-  // setup() {
-  //   const homeHero = ref(null);
-  //   const animationSet = ref(false);
-
-  //   const pageEntered = ref(false);
-
-  //   onMounted(() => {
-  //     try {
-  //       HomeHeroAnimations.init(homeHero.value);
-  //       animationSet.value = true;
-  //     } catch (error) {
-  //       animationSet.value = false;
-  //       watch(pageEntered, () => {
-  //         HomeHeroAnimations.init(homeHero.value);
-  //         animationSet.value = true;
-  //       });
-  //     }
-  //   });
-
-  //   return {
-  //     animationSet,
-  //     pageEntered,
-  //   };
-  // },
-  // beforeUnmount() {
-  //   HomeHeroAnimations.remove();
-  // },
+  mounted() {
+    HomeHeroAnimations.init(this.$refs.homeHero);
+  },
+  beforeUnmount() {
+    HomeHeroAnimations.remove();
+  },
 };
 </script>
 

@@ -7,11 +7,12 @@
         @assets-loaded="assetsLoaded = true"
       />
     </Transition>
+    <!-- <Nuxt-Page v-if="assetsLoaded" /> -->
     <Nuxt-Page
       v-if="assetsLoaded"
       :transition="{
         name: 'page-transition',
-        mode: 'out-in',
+        mode: 'default',
         onLeave: pageTransitionLeave,
       }"
     />
@@ -25,7 +26,7 @@ import { appAnimations } from "~/animations/app";
 export default {
   data() {
     return {
-      assetsLoaded: false,
+      assetsLoaded: true,
     };
   },
   computed: {},

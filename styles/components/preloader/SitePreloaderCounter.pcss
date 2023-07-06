@@ -1,0 +1,153 @@
+#preloader-filters {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.site-preloader__counter {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  align-items: flex-end;
+  text-align: right;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 64px;
+  letter-spacing: -3px;
+  overflow: hidden;
+
+  &.mobile {
+    transform: translateY(0) !important;
+  }
+
+  &::after {
+    content: "%";
+  }
+}
+
+.counter__wrapper {
+  position: relative;
+  transform: translateX(-1px);
+}
+
+.wrapper__false-text {
+  visibility: hidden;
+  display: inline-block;
+}
+
+.percent-check-point {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.hundreds,
+.tens,
+.units {
+  display: inline-block;
+}
+
+.loader-counter-enter-active {
+  transition: transform 0.7s;
+
+  .hundreds,
+  .tens,
+  .units {
+    transition: transform 0.5s;
+  }
+
+  /* Delays for Each */
+
+  .hundreds {
+    transition-delay: 0.2s;
+  }
+
+  .tens {
+    transition-delay: 0.1s;
+  }
+
+  .units {
+    transition-delay: 0;
+  }
+}
+
+.loader-counter-enter-from {
+  transform: translateY(0%);
+
+  .hundreds,
+  .tens,
+  .units {
+    transform: translateY(100%);
+  }
+}
+
+.loader-counter-enter-to {
+  transform: translateY(0);
+
+  .hundreds,
+  .tens,
+  .units {
+    transform: translateY(0%);
+  }
+}
+
+.loader-counter-leave-active {
+  transition: transform 0.5s;
+
+  .hundreds,
+  .tens,
+  .units {
+    transition: transform 0.5s;
+  }
+
+  /* Delays for Each */
+
+  .hundreds {
+    transition-delay: 0.2s;
+  }
+
+  .tens {
+    transition-delay: 0.1s;
+  }
+
+  .units {
+    transition-delay: 0;
+  }
+}
+
+.loader-counter-leave-from {
+  transform: translateY(0%);
+
+  .hundreds,
+  .tens,
+  .units {
+    transform: translateY(0%);
+  }
+}
+
+.loader-counter-leave-to {
+  transform: translateY(0%);
+
+  .hundreds,
+  .tens,
+  .units {
+    transform: translateY(-100%);
+  }
+}
+
+/* Styles for Desktop */
+@media screen and (width >= 724px) {
+  .site-preloader__counter {
+    bottom: 32px;
+    right: 32px;
+  }
+
+  .counter__wrapper {
+    transform: translate(-10px, -5px);
+  }
+
+  .percent-check-point {
+    filter: url(#zap-out);
+  }
+}

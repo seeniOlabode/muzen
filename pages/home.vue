@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { useSmoothScroll } from "~/composables/useSmoothScroll";
+
 export default {
   setup() {
     if (process.client) {
@@ -20,6 +22,5 @@ export default {
 .home-page {
   position: absolute;
   top: 0;
-  visibility: hidden;
 }
 </style>

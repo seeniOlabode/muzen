@@ -4,7 +4,7 @@ const defaultConfig = {
   gsapScroll: false,
 };
 
-export default function (config = defaultConfig) {
+export function useSmoothScroll(config = defaultConfig) {
   const lenis = new Lenis({
     lerp: 0.1,
     autoResize: true,
@@ -32,7 +32,7 @@ export default function (config = defaultConfig) {
     }
   });
 
-  // onUnmounted(() => {
-  //   lenis.destoy();
-  // });
+  onBeforeUnmount(() => {
+    lenis.destroy();
+  });
 }

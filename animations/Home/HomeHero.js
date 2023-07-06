@@ -13,19 +13,19 @@ class animations {
   setScrollAnimations() {
     this.scrollTl = gsap.timeline({
       scrollTrigger: {
-        trigger: ".home-hero",
+        trigger: this.el,
         start: "top top",
         end: "bottom top",
         scrub: true,
       },
     });
 
-    this.scrollTl.to(".video-wrapper__video", {
+    this.scrollTl.to(this.elVideo, {
       scale: 2,
     });
 
     this.scrollTl.to(
-      ".home-hero__logo",
+      this.elLogo,
       {
         y: -100,
       },
@@ -33,7 +33,7 @@ class animations {
     );
 
     this.scrollTl.to(
-      ".copy__body",
+      this.elCopyBody,
       {
         y: 100,
       },
@@ -43,7 +43,6 @@ class animations {
 
   setEnterAnimations() {
     this.enterAnimations = gsap.timeline();
-
     this.enterAnimations.from(this.logoChars, {
       yPercent: 100,
       duration: 0.5,
@@ -53,18 +52,18 @@ class animations {
   }
 
   init(el) {
+    console.log(el);
     this.el = el;
-    this.logoChars = selectAllFrom(".logo__char", el);
-    this.setEnterAnimations();
+    this.elVideo = selectFrom(".video-wrapper__video", el);
+    this.elLogo = selectFrom(".home-hero__logo", el);
+    this.elCopyBody = selectFrom(".copy__body", el);
+    // this.logoChars = selectAllFrom(".logo__char", el);
     this.setScrollAnimations();
-    gsap.set(el, {
-      autoAlpha: 1,
-    });
+    console.log(this);
   }
 
   remove() {
     this.scrollTl.revert();
-    this.scrollTl.kill();
     this.scrollTl = null;
   }
 }

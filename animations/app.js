@@ -14,15 +14,17 @@ class animations {
   }
 
   async leave(_, done) {
+    // NOTE: the done callback passed to this method will always be different, we can't keep calling the same done in our timeline so we must update it;
     return new Promise((r) => {
       if (this.leaveTl) {
-        return this.leaveTl.restart();
+        return this.leaveTl.restart().add(done, "done-callback");
       }
 
       this.leaveTl = gsap
         .timeline({
           puased: true,
           onComplete: () => {
+            this.leaveTl.remove(done);
             r();
           },
         })
@@ -55,7 +57,8 @@ class animations {
           },
           "<+0.5"
         )
-        .call(done)
+        .addLabel("done-callback")
+        .add(done, "done-callback")
         .to(
           this.elLogoChars,
           {
