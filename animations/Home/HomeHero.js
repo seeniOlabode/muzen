@@ -37,12 +37,27 @@ class animations {
 
   setEnterAnimations() {
     this.enterAnimations = gsap.timeline();
-    this.enterAnimations.from(this.logoChars, {
-      yPercent: 100,
-      duration: 0.5,
-      stagger: 0.2,
-      ease: "power2.out",
-    });
+    this.enterAnimations
+      .from(this.logoChars, {
+        yPercent: 100,
+        duration: 0.5,
+        stagger: 0.2,
+        ease: "power2.out",
+      })
+      .from(
+        this.bodyWrappers,
+        {
+          yPercent: 100,
+          duration: 0.5,
+          delay: 0.3,
+          stagger: {
+            each: 0.05,
+            from: "end",
+          },
+          ease: "power2.out",
+        },
+        "<"
+      );
   }
 
   checkWidth(el) {
@@ -58,7 +73,10 @@ class animations {
         this.elVideo = selectFrom(".video-wrapper__video", el);
         this.elLogo = selectFrom(".home-hero__logo", el);
         this.elCopyBody = selectFrom(".copy__body", el);
+        this.bodyWrappers = selectAllFrom(".body__wrapper", el);
+        this.logoChars = selectAllFrom(".logo__char", el);
         this.setScrollAnimations();
+        this.setEnterAnimations();
         r();
       } else {
         console.log("check");

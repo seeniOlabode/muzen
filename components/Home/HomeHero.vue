@@ -10,15 +10,21 @@
     </div>
     <div class="home-hero__copy container">
       <p class="copy__body body">
-        Muzen is a fashion photography studio based in Asgard, Nethers.
+        <span class="body__wrapper">
+          Muzen is a fashion photography studio based in Asgard, Nethers.
+        </span>
       </p>
       <p class="copy__body body">
-        We are dedicated to capturing the essence of style and beauty through
-        our lens.
+        <span class="body__wrapper">
+          We are dedicated to capturing the essence of style and beauty through
+          our lens.
+        </span>
       </p>
       <p class="copy__body body">
-        Our passion lies in creating captivating visual stories that elevate
-        fashion to an art form.
+        <span class="body__wrapper">
+          Our passion lies in creating captivating visual stories that elevate
+          fashion to an art form.
+        </span>
       </p>
     </div>
     <div class="home-hero__logo">

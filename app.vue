@@ -27,7 +27,7 @@ import { appAnimations } from "~/animations/app";
 export default {
   data() {
     return {
-      assetsLoaded: true,
+      assetsLoaded: false,
     };
   },
   computed: {},
