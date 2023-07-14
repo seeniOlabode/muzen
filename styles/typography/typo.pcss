@@ -1,4 +1,17 @@
 @import url("/images/Typeface/Nohemi/Nohemi/Web-TT/Nohemi-Bold.css");
+@import url("/images/Typeface/Nohemi/Nohemi/Web-TT/Nohemi-Regular.css");
+
+h1.heading-1 {
+  font-family: var(--muzen-nohemi);
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+h2.heading-2 {
+  font-family: var(--muzen-nohemi);
+  font-weight: 400;
+}
 
 p.body {
   color: #1c1816;
@@ -11,6 +24,15 @@ p.body {
 
 /* Styles for Desktop */
 @media screen and (width >= 724px) {
+  h1.heading-1 {
+    font-family: var(--muzen-nohemi);
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  h2.heading-2 {
+    font-size: 40px;
+  }
   p.body {
     font-size: 20px;
   }

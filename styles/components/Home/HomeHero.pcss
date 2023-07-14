@@ -49,18 +49,51 @@
   text-align: center;
   color: #1c1816;
   padding-bottom: 16px;
+  position: relative;
 }
 
 .logo__word {
   font-family: var(--muzen-nohemi);
   font-size: 29vw;
   line-height: 0.6;
-  padding-top: 50px;
+  padding-top: 100px;
   overflow: hidden;
 }
 
 .logo__char {
   display: inline-block;
+}
+
+.honor__tag {
+  background: #fff;
+  width: fit-content;
+  padding: 16px 24px;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--muzen-dark-brown);
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+.honor__tag:nth-of-type(1) {
+  transform: rotate(26deg);
+  right: 45%;
+  top: 45%;
+}
+
+.honor__tag:nth-of-type(2) {
+  transform: rotate(-26deg);
+  right: 10%;
+  top: 20%;
+}
+
+/* For Tablest */
+
+@media screen and (width <= 500px) {
 }
 
 /* Styles for Desktop */
@@ -80,5 +113,9 @@
 
   .logo__word {
     font-size: 30vw;
+  }
+
+  .honor__tag {
+    display: block;
   }
 }

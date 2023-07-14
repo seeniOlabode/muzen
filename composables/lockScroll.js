@@ -1,4 +1,5 @@
 import { useScrollLock } from "@vueuse/core";
+import { lenis } from "~/plugins/lenis";
 
 export default function (lock) {
   onMounted(() => {
@@ -7,6 +8,11 @@ export default function (lock) {
     watch(
       lock,
       (value) => {
+        if (value) {
+          lenis.stop();
+        } else {
+          lenis.start();
+        }
         isLocked.value = !!value;
       },
       { immediate: true }

@@ -31,6 +31,14 @@ export default {
       percentages: [],
       loadedCount: 0,
       changeImage: false,
+      actualAssetsToLoad: [
+        "/images/Home/bd61410803fcb567cbae8ae3404ff547.jpg",
+        "/images/Home/9c4185c457cfc98a6b1c74c7107e8394.jpg",
+        "/images/Home/17537fd3f45377fd12276f9653e95dd3.jpg",
+        "/images/Home/6b51bd3356a853ae5be74b3742214f83.jpg",
+        "/images/Home/6d1aee11ee587f8da862c34fd3b582a7.jpg",
+        "/images/Home/3a6643cb8f839f7835c98c13a4e24f70.jpg",
+      ],
     };
   },
   watch: {

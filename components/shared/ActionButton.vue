@@ -28,7 +28,7 @@ export default {
 .action-button {
   color: v-bind(color);
 
-  &::after {
+  &::before {
     background-color: v-bind(color);
   }
 }

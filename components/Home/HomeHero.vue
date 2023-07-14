@@ -36,14 +36,24 @@
           >{{ char }}</span
         >
       </h2>
+      <div class="honor__tag" id="photo">BEST IN PHOTOGRAPHY</div>
+      <div class="honor__tag">EDITOR'S CHOICE</div>
     </div>
   </section>
 </template>
 
 <script>
 import { HomeHeroAnimations } from "~/animations/Home/HomeHero";
+import { gsap } from "gsap";
+import { Draggable } from "gsap/all";
+
+gsap.registerPlugin(Draggable);
 
 export default {
+  setup() {
+    const homeHero = ref(null);
+  },
+  inject: ["getTransitioned"],
   data() {
     return {
       animationsSet: false,
@@ -53,13 +63,22 @@ export default {
     logoSplitText() {
       return "Muzen".split("");
     },
+    transitioned() {
+      return this.getTransitioned();
+    },
   },
-  async mounted() {
-    await HomeHeroAnimations.init(this.$refs.homeHero);
-    this.animationsSet = true;
+  mounted() {
+    if (this.transitioned) {
+      this.$eventBus.on("transition-almost-out", () => {
+        HomeHeroAnimations.init(this.$refs.homeHero);
+        this.$eventBus.off("transition-almost-out");
+      });
+    } else {
+      HomeHeroAnimations.init(this.$refs.homeHero);
+    }
   },
   beforeUnmount() {
-    HomeHeroAnimations.remove();
+    this.$eventBus.off("transition-almost-out");
   },
 };
 </script>

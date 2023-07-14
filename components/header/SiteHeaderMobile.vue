@@ -99,4 +99,7 @@ export default {
 
 <style scoped>
 @import url("~/styles/components/header/SiteHeaderMobile.pcss");
+:global(.site-header) {
+  position: fixed !important;
+}
 </style>

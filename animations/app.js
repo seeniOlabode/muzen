@@ -5,6 +5,8 @@ gsap.registerPlugin(ScrollTrigger, CustomEase);
 
 import { selectAllFrom } from "~/utils/utils";
 
+import { emitter } from "~/plugins/event-bus";
+
 class animations {
   constructor() {
     this.el = null;
@@ -13,12 +15,12 @@ class animations {
     this.leaveTl = null;
   }
 
-  async leave(_, done) {
+  async leave(_, done, mid) {
     // NOTE: the done callback passed to this method will always be different, we can't keep calling the same done in our timeline so we must update it;
     return new Promise((r) => {
       const onComplete = () => {
-        done();
         r();
+        emitter.emit("transition-out");
       };
       if (this.leaveTl) {
         return this.leaveTl
@@ -63,6 +65,10 @@ class animations {
         )
         .addLabel("done-callback")
         .add(done, "done-callback")
+        .call(() => {
+          emitter.emit("page-in", true);
+          mid ? mid() : "";
+        })
         .to(
           this.elLogoChars,
           {
@@ -92,6 +98,13 @@ class animations {
             ease: "smooth-transition",
           },
           "<"
+        )
+        .call(
+          () => {
+            emitter.emit("transition-almost-out");
+          },
+          [],
+          "<+=0.5"
         )
         .play();
     });

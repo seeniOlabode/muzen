@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import { ScrollTrigger, CustomEase, Draggable } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, CustomEase, Draggable);
 
 class animations {
   constructor() {
@@ -40,8 +40,8 @@ class animations {
     this.enterAnimations
       .from(this.logoChars, {
         yPercent: 100,
-        duration: 0.5,
-        stagger: 0.2,
+        duration: 1,
+        stagger: 0.15,
         ease: "power2.out",
       })
       .from(
@@ -60,11 +60,19 @@ class animations {
       );
   }
 
+  setDraggable() {
+    Draggable.create(this.honorTags, {
+      bounds: this.elLogo,
+      dragResistance: 0.2,
+    });
+  }
+
   checkWidth(el) {
     return el.clientWidth > 1;
   }
 
   async init(el) {
+    console.log(el);
     this.scrollTrigger && this.scrollTrigger.kill();
     this.enterAnimations && this.enterAnimations.kill();
     const callback = (r) => {
@@ -75,8 +83,10 @@ class animations {
         this.elCopyBody = selectFrom(".copy__body", el);
         this.bodyWrappers = selectAllFrom(".body__wrapper", el);
         this.logoChars = selectAllFrom(".logo__char", el);
+        this.honorTags = selectAllFrom(".honor__tag", el);
         this.setScrollAnimations();
         this.setEnterAnimations();
+        this.setDraggable();
         r();
       } else {
         console.log("check");

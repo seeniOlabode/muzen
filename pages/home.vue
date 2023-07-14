@@ -1,30 +1,23 @@
 <template>
   <div class="home-page">
     <home-hero />
+    <home-content />
   </div>
 </template>
 
 <script>
-import { useSmoothScroll } from "~/composables/useSmoothScroll";
+// import { useSmoothScroll } from "~/composables/useSmoothScroll";
 import { gsap } from "gsap";
 
 export default {
   props: {
-    transitioning: Boolean,
+    transitoned: Boolean,
   },
-  setup() {
-    if (process.client) {
-      useSmoothScroll({
-        gsapScroll: false,
-      });
-    }
-  },
+  setup() {},
 };
 </script>
 
 <style scoped>
 .home-page {
-  position: absolute;
-  top: 0;
 }
 </style>

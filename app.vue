@@ -16,7 +16,9 @@
         onLeave: pageTransitionLeave,
       }"
       :transitioning="transitioning"
+      :transitioned="transitioned"
     />
+    <site-footer />
   </div>
   <page-transition ref="pageTrans" />
 </template>
@@ -25,16 +27,28 @@
 import { appAnimations } from "~/animations/app";
 
 export default {
+  provide() {
+    return {
+      getTransitioned: () => this.transitioned,
+    };
+  },
   data() {
     return {
-      assetsLoaded: false,
+      assetsLoaded: true,
     };
   },
   computed: {},
   setup() {
     const transitioning = ref(false);
+    const transitioned = ref(false);
     if (process.client) {
       lockScroll(transitioning);
+      const unwatch = watch(transitioning, (value) => {
+        if (value) {
+          unwatch();
+          transitioned.value = true;
+        }
+      });
     }
     useHead({
       title: "Muzen",
@@ -49,7 +63,7 @@ export default {
           crossorigin: true,
         },
         {
-          href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap",
+          href: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap",
           rel: "stylesheet",
         },
       ],
@@ -57,14 +71,21 @@ export default {
     });
     return {
       transitioning,
+      transitioned,
     };
   },
   methods: {
     async pageTransitionLeave(el, done) {
       this.transitioning = true;
-      await appAnimations.leave(el, done);
+      await appAnimations.leave(el, done, this.scrollToTop);
       this.transitioning = false;
-      console.log("done");
+      this.scrollToTop;
+      done();
+    },
+    scrollToTop() {
+      console.log("scrolled");
+      console.log(this.$lenis);
+      this.$lenis.scrollTo(0);
     },
   },
   mounted() {
