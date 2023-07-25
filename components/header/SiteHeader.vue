@@ -4,10 +4,16 @@
     <nav class="desktop-header">
       <ul class="links">
         <li v-for="link in links" :key="link.text + link.path">
-          <site-link
+          <!-- <site-link
             :to="link.path"
             :text="link.text"
             color="#1C1816"
+            size="md"
+          /> -->
+          <site-link
+            :to="link.path"
+            :text="link.text"
+            color="white"
             size="md"
           />
         </li>
@@ -32,4 +38,8 @@ export default {
 
 <style>
 @import url("~/styles/components/header/SiteHeader.pcss");
+
+:deep(.site-link) {
+  color: white !important;
+}
 </style>

@@ -48,10 +48,23 @@
       <p class="creators__credit">Design by Tosin</p>
       <p class="creators__credit">Development by Bode</p>
     </div>
-    <div class="false-text">
-      Removing this div causes some glitch in the layout end, caused by
-      line-height on the logo
-    </div>
+    <!-- 
+    <div class="site-footer__logo fake">
+      <h2 class="logo__word">
+        <span
+          class="logo__char"
+          v-for="(char, i) in 'Muzen'.split('')"
+          :key="char + i"
+        >
+          {{ char }}
+        </span>
+      </h2>
+      <p class="creators__credit">Design by Tosin</p>
+      <p class="creators__credit">Development by Bode</p>
+    </div> -->
+
+    <!-- <div class="logo-space-filler"></div> -->
+
     <transition @enter="onEnter" @leave="onLeave">
       <site-credits v-show="creditsOpen" @close-creds="creditsOpen = false" />
     </transition>
@@ -118,7 +131,7 @@ export default {
           links: [
             {
               text: "Easter egg",
-              path: "/#$%@5",
+              path: "/3@s73r",
             },
             {
               text: "Request content removal",
@@ -136,9 +149,14 @@ export default {
 };
 
 function onEnter(el, done) {
+  // CustomEase.create(
+  //   "custom",
+  //   "M0,0 C0.25,0 0.381,0.023 0.422,0.05 0.515,0.11 0.56,0.282 0.592,0.492 0.626,0.72 0.644,0.802 0.678,0.866 0.7,0.908 0.698,1 1,1 "
+  // );
+
   CustomEase.create(
     "custom",
-    "M0,0 C0.25,0 0.381,0.023 0.422,0.05 0.515,0.11 0.56,0.282 0.592,0.492 0.626,0.72 0.644,0.802 0.678,0.866 0.7,0.908 0.698,1 1,1 "
+    "M0,0 C0.128,0 0.215,0.026 0.232,0.044 0.314,0.128 0.466,0.292 0.498,0.502 0.532,0.73 0.586,0.88 0.64,0.928 0.679,0.962 0.698,1 1,1 "
   );
 
   const split = new SplitText(".site-footer__quote", {
@@ -238,7 +256,7 @@ function onLeave(el, done) {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .link-group__header {
@@ -248,6 +266,10 @@ function onLeave(el, done) {
   line-height: 1;
   margin-bottom: 4px;
   color: white;
+}
+
+.link-group__link {
+  line-height: 1;
 }
 
 .site-footer__creators {
@@ -263,16 +285,19 @@ function onLeave(el, done) {
 }
 
 .site-footer__logo {
+  /* position: absolute; */
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
   font-family: var(--muzen-nohemi);
-  margin-top: 186px;
   padding-top: 20px;
-  width: 100%;
   text-align: center;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas: "logo";
-  font-size: 18.8vw;
   line-height: 1;
+  overflow: hidden;
+  margin-top: 186px;
 
   .creators__credit {
     font-size: 16px;
@@ -282,35 +307,33 @@ function onLeave(el, done) {
   .creators__credit:nth-child(2) {
     grid-area: credit1;
     position: relative;
-    left: 4%;
+    left: 0.8vw;
   }
 
   .creators__credit:nth-child(3) {
     grid-area: credit2;
     position: relative;
-    right: 4%;
+    right: 0.8vw;
+  }
+
+  &.fake {
+    line-height: 1;
+    visibility: hidden;
+
+    .logo-word {
+      line-height: 1 !important;
+    }
   }
 }
 
 .logo__word {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   width: 100%;
   grid-area: logo;
-  /* line-height: 70%; */
-  font-size: 64px;
-  line-height: 1;
-  &::before {
-    content: "";
-    margin-bottom: -0.0603em;
-    display: table;
-  }
-
-  &::after {
-    content: "";
-    margin-top: -0.2248em;
-    display: table;
-  }
+  font-size: 28vw;
+  line-height: 0.66;
+  padding-top: 50px;
 }
 
 .logo__char {
@@ -319,6 +342,11 @@ function onLeave(el, done) {
 
 .false-text {
   visibility: hidden;
+}
+
+.logo-space-filler {
+  margin-top: 186px;
+  height: 40px;
 }
 
 @media screen and (width >= 724px) {
@@ -346,6 +374,8 @@ function onLeave(el, done) {
     display: none;
   }
   .site-footer__logo {
+    margin-top: 0;
+    position: absolute;
     margin: 0;
     order: 1;
     justify-self: end;
@@ -360,11 +390,15 @@ function onLeave(el, done) {
 @media screen and (width >= 1100px) {
   .site-footer__logo {
     .creators__credit:nth-child(2) {
-      left: 7%;
+      left: 0.8vw;
     }
 
     .creators__credit:nth-child(3) {
-      right: 7%;
+      right: 0.65vw;
+    }
+
+    .logo__word {
+      font-size: 30vw;
     }
   }
 }

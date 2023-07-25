@@ -1,8 +1,8 @@
 <template>
-  <div class="home-page">
+  <main class="home-page">
     <home-hero />
     <home-content />
-  </div>
+  </main>
 </template>
 
 <script>
@@ -14,6 +14,7 @@ export default {
     transitoned: Boolean,
   },
   setup() {},
+  mounted() {},
 };
 </script>
 

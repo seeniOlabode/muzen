@@ -1,4 +1,5 @@
 import Lenis from "@studio-freight/lenis";
+import "~/styles/plugins/lenis.css";
 
 export let lenis;
 

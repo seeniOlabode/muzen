@@ -67,7 +67,9 @@ class animations {
         .add(done, "done-callback")
         .call(() => {
           emitter.emit("page-in", true);
-          mid ? mid() : "";
+          if (mid) {
+            mid();
+          }
         })
         .to(
           this.elLogoChars,

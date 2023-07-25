@@ -11,7 +11,7 @@
         </p>
         <site-image src="/images/Home/bd61410803fcb567cbae8ae3404ff547.jpg" />
       </div>
-      <div class="row">
+      <div class="row parallax">
         <p class="body">
           Creativity is at the core of everything we do. We constantly push the
           boundaries of conventional fashion photography, seeking innovative
@@ -19,7 +19,10 @@
           a keen eye for unique angles, we transform our clients' visions into
           mesmerizing visual appealing narratives.
         </p>
-        <site-image src="/images/Home/9c4185c457cfc98a6b1c74c7107e8394.jpg" />
+        <site-image
+          class="parallax"
+          src="/images/Home/9c4185c457cfc98a6b1c74c7107e8394.jpg"
+        />
       </div>
       <div class="row">
         <div class="copy">
@@ -107,18 +110,32 @@ import { ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
 
 export default {
-  mounted() {
-    gsap.from(".site-image__image-wrapper .site-image__image", {
-      yPercent: -50,
-      scrollTrigger: {
-        trigger: ".home-page",
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-        stagger: 0.5,
-      },
-    });
-  },
+  // mounted() {
+  //   gsap.utils
+  //     .toArray(".site-image__image-wrapper .site-image__image")
+  //     .forEach((el) => {
+  //       gsap.from(el, {
+  //         yPercent: -50,
+  //         ease: "linear",
+  //         scrollTrigger: {
+  //           trigger: el,
+  //           start: "top bottom",
+  //           end: "bottom top",
+  //           scrub: true,
+  //         },
+  //       });
+  //     });
+  //   gsap.from(".site-image__image-wrapper.parallax", {
+  //     y: 150,
+  //     ease: "linear",
+  //     scrollTrigger: {
+  //       trigger: ".row.parallax",
+  //       start: "top bottom",
+  //       end: "top top",
+  //       scrub: true,
+  //     },
+  //   });
+  // },
 };
 // TODO: Make sure to vary the aspect ratios of images
 </script>

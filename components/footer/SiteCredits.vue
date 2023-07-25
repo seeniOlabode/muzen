@@ -158,6 +158,7 @@ export default {
   font-style: italic;
   grid-area: quote;
   margin-top: 40px;
+  max-width: 650px;
   &::before {
     content: "";
   }
@@ -190,7 +191,7 @@ export default {
 @media screen and (width >= 724px) {
   .content__inner-wrapper {
     grid-template-columns: repeat(4, 1fr);
-    grid-template-areas: "header header header header" "credits credits credits credits" "quote quote ... close";
+    grid-template-areas: "header header header header" "credits credits credits credits" "quote quote quote close";
   }
 
   .site-credits__credits {
@@ -214,7 +215,7 @@ export default {
 @media screen and (width >= 1024px) {
   .content__inner-wrapper {
     grid-template-columns: auto repeat(3, 1fr);
-    grid-template-areas: "header header credits credits" "header header credits credits" "quote quote ... close";
+    grid-template-areas: "header header credits credits" "header header credits credits" "quote quote quote close";
   }
 
   .site-credits__credits {

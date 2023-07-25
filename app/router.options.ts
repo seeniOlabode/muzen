@@ -19,6 +19,12 @@ export default <RouterConfig>{
       path: "/studio",
       component: () => import(`~/pages/studio.vue`).then((r) => r.default || r),
     },
+    {
+      name: "Easter Egg",
+      path: "/3@s73r",
+      component: () =>
+        import(`~/pages/easter-egg.vue`).then((r) => r.default || r),
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     return false;

@@ -18,7 +18,7 @@
       :transitioning="transitioning"
       :transitioned="transitioned"
     />
-    <site-footer />
+    <site-footer v-show="$route.name != 'Easter Egg'" />
   </div>
   <page-transition ref="pageTrans" />
 </template>
@@ -76,16 +76,16 @@ export default {
   },
   methods: {
     async pageTransitionLeave(el, done) {
+      // Todo: remove this
+      // return done();
       this.transitioning = true;
       await appAnimations.leave(el, done, this.scrollToTop);
       this.transitioning = false;
-      this.scrollToTop;
-      done();
     },
     scrollToTop() {
-      console.log("scrolled");
-      console.log(this.$lenis);
-      this.$lenis.scrollTo(0);
+      // this.transitioning = false;
+      this.$lenis.setScroll(0);
+      // this.transitioning = true;
     },
   },
   mounted() {
