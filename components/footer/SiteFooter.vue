@@ -154,10 +154,7 @@ function onEnter(el, done) {
   //   "M0,0 C0.25,0 0.381,0.023 0.422,0.05 0.515,0.11 0.56,0.282 0.592,0.492 0.626,0.72 0.644,0.802 0.678,0.866 0.7,0.908 0.698,1 1,1 "
   // );
 
-  CustomEase.create(
-    "custom",
-    "M0,0 C0.128,0 0.215,0.026 0.232,0.044 0.314,0.128 0.466,0.292 0.498,0.502 0.532,0.73 0.586,0.88 0.64,0.928 0.679,0.962 0.698,1 1,1 "
-  );
+  CustomEase.create("custom", "M0,0 C0.65,0 0.35,1 1,1 ");
 
   const split = new SplitText(".site-footer__quote", {
     type: "words,chars",
@@ -244,6 +241,8 @@ function onLeave(el, done) {
 .site-footer__links {
   display: grid;
   grid-template-columns: auto auto;
+  justify-content: start;
+  gap: 50px;
 }
 
 .bonus {
@@ -367,8 +366,6 @@ function onLeave(el, done) {
 
   .site-footer__links {
     grid-template-columns: auto auto auto;
-    justify-content: start;
-    gap: 50px;
   }
   .site-footer__creators {
     display: none;

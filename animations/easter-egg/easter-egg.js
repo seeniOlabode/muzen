@@ -1,9 +1,9 @@
 import { gsap } from "gsap";
-import { Observer } from "gsap/all";
+import { Observer, Flip } from "gsap/all";
 
-gsap.registerPlugin(Observer);
+gsap.registerPlugin(Observer, Flip);
 
-import { selectAllFrom } from "~/utils/utils";
+import { selectAllFrom, getBounding } from "~/utils/utils";
 
 class animations {
   constructor() {
@@ -19,10 +19,12 @@ class animations {
     this.windowYCenter = null;
 
     this.vel = false;
+
+    this.previewTl = null;
   }
 
   startObserver() {
-    Observer.create({
+    this.observer = Observer.create({
       target: window,
       onMove: this.setGalleryCoords.bind(this),
       onStopDelay: 0,
@@ -81,7 +83,7 @@ class animations {
         }
         lastX += lerp(lastX, this.galleryX, lerpValue);
         lastY += lerp(lastY, this.galleryY, lerpValue);
-        lastR += lerp(lastR, this.galleryR, 0.1);
+        lastR += lerp(lastR, this.galleryR, 0.05);
 
         xSetter(lastX);
         ySetter(lastY);
@@ -94,12 +96,65 @@ class animations {
     });
   }
 
+  openPreview(photoEl, previewEl) {
+    return new Promise((r) => {
+      const photoElBox = getBounding(photoEl);
+      const previewElBox = getBounding(previewEl);
+
+      const deltaX = previewElBox.left - photoElBox.left;
+      const deltaY = previewElBox.top - photoElBox.top;
+      const deltaScale = 500 / photoElBox.width;
+
+      this.previewTl = gsap
+        .timeline({
+          paused: true,
+          onComplete: () => {
+            r();
+          },
+        })
+        .set([this.previewContainerEl, previewEl], {
+          autoAlpha: 0,
+        })
+        .to(photoEl, {
+          x: deltaX,
+          y: deltaY,
+          scale: deltaScale,
+          duration: 0.6,
+        })
+        .to(
+          this.previewContainerEl,
+          {
+            autoAlpha: 1,
+          },
+          ">-=0.2"
+        )
+        .set(previewEl, { autoAlpha: 1 })
+        .set(photoEl, { autoAlpha: 0 })
+        .play();
+    });
+  }
+
+  closePreview() {
+    return new Promise((r) => {
+      if (this.previewTl) {
+        this.previewTl.reverse();
+      }
+      r();
+    });
+  }
+
+  stop() {
+    this.observer.disable();
+  }
+
   init(el) {
     this.el = el;
+    this.previewContainerEl = selectFrom(".easter-egg__preview", el);
     this.setupVariables();
     this.setupResize();
     this.startObserver();
     this.setupImageAnimations();
+    // this.stop();
   }
 }
 

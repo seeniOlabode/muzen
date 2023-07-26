@@ -7,17 +7,16 @@ export default function (lock) {
     watch(
       lock,
       (value) => {
-        console.log(value);
         if (value) {
           lenis.stop();
-          console.log("stopped");
         } else {
           lenis.start();
-          console.log("started");
         }
-        // isLocked.value = !!value;
       },
       { immediate: true }
     );
+  });
+  onBeforeMount(() => {
+    lenis.start();
   });
 }

@@ -50,9 +50,6 @@ import { Draggable } from "gsap/all";
 gsap.registerPlugin(Draggable);
 
 export default {
-  setup() {
-    const homeHero = ref(null);
-  },
   inject: ["getTransitioned"],
   data() {
     return {

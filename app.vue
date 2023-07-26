@@ -7,7 +7,6 @@
         @assets-loaded="assetsLoaded = true"
       />
     </Transition>
-    <!-- <Nuxt-Page v-if="assetsLoaded" /> -->
     <Nuxt-Page
       v-if="assetsLoaded"
       :transition="{
@@ -24,6 +23,7 @@
 </template>
 
 <script>
+import { useFavicon } from "@vueuse/core";
 import { appAnimations } from "~/animations/app";
 
 export default {
@@ -83,9 +83,7 @@ export default {
       this.transitioning = false;
     },
     scrollToTop() {
-      // this.transitioning = false;
       this.$lenis.setScroll(0);
-      // this.transitioning = true;
     },
   },
   mounted() {

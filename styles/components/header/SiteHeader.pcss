@@ -6,7 +6,7 @@
   display: flex;
   gap: 50px;
   z-index: 20;
-  mix-blend-mode: difference;
+  mix-blend-mode: normal;
 }
 
 .mobile-header {
@@ -19,6 +19,9 @@
 
 /* Styles for Desktop */
 @media screen and (width >= 724px) {
+  .site-header {
+    mix-blend-mode: difference;
+  }
   .mobile-header {
     display: none;
   }
@@ -36,6 +39,5 @@
     gap: 16px;
     margin-left: auto;
     align-items: center;
-    mix-blend-mode: normal;
   }
 }

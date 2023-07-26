@@ -1,5 +1,5 @@
 <template>
-  <section class="home-content container">
+  <section class="home-content container" ref="homeContent">
     <div class="inner-wrapper">
       <div class="row">
         <p class="body">
@@ -104,43 +104,35 @@
 
 
 <script>
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/all";
-
-gsap.registerPlugin(ScrollTrigger);
+import { HomeContentAnimations } from "~/animations/Home/HomeContent";
 
 export default {
-  // mounted() {
-  //   gsap.utils
-  //     .toArray(".site-image__image-wrapper .site-image__image")
-  //     .forEach((el) => {
-  //       gsap.from(el, {
-  //         yPercent: -50,
-  //         ease: "linear",
-  //         scrollTrigger: {
-  //           trigger: el,
-  //           start: "top bottom",
-  //           end: "bottom top",
-  //           scrub: true,
-  //         },
-  //       });
-  //     });
-  //   gsap.from(".site-image__image-wrapper.parallax", {
-  //     y: 150,
-  //     ease: "linear",
-  //     scrollTrigger: {
-  //       trigger: ".row.parallax",
-  //       start: "top bottom",
-  //       end: "top top",
-  //       scrub: true,
-  //     },
-  //   });
-  // },
+  inject: ["getTransitioned"],
+  computed: {
+    transitioned() {
+      return this.getTransitioned();
+    },
+  },
+  mounted() {
+    if (this.transitioned) {
+      this.$eventBus.on("transition-almost-out", () => {
+        HomeContentAnimations.init(this.$refs.homeContent);
+        this.$eventBus.off("transition-almost-out");
+      });
+    } else {
+      HomeContentAnimations.init(this.$refs.homeContent);
+    }
+  },
+  beforeUnmount() {
+    HomeContentAnimations.destroy();
+    this.$eventBus.off("transition-almost-out");
+  },
 };
-// TODO: Make sure to vary the aspect ratios of images
 </script>
 
 <style lang="pcss" scoped>
+/* TODO: Make sure to vary the aspect ratios of images */
+
 .home-content {
   padding-top: 40px;
   padding-bottom: 96px;
@@ -181,7 +173,7 @@ export default {
   display: none;
 }
 
-@media screen and (width >= 724px) {
+@media screen and (width >= 550px) {
   .no-mobile {
     display: unset;
   }
@@ -193,6 +185,7 @@ export default {
     line-height: 31.2px;
     font-size: 24px;
     letter-spacing: -0.24px;
+    text-align: justify;
   }
   .row {
     margin-top: 120px;
@@ -205,7 +198,6 @@ export default {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "text image";
     .body {
-      text-align: left;
       grid-area: text;
     }
 
@@ -279,7 +271,7 @@ export default {
 
     .body {
       grid-area: text;
-      text-align: center;
+      text-align: center !important;
     }
 
     .site-image__image-wrapper {
@@ -349,6 +341,9 @@ export default {
 }
 
 @media screen and (width >= 1024px) {
+  .body {
+    text-align: left;
+  }
   .row:nth-child(1) {
     grid-template-columns: 1fr 1fr 0.7fr 1fr 1fr 0.7fr;
     grid-template-areas: "text text ... image image ...";

@@ -3,7 +3,9 @@ import { ScrollTrigger, CustomEase, Draggable } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger, CustomEase, Draggable);
 
-class animations {
+import { selectAllFrom, elementHasWidth } from "~/utils/utils";
+
+class Animations {
   constructor() {
     this.scrollTl = null;
     this.enterAnimations = null;
@@ -67,35 +69,19 @@ class animations {
     });
   }
 
-  checkWidth(el) {
-    return el.clientWidth > 1;
-  }
-
   async init(el) {
-    console.log(el);
     this.scrollTrigger && this.scrollTrigger.kill();
     this.enterAnimations && this.enterAnimations.kill();
-    const callback = (r) => {
-      if (this.checkWidth(el)) {
-        this.el = el;
-        this.elVideo = selectFrom(".video-wrapper__video", el);
-        this.elLogo = selectFrom(".home-hero__logo", el);
-        this.elCopyBody = selectFrom(".copy__body", el);
-        this.bodyWrappers = selectAllFrom(".body__wrapper", el);
-        this.logoChars = selectAllFrom(".logo__char", el);
-        this.honorTags = selectAllFrom(".honor__tag", el);
-        this.setScrollAnimations();
-        this.setEnterAnimations();
-        this.setDraggable();
-        r();
-      } else {
-        console.log("check");
-        setTimeout(callback, 500, r);
-      }
-    };
-    return new Promise((r) => {
-      callback(r);
-    });
+    this.el = el;
+    this.elVideo = selectFrom(".video-wrapper__video", el);
+    this.elLogo = selectFrom(".home-hero__logo", el);
+    this.elCopyBody = selectFrom(".copy__body", el);
+    this.bodyWrappers = selectAllFrom(".body__wrapper", el);
+    this.logoChars = selectAllFrom(".logo__char", el);
+    this.honorTags = selectAllFrom(".honor__tag", el);
+    this.setScrollAnimations();
+    this.setEnterAnimations();
+    this.setDraggable();
   }
 
   remove() {
@@ -105,4 +91,4 @@ class animations {
   }
 }
 
-export const HomeHeroAnimations = new animations();
+export const HomeHeroAnimations = new Animations();

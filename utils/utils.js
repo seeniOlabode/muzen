@@ -14,3 +14,5 @@ export const resetInlineStyles = (elements) => {
 };
 export const lerp = (start, stop, amount) => (stop - start) * amount;
 export const isEven = (number) => number % 2 === 0;
+export const getBounding = (el) => el.getBoundingClientRect();
+export const elementHasWidth = (el) => el.clientWidth > 1;

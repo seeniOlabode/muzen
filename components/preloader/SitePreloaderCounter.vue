@@ -143,21 +143,21 @@ function onEnter(el, done) {
   tl.addLabel("start", 0);
   tl.addLabel("up-move", "+=0.3");
 
-  const filterTl = gsap.timeline({
-    paused: true,
-  });
+  // const filterTl = gsap.timeline({
+  //   paused: true,
+  // });
 
-  filterTl
-    .to(this.baseFrequency, {
-      x: 0.2,
-      duration: 0.25,
-    })
-    .to(this.baseFrequency, {
-      x: 0,
-      duration: 0.2,
-    });
+  // filterTl
+  //   .to(this.baseFrequency, {
+  //     x: 0.2,
+  //     duration: 0.25,
+  //   })
+  //   .to(this.baseFrequency, {
+  //     x: 0,
+  //     duration: 0.2,
+  //   });
 
-  tl.add(filterTl.play(), "start");
+  // tl.add(filterTl.play(), "start");
 
   const transYTl = gsap.timeline({
     paused: true,

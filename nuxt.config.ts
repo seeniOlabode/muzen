@@ -21,6 +21,7 @@ export default defineNuxtConfig({
   postcss: {
     plugins: {
       autoprefixer: {},
+      "postcss-for": {},
       "postcss-nested": {},
       "postcss-import": {},
       "postcss-media-minmax": {},
