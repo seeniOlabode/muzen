@@ -123,7 +123,7 @@ export default {
       HomeContentAnimations.init(this.$refs.homeContent);
     }
   },
-  beforeUnmount() {
+  unmounted() {
     HomeContentAnimations.destroy();
     this.$eventBus.off("transition-almost-out");
   },
