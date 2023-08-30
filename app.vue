@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      assetsLoaded: true,
+      assetsLoaded: false,
     };
   },
   computed: {},

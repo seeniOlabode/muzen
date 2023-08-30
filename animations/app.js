@@ -39,14 +39,14 @@ class animations {
         })
         .from(this.el, {
           yPercent: -100,
-          duration: 1,
+          duration: 1.5,
           ease: "smooth-transition",
         })
         .from(
           this.elContent,
           {
             yPercent: 100,
-            duration: 1,
+            duration: 1.5,
             ease: "smooth-transition",
           },
           "<"
@@ -55,13 +55,13 @@ class animations {
           this.elLogoChars,
           {
             yPercent: 100,
-            duration: 0.5,
+            duration: 0.55,
             ease: "power2.out",
             stagger: {
               each: 0.2,
             },
           },
-          "<+0.5"
+          "<+0.8"
         )
         .addLabel("done-callback")
         .add(done, "done-callback")
@@ -87,7 +87,7 @@ class animations {
           this.el,
           {
             yPercent: 100,
-            duration: 1,
+            duration: 1.3,
             ease: "smooth-transition",
           },
           ">"
@@ -96,7 +96,7 @@ class animations {
           this.elContent,
           {
             yPercent: -100,
-            duration: 1,
+            duration: 1.3,
             ease: "smooth-transition",
           },
           "<"
@@ -116,10 +116,7 @@ class animations {
     this.el = el;
     this.elContent = selectFrom(".page-transition__content", el);
     this.elLogoChars = selectAllFrom(".logo__char", el);
-    CustomEase.create(
-      "smooth-transition",
-      "M0,0 C0.214,0.012 0.432,0.086 0.538,0.43 0.617,0.686 0.822,1 1,1 "
-    );
+    CustomEase.create("smooth-transition", "M0,0 C0.65,0 0.35,1 1,1 ");
   }
 }
 

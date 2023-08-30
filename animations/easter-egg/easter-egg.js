@@ -12,13 +12,15 @@ class animations {
     this.galleryYWidth = 2000;
     this.galleryX = null;
     this.galleryY = null;
-    this.galleryR = null;
+    // this.galleryR = null;
+    this.galleryImages = null;
+    this.galleryImageCallbacks = [];
     this.windowX = null;
     this.windowY = null;
     this.windowXCenter = null;
     this.windowYCenter = null;
 
-    this.vel = false;
+    // this.vel = false;
 
     this.previewTl = null;
   }
@@ -39,16 +41,16 @@ class animations {
   }
 
   setGalleryCoords(e) {
-    this.vel = true;
+    // this.vel = true;
     const { x, y, velocityX } = e;
 
     let xPercent = ((x - this.windowXCenter) / this.windowX) * 100;
     let yPercent = ((y - this.windowYCenter) / this.windowY) * 100;
-    let velPercent = (velocityX / 500) * 10;
+    // let velPercent = (velocityX / 500) * 10;
 
     this.galleryX = (xPercent / 100) * this.galleryXWidth;
     this.galleryY = (yPercent / 100) * this.galleryYWidth;
-    this.galleryR = gsap.utils.clamp(-10, 10, velPercent);
+    // this.galleryR = gsap.utils.clamp(-10, 10, velPercent);
 
     this.galleryX *= -1;
     this.galleryY *= -1;
@@ -62,37 +64,31 @@ class animations {
   }
 
   setupImageAnimations() {
-    const galleryImages = selectAllFrom(".photo-list__photo", this.el);
+    this.galleryImages = selectAllFrom(".photo-list__photo", this.el);
 
-    galleryImages.forEach((photo, i) => {
+    this.galleryImages.forEach((photo, i) => {
       const xSetter = gsap.quickSetter(photo, "x", "px");
       const ySetter = gsap.quickSetter(photo, "y", "px");
-      const rSetter = gsap.quickSetter(photo, "rotate", "deg");
-      let lerpValue = ((i + 1) / galleryImages.length) * 0.1;
+      // const rSetter = gsap.quickSetter(photo, "rotate", "deg");
+      let lerpValue = ((i + 1) / this.galleryImages.length) * 0.1;
       lerpValue = gsap.utils.clamp(0.05, 0.1, lerpValue);
 
       let lastX = 0;
       let lastY = 0;
-      let lastR = 0;
+      // let lastR = 0;
 
-      const multiplier = i % 2 === 0 ? -1 : 1;
+      // const multiplier = i % 2 === 0 ? -1 : 1;
 
-      gsap.ticker.add(() => {
-        if (!this.vel) {
-          this.galleryR = 0;
-        }
+      const callback = () => {
         lastX += lerp(lastX, this.galleryX, lerpValue);
         lastY += lerp(lastY, this.galleryY, lerpValue);
-        lastR += lerp(lastR, this.galleryR, 0.05);
 
         xSetter(lastX);
         ySetter(lastY);
-        rSetter(lastR * multiplier);
+      };
 
-        if (i === galleryImages.length - 1) {
-          this.vel = false;
-        }
-      });
+      this.galleryImageCallbacks.push(callback);
+      gsap.ticker.add(callback);
     });
   }
 

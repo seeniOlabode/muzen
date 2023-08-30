@@ -1,5 +1,8 @@
 <template>
-  <div class="site-image__image-wrapper" :class="{ 'no-ratio': !aRatio }">
+  <div
+    class="site-image__image-wrapper"
+    :class="[{ 'no-ratio': !aRatio }, customClass]"
+  >
     <NuxtImg :src="src" class="site-image__image" />
   </div>
 </template>
@@ -11,6 +14,10 @@ export default {
     aRatio: {
       type: Boolean,
       default: true,
+    },
+    customClass: {
+      type: String,
+      default: false,
     },
   },
 };

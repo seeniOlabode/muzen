@@ -2,20 +2,28 @@
   <aside class="site-credits">
     <div class="site-credits__content">
       <div class="content__inner-wrapper container">
-        <h1 class="heading-1">Credits</h1>
+        <h1 class="heading-1 site-credits__transition-wrapper">
+          <span class="site-credits__transition"> Credits </span>
+        </h1>
         <div class="site-credits__credits">
           <ul
             v-for="(group, i) in credits"
             :key="group.header + i"
             class="credits__cred-group"
           >
-            <h5 class="cred-group__header">{{ group.header }}</h5>
+            <h5 class="cred-group__header site-credits__transition-wrapper">
+              <span class="site-credits__transition">
+                {{ group.header }}
+              </span>
+            </h5>
             <li
-              class="cred-group__cred"
+              class="cred-group__cred site-credits__transition-wrapper"
               v-for="(cred, i) in group.creds"
               :key="cred + i"
             >
-              {{ cred }}
+              <span class="site-credits__transition">
+                {{ cred }}
+              </span>
             </li>
           </ul>
         </div>
@@ -118,6 +126,14 @@ export default {
   z-index: 1;
 }
 
+.site-credits__transition-wrapper {
+  overflow: hidden;
+}
+
+.site-credits__transition {
+  display: inline-block;
+}
+
 .site-credits .heading-1 {
   grid-area: header;
 }
@@ -166,6 +182,10 @@ export default {
   &::after {
     content: "";
   }
+}
+
+.site-footer__quote__line {
+  overflow: hidden;
 }
 .close-credits {
   grid-area: close;

@@ -106,6 +106,7 @@ export default {
               text: "Lookbook",
               path: "/lookbook",
             },
+            { text: "Contact", path: "/contact" },
           ],
         },
         {
@@ -157,9 +158,11 @@ function onEnter(el, done) {
   CustomEase.create("custom", "M0,0 C0.65,0 0.35,1 1,1 ");
 
   const split = new SplitText(".site-footer__quote", {
-    type: "words,chars",
-    lineThreshold: 0.5,
+    type: "lines,words",
+    lineThreshold: 0.8,
+    linesClass: "site-footer__quote__line",
   });
+
   const tl = gsap.timeline({
     paused: true,
     onComplete: () => {
@@ -168,36 +171,83 @@ function onEnter(el, done) {
     },
   });
 
-  tl.from(".site-credits__content", {
-    yPercent: -100,
-    ease: "custom",
-    duration: 1,
-  })
+  tl.addLabel("start-slide-in")
+    .from(
+      ".site-credits__content",
+      {
+        yPercent: -100,
+        ease: "custom",
+        duration: 1.2,
+      },
+      "start-slide-in"
+    )
     .from(
       ".content__inner-wrapper",
       {
         yPercent: 100,
         ease: "custom",
-        duration: 1,
+        duration: 1.2,
       },
-      "<"
+      "start-slide-in"
     )
     .from(
       ".site-credits__backdrop",
       {
         autoAlpha: 0,
       },
-      ">-=0.6"
+      "start-slide-in+=0.6"
     )
-    .from(split.chars, {
-      autoAlpha: 0,
-      stagger: 0.02,
+    .addLabel("end-slide-in");
+  function siteCredits() {
+    tl.from(
+      ".heading-1 .site-credits__transition",
+      {
+        yPercent: 100,
+        rotate: 10,
+        ease: "circ.out",
+        duration: 0.5,
+      },
+      "end-slide-in-=0.85"
+    );
+    gsap.utils.toArray(".credits__cred-group").forEach((credGroup) => {
+      tl.from(
+        selectAllFrom(".site-credits__transition", credGroup),
+        {
+          yPercent: 100,
+          rotate: 10,
+          ease: "circ.out",
+          stagger: 0.12,
+          duration: 0.5,
+        },
+        "end-slide-in-=0.75"
+      );
     });
-
+    tl.from(
+      split.lines,
+      {
+        yPercent: 120,
+        opacity: 0,
+        ease: "power3.out",
+        stagger: 0.15,
+        duration: 1,
+      },
+      "end-slide-in-=0.2"
+    );
+  }
+  siteCredits();
+  tl.add(() => {
+    split.revert();
+  });
   tl.play();
 }
 
 function onLeave(el, done) {
+  const split = new SplitText(".site-footer__quote", {
+    type: "lines,words",
+    lineThreshold: 0.8,
+    linesClass: "site-footer__quote__line",
+  });
+
   const tl = gsap.timeline({
     paused: true,
     onComplete: () => {
@@ -205,27 +255,81 @@ function onLeave(el, done) {
       tl.revert();
     },
   });
-  tl.to(".site-credits__content", {
-    yPercent: -100,
-    ease: "custom",
-    duration: 1,
-  })
+  tl.addLabel("start-slide-out")
+    .to(
+      ".site-credits__content",
+      {
+        yPercent: -100,
+        ease: "custom",
+        duration: 1.2,
+      },
+      "start-slide-out"
+    )
     .to(
       ".content__inner-wrapper",
       {
         yPercent: 100,
         ease: "custom",
-        duration: 1,
+        duration: 1.2,
       },
-      "<"
+      "start-slide-out"
     )
     .to(
       ".site-credits__backdrop",
       {
         autoAlpha: 0,
+        duration: 0.5,
+        ease: "power2.in",
       },
-      ">-=0.6"
+      "start-slide-out+=0.6"
+    )
+    .addLabel("end-slide-out");
+  function siteCredits() {
+    tl.to(
+      split.lines,
+      {
+        yPercent: 120,
+        opacity: 0,
+        ease: "power3.in",
+        stagger: {
+          each: 0.25,
+          from: "end",
+        },
+        duration: 0.5,
+      },
+      "end-slide-out-=1.3"
     );
+    gsap.utils.toArray(".credits__cred-group").forEach((credGroup) => {
+      tl.to(
+        selectAllFrom(".site-credits__transition", credGroup),
+        {
+          yPercent: 100,
+          rotate: 10,
+          ease: "circ.in",
+          stagger: {
+            each: 0.12,
+            from: "end",
+          },
+          duration: 0.3,
+        },
+        "end-slide-out-=1.2"
+      );
+    });
+    tl.to(
+      ".heading-1 .site-credits__transition",
+      {
+        yPercent: 100,
+        rotate: 10,
+        ease: "circ.in",
+        duration: 0.5,
+      },
+      ">"
+    );
+  }
+  siteCredits();
+  tl.add(() => {
+    split.revert();
+  });
   tl.play();
 }
 </script>

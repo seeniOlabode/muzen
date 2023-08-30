@@ -25,6 +25,12 @@ export default <RouterConfig>{
       component: () =>
         import(`~/pages/easter-egg.vue`).then((r) => r.default || r),
     },
+    {
+      name: "Contact",
+      path: "/contact",
+      component: () =>
+        import("~/pages/contact.vue").then((r) => r.default || r),
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     return false;

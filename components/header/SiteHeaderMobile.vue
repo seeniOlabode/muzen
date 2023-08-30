@@ -75,6 +75,7 @@ export default {
         { text: "home", path: "/" },
         { text: "studio", path: "/studio" },
         { text: "lookbook", path: "/lookbook" },
+        { text: "contact", path: "/contact" },
       ],
     };
   },

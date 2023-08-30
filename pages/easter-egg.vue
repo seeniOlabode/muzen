@@ -119,6 +119,13 @@ export default {
       return this.windowWidth >= 724;
     },
   },
+  watch: {
+    desktop(value) {
+      if (!value) {
+        easterEggAnimations.pause();
+      }
+    },
+  },
 };
 </script>
 
@@ -137,6 +144,7 @@ export default {
 
 .photo-list__photo {
   list-style: none;
+  overflow: hidden;
 }
 
 .easter-egg-page__photo-list {
