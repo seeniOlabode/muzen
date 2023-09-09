@@ -3,7 +3,7 @@
     <div class="home-hero__video-wrapper">
       <video
         class="video-wrapper__video"
-        src="/images/Home/Home Video Trimmed.mp4"
+        src="/images/Home/home-hero-video.mp4"
         autoplay
         loop
       ></video>

@@ -11,7 +11,7 @@
       </p>
       <div class="intro__graphic">
         <img
-          src="/images/Lookbook/f925b54c66129218d392aad65af94b92 - Copy.jpg"
+          src="/images/Lookbook/f925b54c66129218d392aad65af94b92.jpg"
           alt=""
         />
       </div>

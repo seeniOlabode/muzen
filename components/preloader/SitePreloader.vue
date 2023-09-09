@@ -34,7 +34,7 @@ export default {
       "/images/Home/2319c541d59e20ec4d3458ea26c88ad9.jpg",
       "/images/Home/c33c22f04c0db03d12ece71c9500f8b1.jpg",
       "/images/Home/f925b54c66129218d392aad65af94b92.jpg",
-      "/images/Home/Home Video Trimmed.mp4",
+      "/images/Home/home-hero-video.mp4",
 
       // Studio Images
       "/images/Studio/1db92f315ae2c2d267ca44c083cb14c2.jpg",
@@ -62,7 +62,7 @@ export default {
       "/images/Lookbook/d8066a7aa3e02a19590370f71271a2cb.jpg",
       "/images/Lookbook/d80979946fdded3c4ffc1099be314b62.jpg",
       "/images/Lookbook/dbff007d3ed23e1870170e92ea820f47.jpg",
-      "/images/Lookbook/f925b54c66129218d392aad65af94b92 - Copy.jpg",
+      "/images/Lookbook/f925b54c66129218d392aad65af94b92.jpg",
 
       // Contact Images
       "/images/Contact/2218e288ff48b77ca0df131b7290e4c6.jpg",
