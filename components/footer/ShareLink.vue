@@ -17,7 +17,7 @@ import { useClipboard } from "@vueuse/core";
 
 export default {
   setup() {
-    const source = ref("muzen.netlify.com");
+    const source = ref("muzen.netlify.app");
     const { text, copy, copied, isSupported } = useClipboard({
       source,
       legacy: true,
