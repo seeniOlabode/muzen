@@ -3,7 +3,8 @@
     class="site-image__image-wrapper"
     :class="[{ 'no-ratio': !aRatio }, customClass]"
   >
-    <NuxtImg :src="src" class="site-image__image" />
+    <!-- <NuxtImg :src="src" class="site-image__image" /> -->
+    <img :src="src" alt="" class="site-image__image" />
   </div>
 </template>
 

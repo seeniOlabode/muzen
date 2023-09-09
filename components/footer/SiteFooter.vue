@@ -114,10 +114,17 @@ export default {
           links: [
             {
               text: "Credit",
-              path: "/credit",
               type: "button",
               action: () => {
                 this.creditsOpen = true;
+              },
+            },
+            {
+              text: "Request content removal",
+              type: "button",
+              action: () => {
+                window.location.href =
+                  "mailto:seeniolabode8734@gmail.com?subject=Request Content Removal";
               },
             },
             {
@@ -133,10 +140,6 @@ export default {
             {
               text: "Easter egg",
               path: "/3@s73r",
-            },
-            {
-              text: "Request content removal",
-              path: "/#$%@5ss",
             },
           ],
         },
