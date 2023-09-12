@@ -26,7 +26,9 @@
       </div>
       <div class="row">
         <div class="copy">
-          <h2 class="heading-2">The Light & Muse</h2>
+          <h2 class="heading-2">
+            <span class="animation-wrapper">The Light & Muse</span>
+          </h2>
           <p class="body">
             Light is our muse, shaping the mood and ambiance of our photographs.
             We understand the importance of perfect lighting in accentuating the
@@ -131,6 +133,16 @@ export default {
 </script>
 
 <style lang="pcss" scoped>
+/* asfhklsjadfk */
+:global(.child__lines),
+[class*="heading"] {
+  overflow: hidden;
+}
+
+.animation-wrapper {
+  display: block;
+}
+
 /* TODO: Make sure to vary the aspect ratios of images */
 
 .home-content {

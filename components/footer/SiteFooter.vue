@@ -458,7 +458,7 @@ function onLeave(el, done) {
 @media screen and (width >= 724px) {
   .site-footer {
     padding-top: 100px;
-    min-height: 100vh;
+    min-height: clamp(684px, 100vh, 100vh);
     display: flex;
     flex-direction: column;
     justify-content: space-between;

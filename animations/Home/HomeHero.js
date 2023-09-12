@@ -1,7 +1,8 @@
 import { gsap } from "gsap";
 import { ScrollTrigger, CustomEase, Draggable } from "gsap/all";
+import { SplitText } from "~/assets/gsap-premium/SplitText";
 
-gsap.registerPlugin(ScrollTrigger, CustomEase, Draggable);
+gsap.registerPlugin(ScrollTrigger, CustomEase, Draggable, SplitText);
 
 import { selectAllFrom, elementHasWidth } from "~/utils/utils";
 
@@ -27,39 +28,34 @@ class Animations {
     this.scrollTl.to(this.elVideo, {
       scale: 2,
     });
-
-    this.scrollTl.to(
-      this.elLogo,
-      {
-        y: -100,
-      },
-      "<"
-    );
   }
 
   setEnterAnimations() {
+    const split = new SplitText(this.elCopyBodies, {
+      type: "lines,words",
+      lineThreshold: 0.8,
+      linesClass: "hero__lines",
+      wordsClass: "hero__words",
+    });
+
+    const splitLines = split.lines;
+
+    splitLines.forEach((line, i) => {
+      const words = selectAllFrom(".hero__words", line);
+      gsap.from(words, {
+        yPercent: 150,
+        rotate: 10,
+        delay: (i + 1) * 0.1,
+      });
+    });
+
     this.enterAnimations = gsap.timeline();
-    this.enterAnimations
-      .from(this.logoChars, {
-        yPercent: 100,
-        duration: 1,
-        stagger: 0.15,
-        ease: "power2.out",
-      })
-      .from(
-        this.bodyWrappers,
-        {
-          yPercent: 100,
-          duration: 0.5,
-          delay: 0.3,
-          stagger: {
-            each: 0.05,
-            from: "end",
-          },
-          ease: "power2.out",
-        },
-        "<"
-      );
+    this.enterAnimations.from(this.logoChars, {
+      yPercent: 100,
+      duration: 1,
+      stagger: 0.15,
+      ease: "power2.out",
+    });
   }
 
   setDraggable() {
@@ -75,8 +71,7 @@ class Animations {
     this.el = el;
     this.elVideo = selectFrom(".video-wrapper__video", el);
     this.elLogo = selectFrom(".home-hero__logo", el);
-    this.elCopyBody = selectFrom(".copy__body", el);
-    this.bodyWrappers = selectAllFrom(".body__wrapper", el);
+    this.elCopyBodies = selectAllFrom(".copy__body", el);
     this.logoChars = selectAllFrom(".logo__char", el);
     this.honorTags = selectAllFrom(".honor__tag", el);
     this.setScrollAnimations();
