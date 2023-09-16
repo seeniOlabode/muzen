@@ -150,6 +150,9 @@ export default {
     onEnter,
     onLeave,
   },
+  mounted() {
+    logoAnimation();
+  },
 };
 
 function onEnter(el, done) {
@@ -162,7 +165,7 @@ function onEnter(el, done) {
 
   const split = new SplitText(".site-footer__quote", {
     type: "lines,words",
-    lineThreshold: 1.5,
+    lineThreshold: 2,
     linesClass: "site-footer__quote__line",
   });
 
@@ -247,7 +250,7 @@ function onEnter(el, done) {
 function onLeave(el, done) {
   const split = new SplitText(".site-footer__quote", {
     type: "lines,words",
-    lineThreshold: 0.8,
+    lineThreshold: 2,
     linesClass: "site-footer__quote__line",
   });
 
@@ -334,6 +337,32 @@ function onLeave(el, done) {
     split.revert();
   });
   tl.play();
+}
+
+function logoAnimation() {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".site-footer",
+      start: "clamp(bottom 101%)",
+    },
+  });
+
+  tl.from(".logo__char", {
+    yPercent: 150,
+    duration: 0.8,
+    // rotate: 5,
+    ease: "power2.out",
+    stagger: {
+      each: 0.08,
+    },
+  }).from(
+    ".creators__credit",
+    {
+      autoAlpha: 0,
+      duration: 1,
+    },
+    ">-=0.5"
+  );
 }
 </script>
 
