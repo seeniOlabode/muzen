@@ -58,7 +58,7 @@ class animations {
             duration: 0.55,
             ease: "power2.out",
             stagger: {
-              each: 0.2,
+              each: 0.15,
             },
           },
           "<+0.8"

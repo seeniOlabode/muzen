@@ -17,7 +17,7 @@
       :transitioning="transitioning"
       :transitioned="transitioned"
     />
-    <site-footer v-show="$route.name != 'Easter Egg'" />
+    <site-footer v-show="!['Easter Egg', 'Contact'].includes($route.name)" />
   </div>
   <page-transition ref="pageTrans" />
 </template>

@@ -162,7 +162,7 @@ function onEnter(el, done) {
 
   const split = new SplitText(".site-footer__quote", {
     type: "lines,words",
-    lineThreshold: 0.8,
+    lineThreshold: 1.5,
     linesClass: "site-footer__quote__line",
   });
 
