@@ -8,7 +8,6 @@
 <script>
 // import { useSmoothScroll } from "~/composables/useSmoothScroll";
 import { gsap } from "gsap";
-
 export default {
   props: {
     transitoned: Boolean,

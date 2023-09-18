@@ -103,10 +103,6 @@ export default {
 .content__inner-wrapper {
   position: relative;
   flex-grow: 1;
-  /* left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0; */
   height: 100%;
   width: 100%;
   z-index: 2;
@@ -136,6 +132,7 @@ export default {
 
 .site-credits .heading-1 {
   grid-area: header;
+  height: fit-content;
 }
 
 .site-credits__credits {

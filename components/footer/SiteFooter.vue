@@ -347,7 +347,7 @@ function logoAnimation() {
     },
   });
 
-  tl.from(".logo__char", {
+  tl.from(".site-footer__logo .logo__char", {
     yPercent: 150,
     duration: 0.8,
     // rotate: 5,

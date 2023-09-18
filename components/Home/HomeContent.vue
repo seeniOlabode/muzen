@@ -213,7 +213,6 @@ export default {
     line-height: 31.2px;
     font-size: 24px;
     letter-spacing: -0.24px;
-    text-align: justify;
   }
   .row {
     margin-top: 120px;

@@ -94,6 +94,7 @@ class Animations {
           lineThreshold: 0.8,
           linesClass: "child__lines",
           wordsClass: "child__words",
+          tag: "span",
         });
         const splitLines = split.lines;
         const tl = gsap.timeline({
@@ -113,13 +114,8 @@ class Animations {
             {
               yPercent: 150,
               rotate: 10,
-              // delay: i * 0.1,
-              // scrollTrigger: {
-              //   trigger: row,
-              //   start: "top 70%",
-              // },
             },
-            `start+=${i * 0.1})`
+            `start+=${i * 0.05})`
           );
         });
       }
