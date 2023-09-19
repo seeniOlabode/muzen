@@ -93,6 +93,7 @@ export default {
 
 .site-credits__content {
   min-height: 50vh;
+  height: fit-content;
   position: relative;
   display: flex;
   flex-direction: column;

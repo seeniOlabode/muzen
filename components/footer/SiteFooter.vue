@@ -65,7 +65,7 @@
 
     <!-- <div class="logo-space-filler"></div> -->
 
-    <transition @enter="onEnter" @leave="onLeave">
+    <transition @enter="creditsEnter" @leave="creditsLeave">
       <site-credits v-show="creditsOpen" @close-creds="creditsOpen = false" />
     </transition>
   </footer>
@@ -77,6 +77,9 @@ import { gsap } from "gsap";
 import { CustomEase } from "gsap/all";
 import { SplitText } from "~/assets/gsap-premium/SplitText";
 gsap.registerPlugin(CustomEase, SplitText);
+
+import { creditsAnimations } from "~/animations/footer/SiteCredits";
+import { footerAnimations } from "~/animations/footer/SiteFooter";
 
 export default {
   setup() {
@@ -147,223 +150,44 @@ export default {
     };
   },
   methods: {
-    onEnter,
-    onLeave,
+    creditsEnter(el, done) {
+      creditsAnimations.enter(el, done);
+    },
+    creditsLeave(el, done) {
+      creditsAnimations.leave(el, done);
+    },
   },
   mounted() {
-    logoAnimation();
+    creditsAnimations.init();
+    footerAnimations.logoIn();
   },
 };
 
-function onEnter(el, done) {
-  // CustomEase.create(
-  //   "custom",
-  //   "M0,0 C0.25,0 0.381,0.023 0.422,0.05 0.515,0.11 0.56,0.282 0.592,0.492 0.626,0.72 0.644,0.802 0.678,0.866 0.7,0.908 0.698,1 1,1 "
-  // );
+// function logoAnimation() {
+//   const tl = gsap.timeline({
+//     scrollTrigger: {
+//       trigger: ".site-footer",
+//       start: "clamp(bottom 101%)",
+//     },
+//   });
 
-  CustomEase.create("custom", "M0,0 C0.65,0 0.35,1 1,1 ");
-
-  const split = new SplitText(".site-footer__quote", {
-    type: "lines,words",
-    lineThreshold: 2,
-    linesClass: "site-footer__quote__line",
-  });
-
-  const tl = gsap.timeline({
-    paused: true,
-    onComplete: () => {
-      done();
-      tl.revert();
-    },
-  });
-
-  tl.addLabel("start-slide-in")
-    .from(
-      ".site-credits__content",
-      {
-        yPercent: -100,
-        ease: "custom",
-        duration: 1.2,
-      },
-      "start-slide-in"
-    )
-    .from(
-      ".content__inner-wrapper",
-      {
-        yPercent: 100,
-        ease: "custom",
-        duration: 1.2,
-      },
-      "start-slide-in"
-    )
-    .from(
-      ".site-credits__backdrop",
-      {
-        autoAlpha: 0,
-      },
-      "start-slide-in+=0.6"
-    )
-    .addLabel("end-slide-in");
-  function siteCredits() {
-    tl.from(
-      ".heading-1 .site-credits__transition",
-      {
-        yPercent: 100,
-        rotate: 10,
-        ease: "circ.out",
-        duration: 0.5,
-      },
-      "end-slide-in-=0.85"
-    );
-    gsap.utils.toArray(".credits__cred-group").forEach((credGroup) => {
-      tl.from(
-        selectAllFrom(".site-credits__transition", credGroup),
-        {
-          yPercent: 100,
-          rotate: 10,
-          ease: "circ.out",
-          stagger: 0.12,
-          duration: 0.5,
-        },
-        "end-slide-in-=0.75"
-      );
-    });
-    tl.from(
-      split.lines,
-      {
-        yPercent: 120,
-        opacity: 0,
-        ease: "power3.out",
-        stagger: 0.15,
-        duration: 1,
-      },
-      "end-slide-in-=0.2"
-    );
-  }
-  siteCredits();
-  tl.add(() => {
-    split.revert();
-  });
-  tl.play();
-}
-
-function onLeave(el, done) {
-  const split = new SplitText(".site-footer__quote", {
-    type: "lines,words",
-    lineThreshold: 2,
-    linesClass: "site-footer__quote__line",
-  });
-
-  const tl = gsap.timeline({
-    paused: true,
-    onComplete: () => {
-      done();
-      tl.revert();
-    },
-  });
-  tl.addLabel("start-slide-out")
-    .to(
-      ".site-credits__content",
-      {
-        yPercent: -100,
-        ease: "custom",
-        duration: 1.2,
-      },
-      "start-slide-out"
-    )
-    .to(
-      ".content__inner-wrapper",
-      {
-        yPercent: 100,
-        ease: "custom",
-        duration: 1.2,
-      },
-      "start-slide-out"
-    )
-    .to(
-      ".site-credits__backdrop",
-      {
-        autoAlpha: 0,
-        duration: 0.5,
-        ease: "power2.in",
-      },
-      "start-slide-out+=0.6"
-    )
-    .addLabel("end-slide-out");
-  function siteCredits() {
-    tl.to(
-      split.lines,
-      {
-        yPercent: 120,
-        opacity: 0,
-        ease: "power3.in",
-        stagger: {
-          each: 0.25,
-          from: "end",
-        },
-        duration: 0.5,
-      },
-      "end-slide-out-=1.3"
-    );
-    gsap.utils.toArray(".credits__cred-group").forEach((credGroup) => {
-      tl.to(
-        selectAllFrom(".site-credits__transition", credGroup),
-        {
-          yPercent: 100,
-          rotate: 10,
-          ease: "circ.in",
-          stagger: {
-            each: 0.12,
-            from: "end",
-          },
-          duration: 0.3,
-        },
-        "end-slide-out-=1.2"
-      );
-    });
-    tl.to(
-      ".heading-1 .site-credits__transition",
-      {
-        yPercent: 100,
-        rotate: 10,
-        ease: "circ.in",
-        duration: 0.5,
-      },
-      ">"
-    );
-  }
-  siteCredits();
-  tl.add(() => {
-    split.revert();
-  });
-  tl.play();
-}
-
-function logoAnimation() {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".site-footer",
-      start: "clamp(bottom 101%)",
-    },
-  });
-
-  tl.from(".site-footer__logo .logo__char", {
-    yPercent: 150,
-    duration: 0.8,
-    // rotate: 5,
-    ease: "power2.out",
-    stagger: {
-      each: 0.08,
-    },
-  }).from(
-    ".creators__credit",
-    {
-      autoAlpha: 0,
-      duration: 1,
-    },
-    ">-=0.5"
-  );
-}
+//   tl.from(".site-footer__logo .logo__char", {
+//     yPercent: 150,
+//     duration: 0.8,
+//     // rotate: 5,
+//     ease: "power2.out",
+//     stagger: {
+//       each: 0.08,
+//     },
+//   }).from(
+//     ".creators__credit",
+//     {
+//       autoAlpha: 0,
+//       duration: 1,
+//     },
+//     ">-=0.5"
+//   );
+// }
 </script>
 
 <style scoped>

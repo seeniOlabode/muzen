@@ -19,33 +19,6 @@ class Animations {
   }
 
   setParallax() {
-    CustomEase.create("reveal-image", "M0,0 C0,0.16 0.5,1 1,1 ");
-    this.imageCovers.forEach((cover, i) => {
-      const image = this.images[i];
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: cover.parentElement,
-          start: "top 60%",
-        },
-      });
-      tl.to(cover, {
-        yPercent: 100,
-        duration: 1,
-        ease: "reveal-image",
-      })
-        .from(
-          image,
-          {
-            scale: 2,
-            duration: 1,
-            ease: "reveal-image",
-          },
-          "<"
-        )
-        .set(cover, {
-          display: "none",
-        });
-    });
     this.images.forEach((image) => {
       gsap.from(image, {
         yPercent: -50,
@@ -71,57 +44,6 @@ class Animations {
     });
   }
 
-  setReveal() {
-    this.rows.forEach((row) => {
-      const headings = selectAllFrom(
-        '[class*="heading"] .animation-wrapper',
-        row
-      );
-      const els = selectAllFrom([".body"], row);
-      if (headings.length) {
-        gsap.from(headings[0], {
-          yPercent: 200,
-          rotate: 10,
-          scrollTrigger: {
-            trigger: row,
-            start: "top 70%",
-          },
-        });
-      }
-      if (els.length) {
-        const split = new SplitText(els, {
-          type: "lines,words",
-          lineThreshold: 0.8,
-          linesClass: "child__lines",
-          wordsClass: "child__words",
-          tag: "span",
-        });
-        const splitLines = split.lines;
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: row,
-            start: "top 70%",
-          },
-          onComplete: () => {
-            split.revert();
-          },
-        });
-        tl.addLabel("start");
-        splitLines.forEach((line, i) => {
-          const words = selectAllFrom(".child__words", line);
-          tl.from(
-            words,
-            {
-              yPercent: 150,
-              rotate: 10,
-            },
-            `start+=${i * 0.05})`
-          );
-        });
-      }
-    });
-  }
-
   init(el) {
     this.el = el;
     this.rows = selectAllFrom(".row", el);
@@ -130,19 +52,14 @@ class Animations {
       ".site-image__image-wrapper .site-image__image",
       el
     );
-    this.imageCovers = selectAllFrom(
-      ".reveal-site-image .reveal-site-image__cover",
-      el
-    );
     this.parallaxRow = selectFrom(".row.parallax", el);
-    this.parallaxImage = selectFrom(".reveal-site-image.parallax", el);
+    this.parallaxImage = selectFrom(".site-image__image-wrapper.parallax", el);
     this.scaledImg = selectFrom(
       ".row:nth-child(5) .site-image__image-wrapper",
       el
     );
     console.log(this.scaledImg);
     this.setParallax();
-    this.setReveal();
   }
 
   destroy() {

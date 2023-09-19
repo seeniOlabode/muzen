@@ -76,8 +76,6 @@ export default {
   },
   methods: {
     async pageTransitionLeave(el, done) {
-      // Todo: remove this
-      // return done();
       this.transitioning = true;
       await appAnimations.leave(el, done, this.scrollToTop);
       this.transitioning = false;
