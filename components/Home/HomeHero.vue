@@ -6,6 +6,7 @@
         src="/images/Home/home-hero-video.mp4"
         autoplay
         loop
+        controls="false"
       ></video>
     </div>
     <div class="home-hero__copy container">
