@@ -104,7 +104,7 @@ export default {
 .content__inner-wrapper {
   position: relative;
   flex-grow: 1;
-  height: 100%;
+  height: fit-content;
   width: 100%;
   z-index: 2;
   display: grid;
