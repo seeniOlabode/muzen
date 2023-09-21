@@ -32,7 +32,11 @@ class animations {
   setEnterAnimations() {
     gsap.from(this.logoChars, {
       yPercent: 120,
-      stagger: 0.15,
+      duration: 0.55,
+      ease: "power2.out",
+      stagger: {
+        each: 0.15,
+      },
     });
   }
 

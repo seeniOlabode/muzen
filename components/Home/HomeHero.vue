@@ -55,9 +55,9 @@ export default {
   },
   mounted() {
     if (this.transitioned) {
-      this.$eventBus.on("home-transition-almost-out", () => {
+      this.$eventBus.on("home-enter-animation", () => {
         HomeHeroAnimations.init(this.$refs.homeHero);
-        this.$eventBus.off("home-transition-almost-out");
+        this.$eventBus.off("home-enter-animation");
       });
     } else {
       HomeHeroAnimations.init(this.$refs.homeHero);

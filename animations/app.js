@@ -1,10 +1,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger, CustomEase } from "gsap/all";
-
 gsap.registerPlugin(ScrollTrigger, CustomEase);
-
 import { selectAllFrom } from "~/utils/utils";
-
 import { emitter } from "~/plugins/event-bus";
 
 class animations {
@@ -14,120 +11,127 @@ class animations {
     this.elLogoChars = null;
     this.leaveTl = null;
     this.transitionAlmostOut = null;
+    this.callbacks = [];
   }
 
-  async leave(_, done, mid, page) {
+  async leave(_, done, callbacks) {
     // NOTE: the done callback passed to this method will always be different, we can't keep calling the same done in our timeline so we must update it;
+    if (callbacks) {
+      console.log("callbacks", callbacks);
+      this.setCallbacks(callbacks);
+    }
     return new Promise((r) => {
-      const transitionAlmostOut = () => {
-        console.log("page: ", page);
-        emitter.emit(page + "-transition-almost-out");
-      };
-      const onComplete = () => {
-        r();
-        this.transitionAlmostOut = transitionAlmostOut;
-        emitter.emit("transition-out");
-      };
       if (this.leaveTl) {
-        this.transitionAlmostOut &&
-          this.leaveTl.remove(this.transitionAlmostOut);
-
         return this.leaveTl
+          .eventCallback("onComplete", r)
           .restart()
-          .add(done, "done-callback")
-          .add("almost-out", transitionAlmostOut)
-          .eventCallback("onComplete", onComplete);
+          .play()
+          .add(() => {
+            console.log("done");
+            done();
+          }, "done");
       }
-
-      this.leaveTl = gsap
-        .timeline({
-          puased: true,
-          onComplete: onComplete,
-        })
-        .set(this.el, {
-          autoAlpha: 1,
-        })
-        .from(this.el, {
-          yPercent: -100,
-          duration: 1.5,
-          ease: "smooth-transition",
-        })
-        .from(
-          this.elContent,
-          {
-            yPercent: 100,
-            duration: 1.5,
-            ease: "smooth-transition",
-          },
-          "<"
-        )
-        .from(
-          this.elLogoChars,
-          {
-            yPercent: 100,
-            duration: 0.55,
-            ease: "power2.out",
-            stagger: {
-              each: 0.15,
-            },
-          },
-          "<+0.8"
-        )
-        .addLabel("done-callback")
-        .add(done, "done-callback")
-        .call(() => {
-          emitter.emit("page-in", true);
-          if (mid) {
-            mid();
-          }
-        })
-        .to(
-          this.elLogoChars,
-          {
-            yPercent: -100,
-            duration: 0.3,
-            ease: "power1.in",
-            stagger: {
-              each: 0.05,
-            },
-          },
-          ">+=1"
-        )
-        .to(
-          this.el,
-          {
-            yPercent: 100,
-            duration: 1.3,
-            ease: "smooth-transition",
-          },
-          ">"
-        )
-        .from(
-          this.elContent,
-          {
-            yPercent: -100,
-            duration: 1.3,
-            ease: "smooth-transition",
-          },
-          "<"
-        )
-        .addLabel("almost-out", "<+=0.5")
-        .call(
-          () => {
-            emitter.emit(page + "-transition-almost-out");
-          },
-          [],
-          "almost-out"
-        )
-        .play();
     });
   }
 
-  init(el) {
+  setLeaveAnimation() {
+    this.leaveTl = gsap
+      .timeline({
+        puased: true,
+      })
+      .addLabel("start")
+      .set(this.el, {
+        autoAlpha: 1,
+      })
+      .from(
+        this.el,
+        {
+          yPercent: -100,
+          duration: 1.5,
+          ease: "smooth-transition",
+        },
+        "start"
+      )
+      .from(
+        this.elContent,
+        {
+          yPercent: 100,
+          duration: 1.5,
+          ease: "smooth-transition",
+        },
+        "<"
+      )
+      .from(
+        this.elLogoChars,
+        {
+          yPercent: 100,
+          duration: 0.55,
+          ease: "power2.out",
+          stagger: {
+            each: 0.15,
+          },
+        },
+        "<+0.8"
+      )
+
+      .addLabel("done")
+      .call(() => {
+        // Scroll back to the top mid animation
+        this.scrollToTop && this.scrollToTop();
+      })
+      .to(
+        this.elLogoChars,
+        {
+          yPercent: -100,
+          duration: 0.3,
+          ease: "power1.in",
+          stagger: {
+            each: 0.05,
+          },
+        },
+        ">+=1"
+      )
+      .to(
+        this.el,
+        {
+          yPercent: 100,
+          duration: 1.3,
+          ease: "smooth-transition",
+        },
+        ">"
+      )
+      .from(
+        this.elContent,
+        {
+          yPercent: -100,
+          duration: 1.3,
+          ease: "smooth-transition",
+        },
+        "<"
+      );
+  }
+
+  setCallbacks(callbacks) {
+    this.callbacks = callbacks;
+    callbacks.forEach((c) => {
+      this.leaveTl.add(this.createEmitCb(c.name), c.time);
+    });
+  }
+
+  createEmitCb(name) {
+    return () => {
+      console.log(name);
+      emitter.emit(name, true);
+    };
+  }
+
+  init(el, config) {
     this.el = el;
     this.elContent = selectFrom(".page-transition__content", el);
     this.elLogoChars = selectAllFrom(".logo__char", el);
     CustomEase.create("smooth-transition", "M0,0 C0.65,0 0.35,1 1,1 ");
+    this.scrollToTop = config.scrollToTop;
+    this.setLeaveAnimation();
   }
 }
 

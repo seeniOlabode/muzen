@@ -7,7 +7,7 @@ export default <RouterConfig>{
       name: "Home",
       path: "/",
       meta: {
-        mitt: "home",
+        mitt: [{ name: "home-enter-animation", time: 4 }],
       },
       component: () => import("~/pages/home.vue").then((r) => r.default || r),
     },
@@ -17,7 +17,7 @@ export default <RouterConfig>{
       component: () =>
         import(`~/pages/lookbook.vue`).then((r) => r.default || r),
       meta: {
-        mitt: "lookbook",
+        mitt: [],
       },
     },
     {
@@ -25,7 +25,7 @@ export default <RouterConfig>{
       path: "/studio",
       component: () => import(`~/pages/studio.vue`).then((r) => r.default || r),
       meta: {
-        mitt: "studio",
+        mitt: [{ name: "studio-enter-animations", time: 3.5 }],
       },
     },
     {
@@ -34,7 +34,7 @@ export default <RouterConfig>{
       component: () =>
         import(`~/pages/easter-egg.vue`).then((r) => r.default || r),
       meta: {
-        mitt: "easter",
+        mitt: [{ name: "footer-leave", time: "done" }],
       },
     },
     {
@@ -43,7 +43,7 @@ export default <RouterConfig>{
       component: () =>
         import("~/pages/contact.vue").then((r) => r.default || r),
       meta: {
-        mitt: "contact",
+        mitt: [{ name: "footer-leave", time: "done" }],
       },
     },
   ],

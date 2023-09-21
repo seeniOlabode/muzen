@@ -43,9 +43,10 @@ export default {
   },
   mounted() {
     if (this.transitioned) {
-      this.$eventBus.on("studio-transition-almost-out", () => {
+      this.$eventBus.on("studio-enter-animations", () => {
+        console.log("we outsideee");
         StudioHeroAnimations.init(this.$refs.studioHero);
-        this.$eventBus.off("studio-transition-almost-out");
+        this.$eventBus.off("studio-enter-animations");
       });
     } else {
       StudioHeroAnimations.init(this.$refs.studioHero);
@@ -78,6 +79,7 @@ export default {
   padding: 16px;
   margin-top: 24px;
   position: relative;
+  z-index: 10;
 }
 
 .hero-content__copy {

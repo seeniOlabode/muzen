@@ -99,12 +99,7 @@ export default {
   methods: {
     async pageTransitionLeave(el, done) {
       this.transitioning = true;
-      await appAnimations.leave(
-        el,
-        done,
-        this.scrollToTop,
-        this.$route.meta.mitt
-      );
+      await appAnimations.leave(el, done, this.$route.meta.mitt);
       this.transitioning = false;
     },
     scrollToTop() {
@@ -112,17 +107,16 @@ export default {
     },
     footerLeave(el, done) {
       if (this.transitioned) {
-        this.$eventBus.on(
-          this.$route.meta.mitt + "-transition-almost-out",
-          done
-        );
+        this.$eventBus.on("footer-leave", done);
       } else {
         done();
       }
     },
   },
   mounted() {
-    appAnimations.init(this.$refs.pageTrans.$refs.pageTransition);
+    appAnimations.init(this.$refs.pageTrans.$refs.pageTransition, {
+      scrollToTop: this.scrollToTop,
+    });
   },
 };
 </script>
