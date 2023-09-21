@@ -6,7 +6,6 @@
         src="/images/Home/home-hero-video.mp4"
         autoplay
         loop
-        controls="false"
       ></video>
     </div>
     <div class="home-hero__copy container">
@@ -46,11 +45,6 @@ gsap.registerPlugin(Draggable);
 
 export default {
   inject: ["getTransitioned"],
-  data() {
-    return {
-      animationsSet: false,
-    };
-  },
   computed: {
     logoSplitText() {
       return "Muzen".split("");
@@ -61,16 +55,13 @@ export default {
   },
   mounted() {
     if (this.transitioned) {
-      this.$eventBus.on("transition-almost-out", () => {
+      this.$eventBus.on("home-transition-almost-out", () => {
         HomeHeroAnimations.init(this.$refs.homeHero);
-        this.$eventBus.off("transition-almost-out");
+        this.$eventBus.off("home-transition-almost-out");
       });
     } else {
       HomeHeroAnimations.init(this.$refs.homeHero);
     }
-  },
-  beforeUnmount() {
-    this.$eventBus.off("transition-almost-out");
   },
 };
 </script>

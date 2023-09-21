@@ -48,22 +48,6 @@
       <p class="creators__credit">Design by Tosin</p>
       <p class="creators__credit">Development by Bode</p>
     </div>
-    <!-- 
-    <div class="site-footer__logo fake">
-      <h2 class="logo__word">
-        <span
-          class="logo__char"
-          v-for="(char, i) in 'Muzen'.split('')"
-          :key="char + i"
-        >
-          {{ char }}
-        </span>
-      </h2>
-      <p class="creators__credit">Design by Tosin</p>
-      <p class="creators__credit">Development by Bode</p>
-    </div> -->
-
-    <!-- <div class="logo-space-filler"></div> -->
 
     <transition @enter="creditsEnter" @leave="creditsLeave">
       <site-credits v-show="creditsOpen" @close-creds="creditsOpen = false" />
@@ -162,32 +146,6 @@ export default {
     footerAnimations.logoIn();
   },
 };
-
-// function logoAnimation() {
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: ".site-footer",
-//       start: "clamp(bottom 101%)",
-//     },
-//   });
-
-//   tl.from(".site-footer__logo .logo__char", {
-//     yPercent: 150,
-//     duration: 0.8,
-//     // rotate: 5,
-//     ease: "power2.out",
-//     stagger: {
-//       each: 0.08,
-//     },
-//   }).from(
-//     ".creators__credit",
-//     {
-//       autoAlpha: 0,
-//       duration: 1,
-//     },
-//     ">-=0.5"
-//   );
-// }
 </script>
 
 <style scoped>

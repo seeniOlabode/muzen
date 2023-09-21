@@ -1,9 +1,12 @@
 <template>
-  <section class="studio-hero">
+  <section class="studio-hero" ref="studioHero">
     <h1 class="studio-hero__logo">
-      <span v-for="(char, i) in 'Muzen'.split('')" :key="char + i">{{
-        char
-      }}</span>
+      <span
+        v-for="(char, i) in 'Muzen'.split('')"
+        :key="char + i"
+        class="logo__char"
+        >{{ char }}</span
+      >
     </h1>
     <div class="studio-hero__hero-content">
       <p class="hero-content__copy body">
@@ -11,6 +14,14 @@
         lens, and our dedicated team of talented photographers is here to bring
         your vision to life.
       </p>
+      <div class="hero-content__video-wrapper">
+        <video
+          class="hero-content__video"
+          src="/images/Studio/studio-video-trimmed.mp4"
+          autoplay
+          loop
+        ></video>
+      </div>
     </div>
 
     <div class="studio-hero__heading">
@@ -21,7 +32,26 @@
 </template>
 
 <script>
-export default {};
+import { StudioHeroAnimations } from "~/animations/studio/StudioHero";
+
+export default {
+  inject: ["getTransitioned"],
+  computed: {
+    transitioned() {
+      return this.getTransitioned();
+    },
+  },
+  mounted() {
+    if (this.transitioned) {
+      this.$eventBus.on("studio-transition-almost-out", () => {
+        StudioHeroAnimations.init(this.$refs.studioHero);
+        this.$eventBus.off("studio-transition-almost-out");
+      });
+    } else {
+      StudioHeroAnimations.init(this.$refs.studioHero);
+    }
+  },
+};
 </script>
 
 <style scoped>
@@ -42,21 +72,38 @@ export default {};
 .studio-hero__hero-content {
   aspect-ratio: 396/348;
   width: 100%;
-  background-image: url(/images/Preloader/khaled-ghareeb-rBdkjxJlRaI-unsplash.jpg);
-  background-size: cover;
-  background-position: 0% 40%;
   display: flex;
   justify-content: end;
   align-items: end;
   padding: 16px;
   margin-top: 24px;
+  position: relative;
 }
 
 .hero-content__copy {
   font-size: 14px;
+  font-weight: 500;
   color: white;
   margin-bottom: 10%;
   max-width: 95%;
+  position: relative;
+  z-index: 20;
+}
+
+.hero-content__video-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.hero-content__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .studio-hero__heading {

@@ -13,19 +13,29 @@ class animations {
     this.elContent = null;
     this.elLogoChars = null;
     this.leaveTl = null;
+    this.transitionAlmostOut = null;
   }
 
-  async leave(_, done, mid) {
+  async leave(_, done, mid, page) {
     // NOTE: the done callback passed to this method will always be different, we can't keep calling the same done in our timeline so we must update it;
     return new Promise((r) => {
+      const transitionAlmostOut = () => {
+        console.log("page: ", page);
+        emitter.emit(page + "-transition-almost-out");
+      };
       const onComplete = () => {
         r();
+        this.transitionAlmostOut = transitionAlmostOut;
         emitter.emit("transition-out");
       };
       if (this.leaveTl) {
+        this.transitionAlmostOut &&
+          this.leaveTl.remove(this.transitionAlmostOut);
+
         return this.leaveTl
           .restart()
           .add(done, "done-callback")
+          .add("almost-out", transitionAlmostOut)
           .eventCallback("onComplete", onComplete);
       }
 
@@ -101,12 +111,13 @@ class animations {
           },
           "<"
         )
+        .addLabel("almost-out", "<+=0.5")
         .call(
           () => {
-            emitter.emit("transition-almost-out");
+            emitter.emit(page + "-transition-almost-out");
           },
           [],
-          "<+=0.5"
+          "almost-out"
         )
         .play();
     });

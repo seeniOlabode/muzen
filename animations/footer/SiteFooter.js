@@ -22,7 +22,7 @@ class animations {
         each: 0.12,
       },
     }).from(
-      ".creators__credit",
+      ".site-footer .creators__credit",
       {
         autoAlpha: 0,
         duration: 1,

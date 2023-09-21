@@ -27,26 +27,31 @@ class Animations {
 
     this.scrollTl.to(this.elVideo, {
       scale: 2,
+      ease: "linear",
     });
   }
 
   setEnterAnimations() {
     const split = new SplitText(this.elCopyBodies, {
       type: "lines,words",
-      lineThreshold: 0.8,
+      lineThreshold: 1,
       linesClass: "hero__lines",
       wordsClass: "hero__words",
     });
 
     const splitLines = split.lines;
+    const tl = gsap.timeline();
+    tl.addLabel("start");
 
     splitLines.forEach((line, i) => {
       const words = selectAllFrom(".hero__words", line);
-      gsap.from(words, {
-        yPercent: 150,
-        rotate: 10,
-        delay: (i + 1) * 0.1,
-      });
+      tl.from(
+        words,
+        {
+          yPercent: 150,
+        },
+        "start+=" + i * 0.1
+      );
     });
 
     this.enterAnimations = gsap.timeline();
