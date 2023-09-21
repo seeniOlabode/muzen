@@ -139,7 +139,9 @@ export default {
     if (this.transitioned) {
       this.$eventBus.on("lookbook-enter-animations", () => {
         console.log("we insideee");
-        LookbookAnimations.init(this.$refs.lookbookPage);
+        LookbookAnimations.init(this.$refs.lookbookPage, {
+          desktop: this.desktop,
+        });
         this.$eventBus.off("lookbook-enter-animations");
       });
     } else {
