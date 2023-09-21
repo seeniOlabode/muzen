@@ -17,7 +17,7 @@ export default <RouterConfig>{
       component: () =>
         import(`~/pages/lookbook.vue`).then((r) => r.default || r),
       meta: {
-        mitt: [],
+        mitt: [{ name: "lookbook-enter-animations", time: 3.8 }],
       },
     },
     {
@@ -25,7 +25,7 @@ export default <RouterConfig>{
       path: "/studio",
       component: () => import(`~/pages/studio.vue`).then((r) => r.default || r),
       meta: {
-        mitt: [{ name: "studio-enter-animations", time: 3.5 }],
+        mitt: [{ name: "studio-enter-animations", time: 3.8 }],
       },
     },
     {

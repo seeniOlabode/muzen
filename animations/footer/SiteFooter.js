@@ -10,16 +10,16 @@ class animations {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".site-footer",
-        start: "clamp(bottom 101%)",
+        start: "clamp(bottom 120%)",
       },
     });
 
     tl.from(".site-footer__logo .logo__char", {
       yPercent: 150,
-      duration: 0.7,
-      ease: "credits-in",
+      duration: 1,
+      ease: "power2.out",
       stagger: {
-        each: 0.12,
+        each: 0.15,
       },
     }).from(
       ".site-footer .creators__credit",

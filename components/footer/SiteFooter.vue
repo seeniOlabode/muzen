@@ -100,7 +100,7 @@ export default {
           header: "support",
           links: [
             {
-              text: "Credit",
+              text: "Credits",
               type: "button",
               action: () => {
                 this.creditsOpen = true;

@@ -182,7 +182,7 @@ class animations {
     if (!this.quoteSplit) {
       this.quoteSplit = new SplitText(".site-footer__quote", {
         type: "lines,words",
-        lineThreshold: 100,
+        lineThreshold: 1,
         linesClass: "site-footer__quote__line",
       });
     }

@@ -117,17 +117,16 @@ export default {
   },
   mounted() {
     if (this.transitioned) {
-      this.$eventBus.on("transition-almost-out", () => {
+      this.$eventBus.on("home-enter-animation", () => {
         HomeContentAnimations.init(this.$refs.homeContent);
-        this.$eventBus.off("transition-almost-out");
+        this.$eventBus.off("home-enter-animation");
       });
     } else {
       HomeContentAnimations.init(this.$refs.homeContent);
     }
   },
   unmounted() {
-    HomeContentAnimations.destroy();
-    this.$eventBus.off("transition-almost-out");
+    // HomeContentAnimations.destroy();
   },
 };
 </script>

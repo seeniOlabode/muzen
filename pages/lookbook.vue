@@ -1,5 +1,5 @@
 <template>
-  <main class="lookbook-page container">
+  <main class="lookbook-page container" ref="lookbookPage">
     <section class="lookbook-page__intro">
       <h1 class="intro__heading heading-1">Lookbook</h1>
       <p class="intro__copy body">
@@ -103,14 +103,50 @@
 </template>
 
 <script>
+import { LookbookAnimations } from "~/animations/lookbook/lookbook";
+import { useWindowSize } from "@vueuse/core";
+
 export default {
+  inject: ["getTransitioned"],
   setup() {
     useHead({
       title: "Muzen Lookbook",
     });
+    const { width: windowWidth } = useWindowSize();
+    let desktop = computed(() => windowWidth.value >= 724);
+    return {
+      desktop,
+    };
   },
   data() {
     return {};
+  },
+  watch: {
+    desktop(value) {
+      if (!value) {
+        LookbookAnimations.stopDraggable();
+      } else {
+        LookbookAnimations.setDraggable();
+      }
+    },
+  },
+  computed: {
+    transitioned() {
+      return this.getTransitioned();
+    },
+  },
+  mounted() {
+    if (this.transitioned) {
+      this.$eventBus.on("lookbook-enter-animations", () => {
+        console.log("we insideee");
+        LookbookAnimations.init(this.$refs.lookbookPage);
+        this.$eventBus.off("lookbook-enter-animations");
+      });
+    } else {
+      LookbookAnimations.init(this.$refs.lookbookPage, {
+        desktop: this.desktop,
+      });
+    }
   },
 };
 </script>
@@ -131,6 +167,11 @@ export default {
   color: var(--muzen-dark-brown);
   grid-area: heading;
   margin: 0;
+}
+
+:global(.intro__heading__lines) {
+  overflow: hidden;
+  display: none;
 }
 
 .intro__copy {
@@ -169,6 +210,12 @@ export default {
 .gallery__image {
   &.mobile-hidden {
     display: none;
+  }
+}
+
+@media screen and (width <= 724px) {
+  .gallery__image {
+    transform: none !important;
   }
 }
 

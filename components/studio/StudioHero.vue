@@ -135,6 +135,7 @@ export default {
 @media screen and (width >= 724px) {
   .studio-hero__logo {
     margin-top: 172px;
+    font-size: 28vw;
   }
 
   .studio-hero__hero-content {
@@ -150,6 +151,18 @@ export default {
 
   .studio-hero__heading {
     margin-top: 120px;
+  }
+}
+
+@media screen and (width >= 900px) {
+  .studio-hero__logo {
+    font-size: 29vw;
+  }
+}
+
+@media screen and (width >= 1200px) {
+  .studio-hero__logo {
+    font-size: 29.5vw;
   }
 }
 </style>

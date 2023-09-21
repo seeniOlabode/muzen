@@ -33,7 +33,8 @@
           enchantment.
         </q>
         <button class="close-credits" @click="$emit('close-creds', true)">
-          [Close]
+          <span class="default">[Close]</span>
+          <span class="hover">(Close)</span>
         </button>
       </div>
     </div>
@@ -199,6 +200,20 @@ export default {
   margin-left: auto;
   margin-top: auto;
   cursor: pointer;
+
+  .hover {
+    display: none;
+  }
+
+  &:hover {
+    .default {
+      display: none;
+    }
+
+    .hover {
+      display: inline;
+    }
+  }
 }
 
 .animation-wrapper {
