@@ -43,7 +43,10 @@ export default <RouterConfig>{
       component: () =>
         import("~/pages/contact.vue").then((r) => r.default || r),
       meta: {
-        mitt: [{ name: "footer-leave", time: "done" }],
+        mitt: [
+          { name: "footer-leave", time: "done" },
+          { name: "contact-enter-animations", time: 3.8 },
+        ],
       },
     },
   ],

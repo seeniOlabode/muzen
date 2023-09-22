@@ -1,13 +1,13 @@
 <template>
-  <div class="reveal-site-image">
+  <div class="reveal-site-image" :class="['reveal-wrapper-' + customClass]">
     <div class="reveal-site-image__cover"></div>
-    <site-image :aRatio="aRatio" :src="src" />
+    <site-image :aRatio="aRatio" :src="src" :customClass="customClass" />
   </div>
 </template>
 
 <script>
 export default {
-  props: ["src", "aRatio"],
+  props: ["src", "aRatio", "customClass"],
 };
 </script>
 

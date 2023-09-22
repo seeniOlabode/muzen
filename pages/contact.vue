@@ -1,5 +1,5 @@
 <template>
-  <main class="contact-page container">
+  <main class="contact-page container" ref="contactPage">
     <section class="contact-page__content">
       <h1 class="content__heading heading-1">
         <span class="content__animation-span">
@@ -18,48 +18,83 @@
         </span>
       </h1>
       <p class="content__copy body">
-        <span class="content__animation-span">
-          Thanks for your interest in our project! Please note this is not a
-          real fashion studio. We own none of the images used here. You can
-          visit the credits page to know the respective owners. We're just young
-          and bored creatives trying to showcase our skills in creative web
-          design, art direction, motion design and web development.
-        </span>
+        Thanks for your interest in our project! Please note this is not a real
+        fashion studio. We own none of the images used here. You can visit the
+        <action-button
+          text="credits"
+          size="sm"
+          color="#1c1816"
+          :highlight="true"
+          @click="creditsOpen = true"
+        />
+        page to know the respective owners. We're just young and bored creatives
+        trying to showcase our skills in creative web design, art direction,
+        motion design and web development.
       </p>
       <div class="content__graphic">
-        <site-image
+        <reveal-site-image
           src="/images/Contact/2218e288ff48b77ca0df131b7290e4c6.jpg"
           :aRatio="false"
           customClass="content__img-container"
         />
       </div>
       <p class="content__cta">
-        <span class="content__animation-span">
-          IF YOU HAVE A POTENTIAL PROJECT OR COLLABORATION THAT YOU'D LIKE TO
-          DISCUSS
-        </span>
+        IF YOU HAVE A POTENTIAL PROJECT OR COLLABORATION THAT YOU'D LIKE TO
+        DISCUSS
       </p>
       <div class="content__creators">
-        <p class="creators__credit">
-          <span class="content__animation-span"> Design by Tosin </span>
-        </p>
-        <p class="creators__credit">
-          <span class="content__animation-span"> Development by Bode </span>
-        </p>
+        <p class="creators__credit">Design by Tosin</p>
+        <p class="creators__credit">Development by Bode</p>
       </div>
     </section>
+    <transition @enter="creditsEnter" @leave="creditsLeave">
+      <site-credits v-show="creditsOpen" @close-creds="creditsOpen = false" />
+    </transition>
   </main>
 </template>
 
 <script>
 import { gsap } from "gsap";
 
+import { ContactPageAnimations } from "~/animations/contact/contact";
+import { creditsAnimations } from "~/animations/footer/SiteCredits";
+
 export default {
   name: "Contact Page",
+  inject: ["getTransitioned"],
   setup() {
     useHead({
       title: "Muzen Contact",
     });
+  },
+  data() {
+    return {
+      creditsOpen: false,
+    };
+  },
+  computed: {
+    transitioned() {
+      return this.getTransitioned();
+    },
+  },
+  methods: {
+    creditsEnter(el, done) {
+      creditsAnimations.enter(el, done);
+    },
+    creditsLeave(el, done) {
+      creditsAnimations.leave(el, done);
+    },
+  },
+  mounted() {
+    if (this.transitioned) {
+      this.$eventBus.on("contact-enter-animations", () => {
+        ContactPageAnimations.init(this.$refs.contactPage);
+        this.$eventBus.off("contact-enter-animations");
+      });
+    } else {
+      ContactPageAnimations.init(this.$refs.contactPage);
+    }
+    creditsAnimations.init();
   },
 };
 </script>
@@ -97,6 +132,10 @@ export default {
   align-self: center;
 }
 
+:global(.content__copy__lines) {
+  overflow: hidden;
+}
+
 .content__graphic {
   grid-area: graphic;
   margin-top: 24px;
@@ -114,6 +153,10 @@ export default {
   font-family: var(--muzen-nohemi);
   font-weight: 500;
   font-size: clamp(0px, 32px, 8vw);
+}
+
+:global(.content__cta__lines) {
+  overflow: hidden;
 }
 
 .content__creators {
@@ -137,8 +180,6 @@ export default {
   }
 
   .content__copy {
-    display: flex;
-    align-items: center;
     max-width: 560px;
     margin: 0;
     margin-left: auto;

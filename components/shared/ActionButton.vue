@@ -1,5 +1,8 @@
 <template>
-  <button class="action-button" :class="[size, color]">
+  <button
+    class="action-button"
+    :class="[size, color, { highlight: highlight }]"
+  >
     {{ text }}
   </button>
 </template>
@@ -18,6 +21,11 @@ export default {
     color: {
       type: String,
       default: "light",
+    },
+    highlight: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 };

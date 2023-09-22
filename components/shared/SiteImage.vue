@@ -18,7 +18,8 @@ export default {
     },
     customClass: {
       type: String,
-      default: false,
+      required: false,
+      default: "",
     },
   },
 };

@@ -37,7 +37,7 @@ class animations {
   setLeaveAnimation() {
     this.leaveTl = gsap
       .timeline({
-        puased: true,
+        paused: true,
       })
       .addLabel("start")
       .set(this.el, {

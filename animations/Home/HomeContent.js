@@ -42,20 +42,32 @@ class Animations {
         id: "parallax",
       },
     });
+    // const toScale = window.innerWidth / this.scaledImg.clientWidth;
+    // gsap.to(this.scaledImg, {
+    //   scale: toScale,
+    //   transformOrigin: "center",
+    //   scrollTrigger: {
+    //     trigger: this.scaledImg,
+    //     start: "top bottom",
+    //     end: "top 20%",
+    //     scrub: true,
+    //     pin: true,
+    //     pinReparent: true,
+    //   },
+    // });
   }
 
   init(el) {
     this.el = el;
     this.rows = selectAllFrom(".row", el);
-    console.log(this.rows);
     this.images = selectAllFrom(
-      ".site-image__image-wrapper .site-image__image",
+      ".site-image__image-wrapper:not(.home-content__scaled-image) .site-image__image",
       el
     );
     this.parallaxRow = selectFrom(".row.parallax", el);
     this.parallaxImage = selectFrom(".site-image__image-wrapper.parallax", el);
     this.scaledImg = selectFrom(
-      ".row:nth-child(5) .site-image__image-wrapper",
+      ".row:nth-child(6) .site-image__image-wrapper.home-content__scaled-image",
       el
     );
     console.log(this.scaledImg);
