@@ -103,6 +103,7 @@ export default {
 .contact-page {
   padding-top: 144px;
   padding-bottom: 96px;
+  background-color: var(--muzen-light-brown);
 }
 
 .contact-page__content {

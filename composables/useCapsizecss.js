@@ -1,7 +1,4 @@
 import { createStyleObject } from "@capsizecss/core";
-// import { fromFile } from "@capsizecss/unpack";
-
-// console.log(fromFile);
 
 const Nohemi = createStyleObject({
   capHeight: 64,

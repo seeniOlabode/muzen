@@ -44,7 +44,6 @@ export default {
   mounted() {
     if (this.transitioned) {
       this.$eventBus.on("studio-enter-animations", () => {
-        console.log("we outsideee");
         StudioHeroAnimations.init(this.$refs.studioHero);
         this.$eventBus.off("studio-enter-animations");
       });

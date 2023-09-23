@@ -70,7 +70,6 @@ class Animations {
       ".row:nth-child(6) .site-image__image-wrapper.home-content__scaled-image",
       el
     );
-    console.log(this.scaledImg);
     this.setParallax();
   }
 

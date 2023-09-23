@@ -17,7 +17,6 @@ class animations {
   async leave(_, done, callbacks) {
     // NOTE: the done callback passed to this method will always be different, we can't keep calling the same done in our timeline so we must update it;
     if (callbacks) {
-      console.log("callbacks", callbacks);
       this.setCallbacks(callbacks);
     }
     return new Promise((r) => {
@@ -27,7 +26,6 @@ class animations {
           .restart()
           .play()
           .add(() => {
-            console.log("done");
             done();
           }, "done");
       }
@@ -120,7 +118,6 @@ class animations {
 
   createEmitCb(name) {
     return () => {
-      console.log(name);
       emitter.emit(name, true);
     };
   }

@@ -35,9 +35,6 @@ export const recursiveStagger = (items, config) => {
 
     if (counter < lastIndex) {
       counter++;
-      // setTimeout(() => {
-      //   console.log("wowo");
-      // }, config.interval);
       setTimeout(() => {
         alert("ahh");
       }, 1000);
@@ -45,4 +42,11 @@ export const recursiveStagger = (items, config) => {
   }
 
   stagger();
+};
+export const getCssVariable = (element, variableName) => {
+  const computedStyles = getComputedStyle(element);
+  const variableValue = computedStyles
+    .getPropertyValue(`--${variableName}`)
+    .trim();
+  return variableValue;
 };

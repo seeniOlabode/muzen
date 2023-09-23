@@ -138,7 +138,6 @@ export default {
   mounted() {
     if (this.transitioned) {
       this.$eventBus.on("lookbook-enter-animations", () => {
-        console.log("we insideee");
         LookbookAnimations.init(this.$refs.lookbookPage, {
           desktop: this.desktop,
         });
@@ -157,6 +156,7 @@ export default {
 .lookbook-page {
   /* height: 100vh; */
   padding-top: 144px;
+  background-color: var(--muzen-light-brown);
 }
 
 .lookbook-page__intro {

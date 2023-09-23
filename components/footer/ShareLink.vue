@@ -39,7 +39,6 @@ export default {
       this.source += this.$route.fullPath;
       this.copy(this.source);
       this.text = "Copied!";
-      console.log(this.$route);
 
       setTimeout(() => {
         this.text = "Copy link address";

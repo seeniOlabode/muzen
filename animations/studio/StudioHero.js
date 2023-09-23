@@ -41,7 +41,6 @@ class animations {
   }
 
   init(el) {
-    console.log(this);
     this.scrollTrigger && this.scrollTrigger.kill();
     this.el = el;
     this.logoChars = selectAllFrom(".studio-hero__logo .logo__char", el);

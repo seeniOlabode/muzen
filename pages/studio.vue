@@ -111,6 +111,7 @@ export default {
 .studio-page {
   /* height: 100vh; */
   padding-bottom: 96px;
+  background-color: var(--muzen-light-brown);
 }
 
 .inner-container {

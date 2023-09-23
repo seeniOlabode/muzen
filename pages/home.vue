@@ -19,5 +19,6 @@ export default {
 
 <style scoped>
 .home-page {
+  background-color: var(--muzen-light-brown);
 }
 </style>

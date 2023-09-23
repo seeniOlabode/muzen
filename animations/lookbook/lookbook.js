@@ -32,7 +32,6 @@ class animations {
 
   stopDraggable() {
     if (this.draggable) {
-      console.log(this.draggable);
       this.draggable.forEach((d) => d.kill());
     }
   }
@@ -48,7 +47,6 @@ class animations {
     this.galleryContainer = selectFrom(".lookbook-page__gallery", el);
     this.galleryImages = selectAllFrom(".gallery__image", el);
     this.setEnterAnimations();
-    console.log(config);
     config.desktop && this.setDraggable();
   }
 }

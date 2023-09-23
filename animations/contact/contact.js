@@ -129,7 +129,6 @@ class animations {
       ".reveal-wrapper-content__img-container",
       el
     );
-    console.log(this.elContentImage);
     this.elContentCopy = selectFrom(".content__copy.body", el);
     this.elContentCta = selectFrom(".content__cta", el);
     this.elContentCreators = selectAllFrom(
