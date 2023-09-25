@@ -53,7 +53,7 @@ export default {
   },
   data() {
     return {
-      assetsLoaded: true,
+      assetsLoaded: false,
     };
   },
   computed: {},
@@ -61,10 +61,9 @@ export default {
     const transitioning = ref(false);
     const transitioned = ref(false);
     if (process.client) {
-      lockScroll(transitioning);
+      lockScroll(transitioning, "app", true);
       const unwatch = watch(transitioning, (value) => {
         if (value) {
-          unwatch();
           transitioned.value = true;
         }
       });

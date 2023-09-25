@@ -3,7 +3,7 @@ import { Observer, Flip } from "gsap/all";
 
 gsap.registerPlugin(Observer, Flip);
 
-import { selectAllFrom, getBounding } from "~/utils/utils";
+import { selectFrom, selectAllFrom, getBounding } from "~/utils/utils";
 
 class animations {
   constructor() {
@@ -19,6 +19,7 @@ class animations {
     this.windowY = null;
     this.windowXCenter = null;
     this.windowYCenter = null;
+    this.stopped = false;
 
     // this.vel = false;
 
@@ -67,8 +68,10 @@ class animations {
     this.galleryImages = selectAllFrom(".photo-list__photo", this.el);
 
     this.galleryImages.forEach((photo, i) => {
-      const xSetter = gsap.quickSetter(photo, "x", "px");
-      const ySetter = gsap.quickSetter(photo, "y", "px");
+      // const xSetter = gsap.quickSetter(photo, "x", "px");
+      // const ySetter = gsap.quickSetter(photo, "y", "px");
+      const xVarSetter = gsap.quickSetter(photo, "--x", "px");
+      const yVarSetter = gsap.quickSetter(photo, "--y", "px");
       // const rSetter = gsap.quickSetter(photo, "rotate", "deg");
       let lerpValue = ((i + 1) / this.galleryImages.length) * 0.1;
       lerpValue = gsap.utils.clamp(0.05, 0.1, lerpValue);
@@ -80,11 +83,15 @@ class animations {
       // const multiplier = i % 2 === 0 ? -1 : 1;
 
       const callback = () => {
-        lastX += lerp(lastX, this.galleryX, lerpValue);
-        lastY += lerp(lastY, this.galleryY, lerpValue);
+        if (!this.stopped) {
+          lastX += lerp(lastX, this.galleryX, lerpValue);
+          lastY += lerp(lastY, this.galleryY, lerpValue);
 
-        xSetter(lastX);
-        ySetter(lastY);
+          // xSetter(lastX);
+          // ySetter(lastY);
+          xVarSetter(lastX);
+          yVarSetter(lastY);
+        }
       };
 
       this.galleryImageCallbacks.push(callback);
@@ -92,60 +99,30 @@ class animations {
     });
   }
 
-  openPreview(photoEl, previewEl) {
-    return new Promise((r) => {
-      const photoElBox = getBounding(photoEl);
-      const previewElBox = getBounding(previewEl);
+  storeImageState(img, promise) {}
 
-      const deltaX = previewElBox.left - photoElBox.left;
-      const deltaY = previewElBox.top - photoElBox.top;
-      const deltaScale = 500 / photoElBox.width;
-
-      this.previewTl = gsap
-        .timeline({
-          paused: true,
-          onComplete: () => {
-            r();
-          },
-        })
-        .set([this.previewContainerEl, previewEl], {
-          autoAlpha: 0,
-        })
-        .to(photoEl, {
-          x: deltaX,
-          y: deltaY,
-          scale: deltaScale,
-          duration: 0.6,
-        })
-        .to(
-          this.previewContainerEl,
-          {
-            autoAlpha: 1,
-          },
-          ">-=0.2"
-        )
-        .set(previewEl, { autoAlpha: 1 })
-        .set(photoEl, { autoAlpha: 0 })
-        .play();
+  previewImage(img) {
+    Flip.from(this.imgState, {
+      absolute: true,
+      duration: 1,
     });
   }
 
-  closePreview() {
-    return new Promise((r) => {
-      if (this.previewTl) {
-        this.previewTl.reverse();
-      }
-      r();
-    });
+  start() {
+    this.observer.enable();
+    this.stopped = false;
   }
 
   stop() {
+    this.stopped = true;
     this.observer.disable();
   }
 
   init(el) {
     this.el = el;
-    this.previewContainerEl = selectFrom(".easter-egg__preview", el);
+    this.elPhotoList = selectFrom(".easter-egg-page__photo-list", el);
+    this.elPreview = selectFrom(".easter-egg-page__preview-container", el);
+    this.elPreviewBackdrop = selectFrom(".preview-container__backdrop", el);
     this.setupVariables();
     this.setupResize();
     this.startObserver();

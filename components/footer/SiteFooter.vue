@@ -50,13 +50,16 @@
     </div>
 
     <transition @enter="creditsEnter" @leave="creditsLeave">
-      <site-credits v-show="creditsOpen" @close-creds="creditsOpen = false" />
+      <site-credits
+        v-show="creditsOpen"
+        @close-creds="creditsOpen = false"
+        :credits-open="creditsOpen"
+      />
     </transition>
   </footer>
 </template>
 
 <script>
-import lockScroll from "~/composables/lockScroll";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/all";
 import { SplitText } from "~/assets/gsap-premium/SplitText";
@@ -66,17 +69,9 @@ import { creditsAnimations } from "~/animations/footer/SiteCredits";
 import { footerAnimations } from "~/animations/footer/SiteFooter";
 
 export default {
-  setup() {
-    const creditsOpen = ref(false);
-    if (process.client) {
-      lockScroll(creditsOpen);
-    }
-    return {
-      creditsOpen,
-    };
-  },
   data() {
     return {
+      creditsOpen: false,
       footerLinks: [
         {
           header: "sitemap",

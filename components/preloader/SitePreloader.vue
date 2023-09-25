@@ -67,6 +67,11 @@ export default {
       // Contact Images
       "/images/Contact/2218e288ff48b77ca0df131b7290e4c6.jpg",
     ];
+
+    const lock = ref(true);
+    if (process.client) {
+      lockScroll(lock, "site-preloader");
+    }
     return {
       windowWidth,
       desktop,

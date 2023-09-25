@@ -98,11 +98,6 @@ export default {
     const counterEl = ref(null);
     const { height } = useElementBounding(counterEl);
 
-    const lock = ref(true);
-    if (process.client) {
-      lockScroll(lock);
-    }
-
     return {
       windowHeight,
       windowWidth,

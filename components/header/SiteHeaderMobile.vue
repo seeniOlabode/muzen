@@ -63,7 +63,7 @@ export default {
   setup() {
     const menuOpen = ref(false);
     if (process.client) {
-      lockScroll(menuOpen);
+      lockScroll(menuOpen, "mobile-menu");
     }
     return {
       menuOpen,

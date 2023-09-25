@@ -47,8 +47,7 @@ class animations {
         },
         "start-slide-in+=0.6"
       )
-      .addLabel("end-slide-in")
-      .call(this.revert);
+      .addLabel("end-slide-in");
 
     this.creditsReveal(tl);
     tl.play();
@@ -130,8 +129,7 @@ class animations {
         },
         "start-slide-out+=0.6"
       )
-      .addLabel("end-slide-out")
-      .call(this.revert);
+      .addLabel("end-slide-out");
 
     this.creditsHide(tl);
     tl.play();
@@ -191,10 +189,11 @@ class animations {
   }
 
   handleResize() {
-    window.addEventListener("resize", this.revert);
+    window.addEventListener("resize", this.revert.bind(this));
   }
 
   revert() {
+    console.log("credits-revert");
     this.quoteSplit && this.quoteSplit.revert();
     this.quoteSplit = null;
   }

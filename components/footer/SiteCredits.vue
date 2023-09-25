@@ -44,8 +44,30 @@
 </template>
 
 <script>
+import lockScroll from "~/composables/lockScroll";
+
 export default {
   emits: ["close-creds"],
+  props: {
+    creditsOpen: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  setup(props) {
+    const creditsOpen = ref(false);
+    const creditsOpenProp = computed(() => props.creditsOpen);
+
+    if (process.client) {
+      lockScroll(creditsOpen, "credits");
+      const unwatch = watch(creditsOpenProp, (value) => {
+        creditsOpen.value = value;
+      });
+    }
+    return {
+      creditsOpen,
+    };
+  },
   data() {
     return {
       credits: [

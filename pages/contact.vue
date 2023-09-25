@@ -48,7 +48,11 @@
       </div>
     </section>
     <transition @enter="creditsEnter" @leave="creditsLeave">
-      <site-credits v-show="creditsOpen" @close-creds="creditsOpen = false" />
+      <site-credits
+        v-show="creditsOpen"
+        @close-creds="creditsOpen = false"
+        :credits-open="creditsOpen"
+      />
     </transition>
   </main>
 </template>
@@ -104,6 +108,7 @@ export default {
   padding-top: 144px;
   padding-bottom: 96px;
   background-color: var(--muzen-light-brown);
+  min-height: 100vh;
 }
 
 .contact-page__content {

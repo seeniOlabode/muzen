@@ -110,15 +110,30 @@ class animations {
   split() {
     this.contentCopySplit = new SplitText(this.elContentCopy, {
       type: "words,lines",
-      lineThreshold: 1,
+      lineThreshold: 10,
       linesClass: "content__copy__lines",
       wordsClass: "content__copy__words",
     });
     this.contentCtaSplit = new SplitText(this.elContentCta, {
       type: "words,lines",
-      lineThreshold: 1,
+      lineThreshold: 10,
       linesClass: "content__cta__lines",
       wordsClass: "content__cta__words",
+    });
+    this.handleResize();
+  }
+
+  revertSplits() {
+    this.contentCopySplit && this.contentCopySplit.revert();
+    this.contentCtaSplit && this.contentCtaSplit.revert();
+
+    this.contentCopySplit = null;
+    this.contentCtaSplit = null;
+  }
+
+  handleResize() {
+    window.addEventListener("resize", () => {
+      this.revertSplits();
     });
   }
 
@@ -136,6 +151,7 @@ class animations {
       el
     );
     this.split();
+
     this.setEnterAnimations();
   }
 }
