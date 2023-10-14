@@ -34,7 +34,7 @@ export default {
       "/images/Home/2319c541d59e20ec4d3458ea26c88ad9.jpg",
       "/images/Home/c33c22f04c0db03d12ece71c9500f8b1.jpg",
       "/images/Home/f925b54c66129218d392aad65af94b92.jpg",
-      "/images/Home/home-hero-video.mp4",
+      // "/images/Home/home-hero-video.mp4",
 
       // // Studio Images
       // "/images/Studio/studio-video-trimmed.mp4",
