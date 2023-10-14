@@ -11,6 +11,7 @@ class animations {
     this.el = null;
     this.scrollTl = null;
     this.scrollTrigger = null;
+    this.transitioned = null;
   }
 
   setScrollAnimations() {
@@ -30,17 +31,26 @@ class animations {
   }
 
   setEnterAnimations() {
-    gsap.from(this.logoChars, {
-      yPercent: 120,
-      duration: 0.8,
-      ease: "power2.out",
-      stagger: {
-        each: 0.15,
-      },
+    const tl = gsap.timeline();
+    tl.set(this.el, {
+      autoAlpha: 1,
     });
+    tl.from(
+      this.logoChars,
+      {
+        yPercent: 130,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: {
+          each: 0.1,
+        },
+      },
+      !this.transitioned ? ">+=0.5" : ""
+    );
   }
 
-  init(el) {
+  init(el, transitioned = true) {
+    this.transitioned = transitioned;
     this.scrollTrigger && this.scrollTrigger.kill();
     this.el = el;
     this.logoChars = selectAllFrom(".studio-hero__logo .logo__char", el);

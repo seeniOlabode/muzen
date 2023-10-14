@@ -58,28 +58,39 @@
 </template>
 
 <script>
-import { gsap } from "gsap";
-
 import { ContactPageAnimations } from "~/animations/contact/contact";
 import { creditsAnimations } from "~/animations/footer/SiteCredits";
 
+import { emitter as $eventBus } from "../plugins/event-bus.js";
+
 export default {
   name: "Contact Page",
-  inject: ["getTransitioned"],
   setup() {
     useHead({
       title: "Muzen Contact",
     });
+
+    const contactPage = ref(null);
+
+    function callback1() {
+      ContactPageAnimations.init(contactPage.value, false);
+    }
+
+    function callback2() {
+      $eventBus.on("contact-enter-animations", () => {
+        ContactPageAnimations.init(contactPage.value);
+        $eventBus.off("contact-enter-animations");
+      });
+    }
+
+    useMuzenEnter(callback1, callback2);
+
+    return { contactPage };
   },
   data() {
     return {
       creditsOpen: false,
     };
-  },
-  computed: {
-    transitioned() {
-      return this.getTransitioned();
-    },
   },
   methods: {
     creditsEnter(el, done) {
@@ -88,17 +99,6 @@ export default {
     creditsLeave(el, done) {
       creditsAnimations.leave(el, done);
     },
-  },
-  mounted() {
-    if (this.transitioned) {
-      this.$eventBus.on("contact-enter-animations", () => {
-        ContactPageAnimations.init(this.$refs.contactPage);
-        this.$eventBus.off("contact-enter-animations");
-      });
-    } else {
-      ContactPageAnimations.init(this.$refs.contactPage);
-    }
-    creditsAnimations.init();
   },
 };
 </script>
@@ -122,6 +122,7 @@ export default {
 
   .animation-span__inner {
     display: inline-block;
+    will-change: transfomr;
   }
 }
 
@@ -138,8 +139,13 @@ export default {
   align-self: center;
 }
 
-:global(.content__copy__lines) {
+:deep(.content__copy__lines) {
   overflow: hidden;
+}
+
+:deep(.content__copy__words),
+:deep(.content__cta__words) {
+  will-change: transform;
 }
 
 .content__graphic {
@@ -161,12 +167,16 @@ export default {
   font-size: clamp(0px, 32px, 8vw);
 }
 
-:global(.content__cta__lines) {
+:deep(.content__cta__lines) {
   overflow: hidden;
 }
 
 .content__creators {
   display: none;
+}
+
+.creators__credit {
+  will-change: transform;
 }
 
 @media screen and (width >= 724px) {

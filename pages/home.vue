@@ -6,13 +6,21 @@
 </template>
 
 <script>
-// import { useSmoothScroll } from "~/composables/useSmoothScroll";
-import { gsap } from "gsap";
 export default {
   props: {
     transitoned: Boolean,
   },
+  inject: ["getTransitioned"],
   setup() {},
+  computed: {
+    transitioned() {
+      return this.getTransitioned();
+    },
+  },
+  beforeMount() {
+    if (!this.transitoned) {
+    }
+  },
   mounted() {},
 };
 </script>

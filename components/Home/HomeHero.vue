@@ -1,5 +1,5 @@
 <template>
-  <section class="home-hero" ref="homeHero">
+  <section class="home-hero animated-block" ref="homeHero">
     <div class="home-hero__video-wrapper">
       <video
         class="video-wrapper__video"
@@ -41,27 +41,35 @@ import { HomeHeroAnimations } from "~/animations/Home/HomeHero";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/all";
 
+import { emitter as $eventBus } from "../../plugins/event-bus.js";
+
 gsap.registerPlugin(Draggable);
 
 export default {
   inject: ["getTransitioned"],
+  setup(props) {
+    const homeHero = ref(null);
+    function callback1() {
+      HomeHeroAnimations.init(homeHero.value, false);
+    }
+
+    function callback2() {
+      $eventBus.on("home-enter-animation", () => {
+        HomeHeroAnimations.init(homeHero.value);
+        $eventBus.off("home-enter-animation");
+      });
+    }
+
+    useMuzenEnter(callback1, callback2);
+
+    return {
+      homeHero,
+    };
+  },
   computed: {
     logoSplitText() {
       return "Muzen".split("");
     },
-    transitioned() {
-      return this.getTransitioned();
-    },
-  },
-  mounted() {
-    if (this.transitioned) {
-      this.$eventBus.on("home-enter-animation", () => {
-        HomeHeroAnimations.init(this.$refs.homeHero);
-        this.$eventBus.off("home-enter-animation");
-      });
-    } else {
-      HomeHeroAnimations.init(this.$refs.homeHero);
-    }
   },
 };
 </script>

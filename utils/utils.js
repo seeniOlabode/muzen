@@ -1,6 +1,8 @@
 export const select = (e) => document.querySelector(e);
 export const selectAll = (e) => document.querySelectorAll(e);
-export const selectFrom = (e, el) => el.querySelector(e);
+export const selectFrom = (e, el) => {
+  return el.querySelector(e);
+};
 export const selectAllFrom = (e, el) => {
   if (Array.isArray(e)) {
     let els = [];

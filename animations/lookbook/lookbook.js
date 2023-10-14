@@ -11,15 +11,24 @@ class animations {
     this.el = null;
     this.elHeading = null;
     this.elHeadingSplit = null;
+    this.transitioned = null;
   }
 
   setEnterAnimations() {
-    gsap.from(this.elHeadingSplit.chars, {
-      yPercent: 100,
-      duration: 0.8,
-      ease: "power2.out",
-      stagger: 0.05,
+    const tl = gsap.timeline();
+    tl.set(this.el, {
+      autoAlpha: 1,
     });
+    tl.from(
+      this.elHeadingSplit.chars,
+      {
+        yPercent: 100,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.05,
+      },
+      !this.transitioned ? ">+=0.2" : ""
+    );
   }
 
   setDraggable() {
@@ -36,7 +45,7 @@ class animations {
     }
   }
 
-  init(el, config) {
+  init(el, config, transitioned = true) {
     this.el = el;
     this.elHeading = selectFrom(".intro__heading", el);
     this.elHeadingSplit = new SplitText(this.elHeading, {

@@ -80,11 +80,11 @@ class animations {
     tl.from(
       this.quoteSplit.lines,
       {
-        yPercent: 120,
+        yPercent: 100,
         opacity: 0,
         ease: "power3.out",
         stagger: 0.15,
-        duration: 1,
+        duration: 0.8,
       },
       "end-slide-in-=0.2"
     );
@@ -182,7 +182,7 @@ class animations {
     if (!this.quoteSplit) {
       this.quoteSplit = new SplitText(".site-footer__quote", {
         type: "lines,words",
-        lineThreshold: 1,
+        lineThreshold: 10,
         linesClass: "site-footer__quote__line",
       });
     }
@@ -193,7 +193,6 @@ class animations {
   }
 
   revert() {
-    console.log("credits-revert");
     this.quoteSplit && this.quoteSplit.revert();
     this.quoteSplit = null;
   }

@@ -24,5 +24,6 @@ export default {
   left: 0;
   background: var(--muzen-light-brown);
   z-index: 100;
+  will-change: transform;
 }
 </style>

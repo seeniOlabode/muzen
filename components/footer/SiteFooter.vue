@@ -194,6 +194,7 @@ export default {
 .creators__credit {
   line-height: 1;
   font-size: 14px;
+  will-change: opacity visibility;
 }
 
 .site-footer__logo {
@@ -250,6 +251,7 @@ export default {
 
 .logo__char {
   display: inline-block;
+  will-change: transform;
 }
 
 .false-text {

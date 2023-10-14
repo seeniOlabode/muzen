@@ -1,5 +1,9 @@
-:global(.hero__lines) {
+:deep(.hero__lines) {
   overflow: hidden;
+}
+
+:deep(.hero__words) {
+  will-change: transform;
 }
 
 .home-hero {
@@ -24,6 +28,7 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
+  will-change: transform;
 }
 
 .home-hero__copy {
@@ -66,6 +71,7 @@
 
 .logo__char {
   display: inline-block;
+  will-change: transform;
 }
 
 .honor__tag {
@@ -81,6 +87,7 @@
   top: 0;
   right: 0;
   display: none;
+  will-change: transform;
 }
 
 .honor__tag:nth-of-type(1) {

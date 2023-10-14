@@ -4,7 +4,7 @@ import { SplitText } from "~/assets/gsap-premium/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, CustomEase, Draggable, SplitText);
 
-import { selectAllFrom, elementHasWidth } from "~/utils/utils";
+import { select, selectAllFrom } from "~/utils/utils";
 
 class Animations {
   constructor() {
@@ -12,6 +12,7 @@ class Animations {
     this.enterAnimations = null;
     this.el = null;
     this.scrollTrigger = null;
+    this.transitioned = null;
   }
 
   setScrollAnimations() {
@@ -32,34 +33,43 @@ class Animations {
   }
 
   setEnterAnimations() {
-    const split = new SplitText(this.elCopyBodies, {
+    this.copySplit = new SplitText(this.elCopyBodies, {
       type: "lines,words",
       lineThreshold: 1,
       linesClass: "hero__lines",
       wordsClass: "hero__words",
     });
 
-    const splitLines = split.lines;
-    const tl = gsap.timeline();
-    tl.addLabel("start");
-
-    splitLines.forEach((line, i) => {
-      const words = selectAllFrom(".hero__words", line);
-      tl.from(
-        words,
-        {
-          yPercent: 150,
-        },
-        "start+=" + i * 0.1
-      );
+    const tl = gsap.timeline({
+      onComplete: () => {
+        // split.revert();
+      },
     });
-
-    this.enterAnimations = gsap.timeline();
-    this.enterAnimations.from(this.logoChars, {
-      yPercent: 100,
-      duration: 1,
-      stagger: 0.15,
-      ease: "power2.out",
+    tl.set(this.el, {
+      autoAlpha: 1,
+    });
+    tl.from(
+      this.copySplit.lines,
+      {
+        yPercent: 100,
+        opacity: 0,
+        stagger: 0.12,
+        duration: 0.5,
+      },
+      !this.transitioned ? ">+=0.5" : ""
+    );
+    tl.from(
+      this.logoChars,
+      {
+        yPercent: 130,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power2.out",
+      },
+      "<"
+    );
+    tl.from(".honor__tag", {
+      autoAlpha: 0,
     });
   }
 
@@ -70,9 +80,11 @@ class Animations {
     });
   }
 
-  async init(el) {
+  setResize() {}
+
+  async init(el, transitioned = true) {
+    this.transitioned = transitioned;
     this.scrollTrigger && this.scrollTrigger.kill();
-    this.enterAnimations && this.enterAnimations.kill();
     this.el = el;
     this.elVideo = selectFrom(".video-wrapper__video", el);
     this.elLogo = selectFrom(".home-hero__logo", el);

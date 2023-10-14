@@ -112,6 +112,7 @@ export default {
   bottom: 0;
   background: rgba(28, 24, 22, 0.9);
   z-index: -1;
+  will-change: transfomr;
 }
 
 .site-credits__content {
@@ -122,6 +123,7 @@ export default {
   flex-direction: column;
   background: var(--muzen-light-brown);
   overflow: hidden;
+  will-change: transform;
 }
 
 .content__inner-wrapper {
@@ -135,6 +137,7 @@ export default {
   grid-template-areas: "header" "credits" "quote" "close";
   align-content: space-between;
   overflow: hidden;
+  will-change: transform;
 }
 
 .content__background {
@@ -152,6 +155,7 @@ export default {
 
 .site-credits__transition {
   display: inline-block;
+  will-change: transform;
 }
 
 .site-credits .heading-1 {
@@ -205,8 +209,9 @@ export default {
   }
 }
 
-.site-footer__quote__line {
-  overflow: hidden;
+:deep(.site-footer__quote__line) {
+  will-change: transform;
+  white-space: nowrap;
 }
 .close-credits {
   grid-area: close;

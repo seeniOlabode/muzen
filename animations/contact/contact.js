@@ -10,6 +10,7 @@ class animations {
   constructor() {
     this.el = null;
     this.contentCopySplit = null;
+    this.transitioned = null;
   }
 
   setEnterAnimations() {
@@ -18,12 +19,17 @@ class animations {
         paused: true,
       })
       .addLabel("start")
-      .from(this.elContentCreators, {
-        yPercent: 100,
-      })
+      .from(
+        this.elContentCreators,
+        {
+          yPercent: 100,
+        },
+        !this.transitioned ? "" : ""
+      )
       .addLabel("cta-in", "<")
       .addLabel("copy-in", "<=+0.5")
       .addLabel("header-in", "<=+0.25");
+    this.tl.set(this.el, { autoAlpha: 1 }, "start");
     this.setContentCtaAnimations(this.tl);
     this.setContentHeaderAnimations(this.tl);
     this.setContentImageAnimations(this.tl);
@@ -137,7 +143,7 @@ class animations {
     });
   }
 
-  init(el) {
+  init(el, transitioned = true) {
     this.el = el;
     this.elContentHeading = selectFrom(".content__heading", el);
     this.elContentImage = selectFrom(

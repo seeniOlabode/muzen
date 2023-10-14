@@ -1,6 +1,6 @@
 <template>
   <div class="app-wrapper">
-    <site-header v-if="assetsLoaded" />
+    <site-header v-show="assetsLoaded" />
     <Transition name="preloader">
       <site-preloader
         v-if="!assetsLoaded"
@@ -8,7 +8,6 @@
       />
     </Transition>
     <Nuxt-Page
-      v-if="assetsLoaded"
       :transition="{
         name: 'page-transition',
         mode: 'out-in',
@@ -16,6 +15,7 @@
       }"
       :transitioning="transitioning"
       :transitioned="transitioned"
+      :class="{ 'fouc-fix': !transitioned, hidden: !assetsLoaded }"
     />
     <Transition @leave="footerLeave">
       <site-footer v-show="!['Contact', 'Easter Egg'].includes($route.name)" />
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import { useFavicon } from "@vueuse/core";
 import { appAnimations } from "~/animations/app";
 
 useSeoMeta({
@@ -49,11 +48,13 @@ export default {
   provide() {
     return {
       getTransitioned: () => this.transitioned,
+      getAssetsLoaded: () => this.assetsLoaded,
     };
   },
   data() {
     return {
-      assetsLoaded: true,
+      // TODO: Change this to false;
+      assetsLoaded: false,
     };
   },
   computed: {},
@@ -97,7 +98,6 @@ export default {
   },
   methods: {
     async pageTransitionLeave(el, done) {
-      // return done();
       this.transitioning = true;
       await appAnimations.leave(el, done, this.$route.meta.mitt);
       this.transitioning = false;
@@ -113,6 +113,15 @@ export default {
       }
     },
   },
+  // beforeMount() {
+  //   const main = select("body");
+  //   console.log(main);
+  //   main.onload = () => {
+  //     alert("ah");
+  //     console.log("ahh");
+  //     main.onload = null;
+  //   };
+  // },
   mounted() {
     appAnimations.init(this.$refs.pageTrans.$refs.pageTransition, {
       scrollToTop: this.scrollToTop,

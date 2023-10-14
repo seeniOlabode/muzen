@@ -1,5 +1,5 @@
 <template>
-  <section class="studio-hero" ref="studioHero">
+  <section class="studio-hero animated-block" ref="studioHero">
     <h1 class="studio-hero__logo">
       <span
         v-for="(char, i) in 'Muzen'.split('')"
@@ -34,6 +34,8 @@
 <script>
 import { StudioHeroAnimations } from "~/animations/studio/StudioHero";
 
+import { emitter as $eventBus } from "../../plugins/event-bus.js";
+
 export default {
   inject: ["getTransitioned"],
   computed: {
@@ -41,28 +43,39 @@ export default {
       return this.getTransitioned();
     },
   },
-  mounted() {
-    if (this.transitioned) {
-      this.$eventBus.on("studio-enter-animations", () => {
-        StudioHeroAnimations.init(this.$refs.studioHero);
-        this.$eventBus.off("studio-enter-animations");
-      });
-    } else {
-      StudioHeroAnimations.init(this.$refs.studioHero);
+  setup() {
+    const studioHero = ref(null);
+
+    function callback1() {
+      StudioHeroAnimations.init(studioHero.value, false);
     }
+
+    function callback2() {
+      $eventBus.on("studio-enter-animations", () => {
+        StudioHeroAnimations.init(studioHero.value);
+        $eventBus.off("studio-enter-animations");
+      });
+    }
+
+    useMuzenEnter(callback1, callback2);
+
+    return {
+      studioHero,
+    };
   },
 };
 </script>
 
 <style scoped>
 .studio-hero__logo {
-  margin-top: 144px;
+  margin-top: 44px;
   font-family: var(--muzen-nohemi);
   font-size: 28vw;
   display: flex;
   justify-content: space-between;
-  line-height: 0.5;
-  /* TODO: Pay attention here !!!!!! */
+  line-height: 0.6;
+  padding-top: 100px;
+  overflow: hidden;
   letter-spacing: 2.5px;
   position: relative;
   right: 4px;
@@ -133,7 +146,7 @@ export default {
 
 @media screen and (width >= 724px) {
   .studio-hero__logo {
-    margin-top: 172px;
+    margin-top: 72px;
     font-size: 28vw;
   }
 

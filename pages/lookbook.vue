@@ -1,5 +1,5 @@
 <template>
-  <main class="lookbook-page container" ref="lookbookPage">
+  <main class="lookbook-page container animated-block" ref="lookbookPage">
     <section class="lookbook-page__intro">
       <h1 class="intro__heading heading-1">Lookbook</h1>
       <p class="intro__copy body">
@@ -105,17 +105,35 @@
 <script>
 import { LookbookAnimations } from "~/animations/lookbook/lookbook";
 import { useWindowSize } from "@vueuse/core";
+import { emitter as $eventBus } from "../plugins/event-bus.js";
 
 export default {
   inject: ["getTransitioned"],
   setup() {
-    useHead({
-      title: "Muzen Lookbook",
-    });
+    useHead({ title: "Muzen Lookbook" });
+
     const { width: windowWidth } = useWindowSize();
+
+    const lookbookPage = ref(null);
+
     let desktop = computed(() => windowWidth.value >= 724);
+
+    function callback1() {
+      LookbookAnimations.init(lookbookPage.value, { desktop: desktop }, false);
+    }
+
+    function callback2() {
+      $eventBus.on("lookbook-enter-animations", () => {
+        LookbookAnimations.init(lookbookPage.value, { desktop });
+        $eventBus.off("lookbook-enter-animations");
+      });
+    }
+
+    useMuzenEnter(callback1, callback2);
+
     return {
       desktop,
+      lookbookPage,
     };
   },
   data() {
@@ -134,20 +152,6 @@ export default {
     transitioned() {
       return this.getTransitioned();
     },
-  },
-  mounted() {
-    if (this.transitioned) {
-      this.$eventBus.on("lookbook-enter-animations", () => {
-        LookbookAnimations.init(this.$refs.lookbookPage, {
-          desktop: this.desktop,
-        });
-        this.$eventBus.off("lookbook-enter-animations");
-      });
-    } else {
-      LookbookAnimations.init(this.$refs.lookbookPage, {
-        desktop: this.desktop,
-      });
-    }
   },
 };
 </script>
@@ -171,9 +175,13 @@ export default {
   margin: 0;
 }
 
-:global(.intro__heading__lines) {
+:deep(.intro__heading__lines) {
   overflow: hidden;
   display: none;
+}
+
+:deep(.intro__heading__chars) {
+  will-change: transform;
 }
 
 .intro__copy {
@@ -247,6 +255,8 @@ export default {
     margin-top: clamp(0vw, 238px, 15vw);
   }
   .gallery__image {
+    will-change: transform;
+
     &.mobile-hidden {
       display: block;
     }

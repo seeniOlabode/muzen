@@ -91,7 +91,6 @@ export default {
   mounted() {
     this.scrollLocked = false;
     easterEggAnimations.init(this.$refs.easterPage);
-    // easterEggAnimations.stop();
   },
   methods: {
     previewImage(i) {
@@ -198,6 +197,10 @@ export default {
       }
     },
   },
+  beforeUnmount() {
+    this.showPreview = false;
+    this.selectedImg = null;
+  },
 };
 </script>
 
@@ -217,6 +220,7 @@ export default {
 .photo-list__photo {
   list-style: none;
   overflow: hidden;
+  will-change: transform;
 }
 
 .easter-egg-page__photo-list {

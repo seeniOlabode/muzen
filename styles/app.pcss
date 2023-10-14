@@ -4,11 +4,19 @@
   background: var(--muzen-light-brown);
 }
 
+:deep(.fouc-fix .animated-block) {
+  visibility: hidden;
+}
+
 .app-wrapper {
   /* height: 200vh; */
   background: var(--muzen-light-brown);
   z-index: 0;
   position: relative;
+}
+
+:deep(.hidden) {
+  display: none;
 }
 
 .preloader-leave-active {

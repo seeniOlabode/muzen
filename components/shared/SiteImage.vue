@@ -29,6 +29,7 @@ export default {
 .site-image__image-wrapper {
   aspect-ratio: 396/432;
   overflow: hidden;
+  will-change: transform;
 
   &.no-ratio {
     aspect-ratio: auto;
@@ -39,5 +40,6 @@ export default {
   width: 150%;
   height: 150%;
   object-fit: cover;
+  will-change: transform;
 }
 </style>

@@ -1,9 +1,9 @@
 import { gsap } from "gsap";
-import { Observer, Flip } from "gsap/all";
+import { Observer } from "gsap/all";
 
-gsap.registerPlugin(Observer, Flip);
+gsap.registerPlugin(Observer);
 
-import { selectFrom, selectAllFrom, getBounding } from "~/utils/utils";
+import { selectFrom, selectAllFrom } from "~/utils/utils";
 
 class animations {
   constructor() {
@@ -12,7 +12,6 @@ class animations {
     this.galleryYWidth = 2000;
     this.galleryX = null;
     this.galleryY = null;
-    // this.galleryR = null;
     this.galleryImages = null;
     this.galleryImageCallbacks = [];
     this.windowX = null;
@@ -21,19 +20,15 @@ class animations {
     this.windowYCenter = null;
     this.stopped = false;
 
-    // this.vel = false;
-
     this.previewTl = null;
   }
 
   startObserver() {
+    this.observer && this.observer.kill();
     this.observer = Observer.create({
       target: window,
       onMove: this.setGalleryCoords.bind(this),
       onStopDelay: 0,
-      onStop: () => {
-        this.galleryR = 0;
-      },
     });
   }
 
@@ -42,16 +37,13 @@ class animations {
   }
 
   setGalleryCoords(e) {
-    // this.vel = true;
-    const { x, y, velocityX } = e;
+    const { x, y } = e;
 
     let xPercent = ((x - this.windowXCenter) / this.windowX) * 100;
     let yPercent = ((y - this.windowYCenter) / this.windowY) * 100;
-    // let velPercent = (velocityX / 500) * 10;
 
     this.galleryX = (xPercent / 100) * this.galleryXWidth;
     this.galleryY = (yPercent / 100) * this.galleryYWidth;
-    // this.galleryR = gsap.utils.clamp(-10, 10, velPercent);
 
     this.galleryX *= -1;
     this.galleryY *= -1;
@@ -68,27 +60,19 @@ class animations {
     this.galleryImages = selectAllFrom(".photo-list__photo", this.el);
 
     this.galleryImages.forEach((photo, i) => {
-      // const xSetter = gsap.quickSetter(photo, "x", "px");
-      // const ySetter = gsap.quickSetter(photo, "y", "px");
       const xVarSetter = gsap.quickSetter(photo, "--x", "px");
       const yVarSetter = gsap.quickSetter(photo, "--y", "px");
-      // const rSetter = gsap.quickSetter(photo, "rotate", "deg");
       let lerpValue = ((i + 1) / this.galleryImages.length) * 0.1;
       lerpValue = gsap.utils.clamp(0.05, 0.1, lerpValue);
 
       let lastX = 0;
       let lastY = 0;
-      // let lastR = 0;
-
-      // const multiplier = i % 2 === 0 ? -1 : 1;
 
       const callback = () => {
         if (!this.stopped) {
           lastX += lerp(lastX, this.galleryX, lerpValue);
           lastY += lerp(lastY, this.galleryY, lerpValue);
 
-          // xSetter(lastX);
-          // ySetter(lastY);
           xVarSetter(lastX);
           yVarSetter(lastY);
         }
@@ -99,23 +83,16 @@ class animations {
     });
   }
 
-  storeImageState(img, promise) {}
-
-  previewImage(img) {
-    Flip.from(this.imgState, {
-      absolute: true,
-      duration: 1,
-    });
-  }
-
   start() {
     this.observer.enable();
     this.stopped = false;
+    return this;
   }
 
   stop() {
     this.stopped = true;
     this.observer.disable();
+    return this;
   }
 
   init(el) {
@@ -127,7 +104,6 @@ class animations {
     this.setupResize();
     this.startObserver();
     this.setupImageAnimations();
-    // this.stop();
   }
 }
 

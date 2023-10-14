@@ -133,7 +133,7 @@ export default {
 
 <style lang="pcss" scoped>
 /* asfhklsjadfk */
-:global(.child__lines),
+:deep(.child__lines),
 [class*="heading"] {
   overflow: hidden;
 }
