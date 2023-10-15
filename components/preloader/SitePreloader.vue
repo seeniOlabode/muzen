@@ -112,7 +112,9 @@ export default {
         (value) => {
           value &&
             setTimeout(() => {
+              console.log(value);
               context.emit("assets-loaded", true);
+              console.log("finish set");
             }, 2000);
         },
         { immediate: true }
