@@ -113,7 +113,7 @@ export default {
         gsap.set(".site-preloader__counter", {
           y: -(
             (this.windowHeight - 64 - this.counterElHeight) *
-            (this.loadedCount / this.assetsToLoad.length)
+            (this.currentPercentCheckpoint / 100)
           ),
         });
       }
@@ -142,7 +142,7 @@ function onEnter(el, done) {
   transYTl.to(".site-preloader__counter", {
     y: -(
       (this.windowHeight - 64 - this.counterElHeight) *
-      (this.loadedCount / this.assetsToLoad.length)
+      (this.currentPercentCheckpoint / 100)
     ),
   });
 

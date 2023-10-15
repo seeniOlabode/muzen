@@ -39,7 +39,7 @@ class animations {
       this.logoChars,
       {
         yPercent: 130,
-        duration: 0.6,
+        duration: 0.78,
         ease: "power2.out",
         stagger: {
           each: 0.1,
