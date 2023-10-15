@@ -57,19 +57,17 @@ class animations {
   setContentCopyAnimations(tl) {
     const creditsButton = selectFrom(".action-button", this.elContentCopy);
     creditsButton.classList.toggle("highlight");
-    this.contentCopySplit.lines.forEach((l, i) => {
-      const words = selectAllFrom(".content__copy__words", l);
-      tl.from(
-        words,
-        {
-          yPercent: 100,
-          duration: 1,
-          rotate: 7,
-          ease: "circ.out",
-        },
-        "copy-in+=" + i * 0.1
-      );
-    });
+    tl.from(
+      this.contentCopySplit.lines,
+      {
+        yPercent: 100,
+        autoAlpha: 0,
+        duration: 1,
+        ease: "circ.out",
+        stagger: 0.1,
+      },
+      "copy-in"
+    );
     tl.add(() => creditsButton.classList.toggle("highlight"));
   }
 
@@ -116,13 +114,13 @@ class animations {
   split() {
     this.contentCopySplit = new SplitText(this.elContentCopy, {
       type: "words,lines",
-      lineThreshold: 10,
+      lineThreshold: 1,
       linesClass: "content__copy__lines",
       wordsClass: "content__copy__words",
     });
     this.contentCtaSplit = new SplitText(this.elContentCta, {
       type: "words,lines",
-      lineThreshold: 10,
+      lineThreshold: 1,
       linesClass: "content__cta__lines",
       wordsClass: "content__cta__words",
     });

@@ -8,6 +8,7 @@ class animations {
   constructor() {
     this.enterTl = null;
     this.quoteSplit = null;
+    this.setup = false;
   }
 
   enter(el, done) {
@@ -198,11 +199,14 @@ class animations {
   }
 
   init() {
-    this.creditsEase = CustomEase.create(
-      "credits-in",
-      "M0,0 C0.65,0 0.35,1 1,1 "
-    );
-    this.handleResize();
+    if (!this.setup) {
+      this.creditsEase = CustomEase.create(
+        "credits-in",
+        "M0,0 C0.65,0 0.35,1 1,1 "
+      );
+      this.handleResize();
+      this.setup = true;
+    }
   }
 }
 

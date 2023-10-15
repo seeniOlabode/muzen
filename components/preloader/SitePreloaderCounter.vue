@@ -79,6 +79,7 @@ export default {
     desktop: Boolean,
     assetsToLoad: Array,
   },
+  emits: ["done-animating"],
   data() {
     return {
       baseFrequency: {
@@ -128,7 +129,10 @@ function onEnter(el, done) {
   }
   const tl = gsap.timeline({
     paused: true,
-    onComplete: done,
+    onComplete: () => {
+      this.$emit("done-animating", true);
+      done();
+    },
     duration: 0.7,
   });
 

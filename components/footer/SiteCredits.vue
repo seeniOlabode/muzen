@@ -201,11 +201,11 @@ export default {
   margin-top: 40px;
   max-width: 650px;
   &::before {
-    content: "";
+    content: none;
   }
 
   &::after {
-    content: "";
+    content: none;
   }
 }
 

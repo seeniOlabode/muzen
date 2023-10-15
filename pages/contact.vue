@@ -100,6 +100,9 @@ export default {
       creditsAnimations.leave(el, done);
     },
   },
+  mounted() {
+    creditsAnimations.init();
+  },
 };
 </script>
 
