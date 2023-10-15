@@ -125,7 +125,10 @@ export default {
 function onEnter(el, done) {
   if (!this.desktop) {
     // allow css based transitions to finish (for 700ms);
-    return setTimeout(done, 700);
+    return setTimeout(() => {
+      this.$emit("done-animating", true);
+      done();
+    }, 700);
   }
   const tl = gsap.timeline({
     paused: true,

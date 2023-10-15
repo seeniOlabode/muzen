@@ -51,16 +51,22 @@ export default {
 
     function updateCounterPercent() {
       animating.value = false;
-      if (
-        Number(currentPercentCheckpoint.value) >
-        Number(counterPercentCheckpoint.value)
-      ) {
-        counterPercentCheckpoint.value = currentPercentCheckpoint.value;
-        if (
+
+      const current = currentPercentCheckpoint.value;
+      const counter = counterPercentCheckpoint.value;
+
+      console.log(current, counter);
+
+      if (Number(current) > Number(counter)) {
+        unwatchCurrentPercentCheckpoint.value &&
+          unwatchCurrentPercentCheckpoint.value();
+        const percentagesArray = percentages.value;
+
+        counterPercentCheckpoint.value = current;
+        const setDisplayedImg =
           changeImage.value ||
-          currentPercentCheckpoint.value ===
-            percentages.value[percentages.value.length - 1]
-        ) {
+          current === percentagesArray[percentagesArray.length - 1];
+        if (setDisplayedImg) {
           animating.value = true;
           displayedImageIndex.value++;
           changeImage.value = false;
