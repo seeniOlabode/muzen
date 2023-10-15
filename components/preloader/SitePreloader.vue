@@ -37,7 +37,7 @@ export default {
       if (loadedCount.value === assetsToLoad.length) {
         return percentages.value[percentages.value.length - 1];
       }
-      return loadedCount > 0
+      return loadedCount.value > 0
         ? percentages.value[Math.floor(loadedCount.value / interval.value)]
         : "000";
     });
