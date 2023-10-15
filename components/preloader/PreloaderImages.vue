@@ -8,7 +8,7 @@
         v-show="i == displayedImageIndex"
       >
         <div class="image-wrapper__inner">
-          <NuxtImg
+          <img
             :src="img"
             alt="Preloader Image"
             class="image-wrapper__image"
