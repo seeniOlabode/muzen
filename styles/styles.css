@@ -3,5 +3,5 @@
 @import "./layout.pcss";
 
 body {
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--muzen-dm);
 }

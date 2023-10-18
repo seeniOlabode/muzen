@@ -52,7 +52,7 @@
     <transition @enter="creditsEnter" @leave="creditsLeave">
       <site-credits
         v-show="creditsOpen"
-        @close-creds="creditsOpen = false"
+        @close-creds="() => toggleCredits(false)"
         :credits-open="creditsOpen"
       />
     </transition>
@@ -98,7 +98,7 @@ export default {
               text: "Credits",
               type: "button",
               action: () => {
-                this.creditsOpen = true;
+                this.toggleCredits(true);
               },
             },
             {
@@ -129,11 +129,19 @@ export default {
     };
   },
   methods: {
-    creditsEnter(el, done) {
-      creditsAnimations.enter(el, done);
+    async creditsEnter(el, done) {
+      await creditsAnimations.enter(el, done);
+      this.animating = false;
     },
-    creditsLeave(el, done) {
-      creditsAnimations.leave(el, done);
+    async creditsLeave(el, done) {
+      await creditsAnimations.leave(el, done);
+      this.animating = false;
+    },
+    toggleCredits(value) {
+      if (!this.animating) {
+        this.creditsOpen = value;
+        this.animating = true;
+      }
     },
   },
   mounted() {

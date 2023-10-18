@@ -8,7 +8,7 @@
           text="Menu"
           key="open-menu"
           class="open-menu"
-          @click="menuOpen = true"
+          @click="() => toggleMenu(true)"
         />
       </Transition>
 
@@ -19,7 +19,7 @@
           text="Close"
           key="close-menu"
           class="close-menu"
-          @click="menuOpen = false"
+          @click="() => toggleMenu(false)"
         />
       </Transition>
     </div>
@@ -77,6 +77,7 @@ export default {
         { text: "lookbook", path: "/lookbook" },
         { text: "contact", path: "/contact" },
       ],
+      animating: false,
     };
   },
   computed: {
@@ -88,11 +89,19 @@ export default {
     menuAnimations.init(this.$refs.menuContainer);
   },
   methods: {
-    menuEnter(el, done) {
-      menuAnimations.enter(el, done);
+    toggleMenu(value) {
+      if (!this.animating) {
+        this.menuOpen = value;
+        this.animating = true;
+      }
     },
-    menuLeave(el, done) {
-      menuAnimations.leave(el, done);
+    async menuEnter(el, done) {
+      await menuAnimations.enter(el, done);
+      this.animating = false;
+    },
+    async menuLeave(el, done) {
+      await menuAnimations.leave(el, done);
+      this.animating = false;
     },
   },
 };

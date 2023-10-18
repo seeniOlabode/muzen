@@ -30,4 +30,11 @@ export default defineNuxtConfig({
   build: {
     transpile: ["gsap"],
   },
+  routeRules: {
+    "/": { prerender: true },
+    "/lookbook": { prerender: true },
+    "/studio": { prerender: true },
+    "/3@s73r": { swr: 3600 },
+    "/contact": { prerender: true },
+  },
 });

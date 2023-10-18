@@ -11,47 +11,50 @@ class animations {
     this.setup = false;
   }
 
-  enter(el, done) {
-    this.split();
+  async enter(el, done) {
+    return new Promise((r) => {
+      this.split();
 
-    const tl = gsap.timeline({
-      paused: true,
-      onComplete: () => {
-        done();
-        tl.revert();
-      },
+      const tl = gsap.timeline({
+        paused: true,
+        onComplete: () => {
+          done();
+          tl.revert();
+          r();
+        },
+      });
+
+      tl.addLabel("start-slide-in")
+        .from(
+          ".site-credits__content",
+          {
+            yPercent: -100,
+            ease: this.creditsEase,
+            duration: 1.2,
+          },
+          "start-slide-in"
+        )
+        .from(
+          ".content__inner-wrapper",
+          {
+            yPercent: 100,
+            ease: this.creditsEase,
+            duration: 1.2,
+          },
+          "start-slide-in"
+        )
+        .from(
+          ".site-credits__backdrop",
+          {
+            autoAlpha: 0,
+          },
+          "start-slide-in+=0.6"
+        )
+        .addLabel("end-slide-in");
+
+      this.creditsReveal(tl);
+      tl.play();
     });
-
-    tl.addLabel("start-slide-in")
-      .from(
-        ".site-credits__content",
-        {
-          yPercent: -100,
-          ease: this.creditsEase,
-          duration: 1.2,
-        },
-        "start-slide-in"
-      )
-      .from(
-        ".content__inner-wrapper",
-        {
-          yPercent: 100,
-          ease: this.creditsEase,
-          duration: 1.2,
-        },
-        "start-slide-in"
-      )
-      .from(
-        ".site-credits__backdrop",
-        {
-          autoAlpha: 0,
-        },
-        "start-slide-in+=0.6"
-      )
-      .addLabel("end-slide-in");
-
-    this.creditsReveal(tl);
-    tl.play();
   }
 
   creditsReveal(tl) {
@@ -91,49 +94,52 @@ class animations {
     );
   }
 
-  leave(el, done) {
-    this.split();
+  async leave(el, done) {
+    return new Promise((r) => {
+      this.split();
 
-    const tl = gsap.timeline({
-      paused: true,
-      onComplete: () => {
-        done();
-        tl.revert();
-      },
+      const tl = gsap.timeline({
+        paused: true,
+        onComplete: () => {
+          done();
+          tl.revert();
+          r();
+        },
+      });
+
+      tl.addLabel("start-slide-out")
+        .to(
+          ".site-credits__content",
+          {
+            yPercent: -100,
+            ease: this.creditsEase,
+            duration: 1.2,
+          },
+          "start-slide-out"
+        )
+        .to(
+          ".content__inner-wrapper",
+          {
+            yPercent: 100,
+            ease: this.creditsEase,
+            duration: 1.2,
+          },
+          "start-slide-out"
+        )
+        .to(
+          ".site-credits__backdrop",
+          {
+            autoAlpha: 0,
+            duration: 0.5,
+            ease: "power2.in",
+          },
+          "start-slide-out+=0.6"
+        )
+        .addLabel("end-slide-out");
+
+      this.creditsHide(tl);
+      tl.play();
     });
-
-    tl.addLabel("start-slide-out")
-      .to(
-        ".site-credits__content",
-        {
-          yPercent: -100,
-          ease: this.creditsEase,
-          duration: 1.2,
-        },
-        "start-slide-out"
-      )
-      .to(
-        ".content__inner-wrapper",
-        {
-          yPercent: 100,
-          ease: this.creditsEase,
-          duration: 1.2,
-        },
-        "start-slide-out"
-      )
-      .to(
-        ".site-credits__backdrop",
-        {
-          autoAlpha: 0,
-          duration: 0.5,
-          ease: "power2.in",
-        },
-        "start-slide-out+=0.6"
-      )
-      .addLabel("end-slide-out");
-
-    this.creditsHide(tl);
-    tl.play();
   }
 
   creditsHide(tl) {

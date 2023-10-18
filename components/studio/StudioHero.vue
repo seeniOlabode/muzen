@@ -15,12 +15,10 @@
         your vision to life.
       </p>
       <div class="hero-content__video-wrapper">
-        <video
-          class="hero-content__video"
-          src="/images/Studio/studio-video-trimmed.webm"
-          autoplay
-          loop
-        ></video>
+        <video class="hero-content__video" autoplay loop>
+          <source src="/images/Studio/studio-video-trimmed.webm" />
+          <source src="/images/Studio/studio-video-trimmed-compressed.mp4" />
+        </video>
       </div>
     </div>
 
@@ -70,7 +68,7 @@ export default {
 .studio-hero__logo {
   margin-top: 44px;
   font-family: var(--muzen-nohemi);
-  font-size: 28vw;
+  font-size: 27.5vw;
   display: flex;
   justify-content: space-between;
   line-height: 0.6;
@@ -142,6 +140,12 @@ export default {
   bottom: 10%;
   font-weight: 400;
   font-family: var(--muzen-nohemi);
+}
+
+@media screen and (width >= 500px) {
+  .studio-hero__logo {
+    font-size: 28vw;
+  }
 }
 
 @media screen and (width >= 724px) {

@@ -1,6 +1,6 @@
 :root {
-  --muzen-dm: "DM Sans", sans-serif;
-  --muzen-nohemi: "Nohemi", sans-serif;
+  --muzen-dm: "DM Sans", Geneva, Arial, Helvetica, sans-serif;
+  --muzen-nohemi: "Nohemi", Geneva, Arial, Helvetica, sans-serif;
   --muzen-light-brown: #faf7f0;
   --muzen-brown: #4d3d30;
   --muzen-dark-brown: #1c1816;

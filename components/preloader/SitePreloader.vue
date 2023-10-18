@@ -68,7 +68,10 @@ export default {
           current === percentagesArray[percentagesArray.length - 1];
         if (setDisplayedImg) {
           animating.value = true;
-          displayedImageIndex.value++;
+          displayedImageIndex.value =
+            displayedImageIndex.value + 1 < 3
+              ? displayedImageIndex.value + 1
+              : displayedImageIndex.value;
           changeImage.value = false;
         }
       } else {
