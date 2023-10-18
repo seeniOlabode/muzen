@@ -9,7 +9,7 @@
           the subtlest details, highlighting the essence of our subjects and the
           garments they wear.
         </p>
-        <site-image src="/images/Home/bd61410803fcb567cbae8ae3404ff547.jpg" />
+        <site-image src="/images/Home/bd61410803fcb567cbae8ae3404ff547.webp" />
       </div>
       <div class="row parallax">
         <p class="body">
@@ -21,7 +21,7 @@
         </p>
         <site-image
           class="parallax"
-          src="/images/Home/9c4185c457cfc98a6b1c74c7107e8394.jpg"
+          src="/images/Home/9c4185c457cfc98a6b1c74c7107e8394.webp"
         />
       </div>
       <div class="row">
@@ -37,13 +37,13 @@
             to create enchanting images that evoke emotions and inspire awe.
           </p>
         </div>
-        <site-image src="/images/Home/17537fd3f45377fd12276f9653e95dd3.jpg" />
+        <site-image src="/images/Home/17537fd3f45377fd12276f9653e95dd3.webp" />
       </div>
 
       <div class="row image-only">
-        <site-image src="/images/Home/6b51bd3356a853ae5be74b3742214f83.jpg" />
-        <site-image src="/images/Home/6d1aee11ee587f8da862c34fd3b582a7.jpg" />
-        <site-image src="/images/Home/3a6643cb8f839f7835c98c13a4e24f70.jpg" />
+        <site-image src="/images/Home/6b51bd3356a853ae5be74b3742214f83.webp" />
+        <site-image src="/images/Home/6d1aee11ee587f8da862c34fd3b582a7.webp" />
+        <site-image src="/images/Home/3a6643cb8f839f7835c98c13a4e24f70.webp" />
       </div>
 
       <div class="row">
@@ -55,7 +55,7 @@
           reflect your brand's identity and message.
         </p>
         <site-image
-          src="/images/Home/2319c541d59e20ec4d3458ea26c88ad9.jpg"
+          src="/images/Home/2319c541d59e20ec4d3458ea26c88ad9.webp"
           :aRatio="false"
         />
       </div>
@@ -79,25 +79,25 @@
           </p>
         </div>
 
-        <site-image src="/images/Home/f925b54c66129218d392aad65af94b92.jpg" />
+        <site-image src="/images/Home/f925b54c66129218d392aad65af94b92.webp" />
       </div>
 
       <div class="row image-only">
         <site-image
           class="no-mobile"
-          src="/images/Home/4cb3dbe4029b1f82262036eaa727c27f.jpg"
+          src="/images/Home/4cb3dbe4029b1f82262036eaa727c27f.webp"
         />
 
-        <site-image src="/images/Home/846c726339639779cbf4e3a9cf3ca3ed.jpg" />
-        <site-image src="/images/Home/43df5d316e46360d6fb01f4bb8624e3f.jpg" />
+        <site-image src="/images/Home/846c726339639779cbf4e3a9cf3ca3ed.webp" />
+        <site-image src="/images/Home/43df5d316e46360d6fb01f4bb8624e3f.webp" />
 
         <site-image
           class="no-mobile"
-          src="/images/Home/c33c22f04c0db03d12ece71c9500f8b1.jpg"
+          src="/images/Home/c33c22f04c0db03d12ece71c9500f8b1.webp"
         />
         <site-image
           class="no-mobile"
-          src="/images/Home/7ae766844aea609f111dba45eed73905.jpg"
+          src="/images/Home/7ae766844aea609f111dba45eed73905.webp"
         />
       </div>
     </div>

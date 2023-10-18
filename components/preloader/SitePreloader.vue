@@ -101,7 +101,7 @@ export default {
         };
 
         try {
-          if (content.endsWith(".mp4")) {
+          if (content.endsWith(".webm")) {
             preloadVideo();
           } else {
             preloadImage();

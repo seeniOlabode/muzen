@@ -15,7 +15,7 @@
         <div
           class="section__image"
           style="
-            background-image: url(/images/Studio/5636d885fe1161dcd97994c12abd538b.jpg);
+            background-image: url(/images/Studio/5636d885fe1161dcd97994c12abd538b.webp);
           "
         ></div>
       </div>
@@ -33,19 +33,19 @@
         <div
           class="section__image mobile__hidden"
           style="
-            background-image: url(/images/Studio/555216c6494565a1345316404f43f0b0.jpg);
+            background-image: url(/images/Studio/555216c6494565a1345316404f43f0b0.webp);
           "
         ></div>
         <div
           class="section__image mobile__hidden"
           style="
-            background-image: url(/images/Studio/9192fda08a9092ebd418fdf0f6317ed0.jpg);
+            background-image: url(/images/Studio/9192fda08a9092ebd418fdf0f6317ed0.webp);
           "
         ></div>
         <div
           class="section__image"
           style="
-            background-image: url(/images/Studio/d712f8231b6a0f0cdcb549923cfc437b.jpg);
+            background-image: url(/images/Studio/d712f8231b6a0f0cdcb549923cfc437b.webp);
           "
         ></div>
       </div>
@@ -70,25 +70,25 @@
         <div
           class="section__image"
           style="
-            background-image: url(/images/Studio/1db92f315ae2c2d267ca44c083cb14c2.jpg);
+            background-image: url(/images/Studio/1db92f315ae2c2d267ca44c083cb14c2.webp);
           "
         ></div>
         <div
           class="section__image mobile__hidden"
           style="
-            background-image: url(/images/Studio/b6f53ebe9da00b27334ecd7e7e9b3d89.jpg);
+            background-image: url(/images/Studio/b6f53ebe9da00b27334ecd7e7e9b3d89.webp);
           "
         ></div>
         <div
           class="section__image mobile__hidden"
           style="
-            background-image: url(/images/Studio/e0ee7218742c25fa5da77b4ce888891c.jpg);
+            background-image: url(/images/Studio/e0ee7218742c25fa5da77b4ce888891c.webp);
           "
         ></div>
         <div
           class="section__image"
           style="
-            background-image: url(/images/Studio/dbff007d3ed23e1870170e92ea820f47.jpg);
+            background-image: url(/images/Studio/dbff007d3ed23e1870170e92ea820f47.webp);
           "
         ></div>
       </div>

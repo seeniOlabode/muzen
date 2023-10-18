@@ -33,7 +33,7 @@
       </p>
       <div class="content__graphic">
         <reveal-site-image
-          src="/images/Contact/2218e288ff48b77ca0df131b7290e4c6.jpg"
+          src="/images/Contact/2218e288ff48b77ca0df131b7290e4c6.webp"
           :aRatio="false"
           customClass="content__img-container"
         />

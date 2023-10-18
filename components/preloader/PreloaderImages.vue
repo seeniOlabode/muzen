@@ -32,9 +32,9 @@ export default {
   data() {
     return {
       images: [
-        "/images/Preloader/dex-ezekiel-M6KkYlhCwuA-unsplash.jpg",
-        "/images/Preloader/drew-tilk-EhmLEzVSx1Q-unsplash.jpg",
-        "/images/Preloader/khaled-ghareeb-rBdkjxJlRaI-unsplash.jpg",
+        "/images/Preloader/dex-ezekiel-M6KkYlhCwuA-unsplash.webp",
+        "/images/Preloader/drew-tilk-EhmLEzVSx1Q-unsplash.webp",
+        "/images/Preloader/khaled-ghareeb-rBdkjxJlRaI-unsplash.webp",
       ],
     };
   },
