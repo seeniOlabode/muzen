@@ -18,7 +18,7 @@
         give customers an idea of how their products can be styled and combined.
       </p>
       <div class="intro__graphic">
-        <img
+        <site-image
           src="/images/Lookbook/f925b54c66129218d392aad65af94b92.webp"
           alt=""
         />
@@ -27,79 +27,79 @@
     <section class="lookbook-page__gallery">
       <ul class="gallery__images">
         <li class="gallery__images-block">
-          <img
+          <site-image
             class="gallery__image"
             src="/images/Lookbook/d8066a7aa3e02a19590370f71271a2cb.webp"
             alt=""
           />
-          <img
+          <site-image
             src="/images/Lookbook/86edab85d82bd80a81045d1c15e17d0f.webp"
             alt=""
             class="gallery__image mobile-hidden"
           />
-          <img
+          <site-image
             class="gallery__image"
             src="/images/Lookbook/dbff007d3ed23e1870170e92ea820f47.webp"
             alt=""
           />
-          <img
+          <site-image
             class="gallery__image"
             src="/images/Lookbook/608211fde9d4cd23630731385fce5e46.webp"
             alt=""
           />
-          <img
+          <site-image
             src="/images/Lookbook/919256a084243a038a4cd79e8558311b.webp"
             alt=""
             class="gallery__image"
           />
-          <img
+          <site-image
             src="/images/Lookbook/7ee76d1e1815bfd2091ca9772b8094e0.webp"
             alt=""
             class="gallery__image mobile-hidden"
           />
         </li>
         <li class="gallery__images-block">
-          <img
+          <site-image
             src="/images/Lookbook/6cdfc36505430dbebe65e065645ee42f.webp"
             alt=""
             class="gallery__image"
           />
-          <img
+          <site-image
             src="/images/Lookbook/3a50c5c1a56ed6cce63f44a94e15d619.webp"
             alt=""
             class="gallery__image mobile-hidden"
           />
-          <img
+          <site-image
             src="/images/Lookbook/d80979946fdded3c4ffc1099be314b62.webp"
             alt=""
             class="gallery__image"
           />
-          <img
+          <site-image
             src="/images/Lookbook/80f60a3b0f35d43ffa1501ad57716513.webp"
             alt=""
             class="gallery__image mobile-hidden"
           />
-          <img
+          <site-image
             src="/images/Lookbook/a80ca52bb7eda09fef31d78458224070.webp"
             alt=""
             class="gallery__image mobile-hidden"
           />
-          <img
+          <site-image
             src="/images/Lookbook/2879c57f0fd2a4913a7f62dbe1973396.webp"
             alt=""
             class="gallery__image"
           />
-          <img
+          <site-image
             src="/images/Lookbook/b111a4b60c2f93679af24e648479af07.webp"
             alt=""
             class="gallery__image"
           />
-          <img
+          <site-image
             src="/images/Lookbook/9192fda08a9092ebd418fdf0f6317ed0.webp"
             alt=""
             class="gallery__image mobile-hidden"
           />
-          <img
+          <site-image
             src="/images/Lookbook/8ef59b0c1a22f7f8695b7ec887b84f23.webp"
             alt=""
             class="gallery__image mobile-hidden"
@@ -111,8 +111,10 @@
 </template>
 
 <script>
-import { LookbookAnimations } from "~/animations/lookbook/lookbook";
+import { animations } from "~/animations/lookbook/lookbook";
 import { emitter as $eventBus } from "../plugins/event-bus.js";
+
+export const LookbookAnimations = new animations();
 
 export default {
   inject: ["getTransitioned"],

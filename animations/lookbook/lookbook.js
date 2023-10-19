@@ -5,7 +5,7 @@ gsap.registerPlugin(Draggable);
 
 import { selectFrom, selectAllFrom } from "~/utils/utils";
 
-class animations {
+export class animations {
   constructor() {
     this.el = null;
     this.elHeading = null;
@@ -56,5 +56,3 @@ class animations {
     config.desktop && this.setDraggable();
   }
 }
-
-export const LookbookAnimations = new animations();

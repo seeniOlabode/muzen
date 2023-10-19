@@ -58,12 +58,13 @@
 </template>
 
 <script>
-import { ContactPageAnimations } from "~/animations/contact/contact";
-import { animations } from "~/animations/footer/SiteCredits";
+import { animations as contactAnimationClass } from "~/animations/contact/contact";
+import { animations as creditsAnimationsClass } from "~/animations/footer/SiteCredits";
 
 import { emitter as $eventBus } from "../plugins/event-bus.js";
 
-const creditsAnimations = new animations();
+const ContactPageAnimations = new contactAnimationClass();
+const creditsAnimations = new creditsAnimationsClass();
 
 export default {
   name: "Contact Page",

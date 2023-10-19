@@ -66,12 +66,13 @@ class lockScroll {
 const scrollLocker = new lockScroll();
 
 export default function (lock, componentName, strict) {
+  const unwatchLock = ref(null);
   if (!componentName) {
     console.log("Component Name not provided");
   }
   onMounted(() => {
     const body = selectFrom("body", document.documentElement);
-    watch(
+    unwatchLock.value = watch(
       lock,
       (value) => {
         if (value) {
@@ -85,7 +86,7 @@ export default function (lock, componentName, strict) {
   });
 
   onBeforeUnmount(() => {
-    console.log("beforeUnmount", componentName);
+    unwatchLock.value && unwatchLock.value();
     scrollLocker.unsubscribe(componentName);
   });
 }

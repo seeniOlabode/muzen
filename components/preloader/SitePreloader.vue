@@ -4,15 +4,13 @@
     <site-preloader-counter
       :currentPercentCheckpoint="counterPercentCheckpoint"
       :loaded-count="loadedCount"
-      :desktop="!mobile"
-      :assets-to-load="assetsToLoad"
+      :assets-count="assetsToLoad.length"
       @done-animating="updateCounterPercent"
     />
   </div>
 </template>
 
 <script>
-import { gsap } from "gsap";
 import { assetsToLoad as allAssets } from "../../assets/data";
 import { preloadContent } from "~/utils/utils";
 
@@ -46,17 +44,6 @@ export default {
     });
 
     // Methods
-
-    function mediaQueryCallback(mobile) {
-      mobile ||
-        gsap.set(".site-preloader__counter", {
-          y: -(
-            (this.windowHeight - 64 - this.counterElHeight) *
-            (this.loadedCount / assetsToLoad.length)
-          ),
-        });
-    }
-
     function updateCounterPercent() {
       animating.value = false;
 
@@ -157,9 +144,7 @@ export default {
       }
     });
 
-    // Composables
-    const mobile = useMediaQuery(undefined, mediaQueryCallback);
-
+    // .exe
     if (process.client) {
       lockScroll(lock, "site-preloader");
     }
@@ -173,9 +158,12 @@ export default {
     onMounted(() => {
       load();
     });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener("load", load);
+    });
     return {
       assetsToLoad,
-      mobile,
       currentPercentCheckpoint,
       counterPercentCheckpoint,
       loadedCount,

@@ -5,11 +5,14 @@ gsap.registerPlugin(SplitText);
 
 import { selectAllFrom } from "~/utils/utils";
 
-class animations {
+export class animations {
   constructor() {
     this.el = null;
     this.contentCopySplit = null;
+    this.elContentCreators = null;
+    this.tl = null;
     this.transitioned = null;
+    this.resizeHandler = null;
   }
 
   setEnterAnimations() {
@@ -96,7 +99,7 @@ class animations {
         ease: "circ.out",
       })
       .from(
-        scopedSelect(".site-image__image-wrapper"),
+        scopedSelect(".site-image__image"),
         {
           scale: 2,
           duration: 1.5,
@@ -135,9 +138,15 @@ class animations {
   }
 
   handleResize() {
-    window.addEventListener("resize", () => {
-      this.revertSplits();
-    });
+    this.resizeHandler = () => {
+      this.resizeSplits();
+    };
+    window.addEventListener("resize", this.resizeHandler);
+  }
+
+  kill() {
+    this.resizeHandler &&
+      window.removeEventListener("resize", this.resizeHandler);
   }
 
   init(el, transitioned = true) {
@@ -158,5 +167,3 @@ class animations {
     this.setEnterAnimations();
   }
 }
-
-export const ContactPageAnimations = new animations();

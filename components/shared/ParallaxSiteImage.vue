@@ -1,14 +1,16 @@
 <template>
-  <img
-    :src="src"
-    :alt="alt || 'Muzen Image'"
-    class="site-image__image"
+  <div
+    class="parallax-site-image__image-wrapper"
     :class="[{ 'no-ratio': !aRatio }, customClass]"
-  />
+  >
+    <!-- <NuxtImg :src="src" class="site-image__image" /> -->
+    <site-image :src="src" />
+  </div>
 </template>
 
 <script>
 export default {
+  name: "Parallax Site Image",
   props: {
     src: String,
     alt: String,
@@ -26,13 +28,20 @@ export default {
 </script>
 
 <style scoped>
-.site-image__image {
+.parallax-site-image__image-wrapper {
   aspect-ratio: 396/432;
+  overflow: hidden;
+  will-change: transform;
 
   &.no-ratio {
     aspect-ratio: auto;
   }
+}
 
+.site-image__image {
+  width: 150%;
+  height: 150%;
   object-fit: cover;
+  will-change: transform;
 }
 </style>

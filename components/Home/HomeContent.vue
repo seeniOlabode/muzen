@@ -9,7 +9,9 @@
           the subtlest details, highlighting the essence of our subjects and the
           garments they wear.
         </p>
-        <site-image src="/images/Home/bd61410803fcb567cbae8ae3404ff547.webp" />
+        <parallax-site-image
+          src="/images/Home/bd61410803fcb567cbae8ae3404ff547.webp"
+        />
       </div>
       <div class="row parallax">
         <p class="body">
@@ -19,7 +21,7 @@
           a keen eye for unique angles, we transform our clients' visions into
           mesmerizing visual appealing narratives.
         </p>
-        <site-image
+        <parallax-site-image
           class="parallax"
           src="/images/Home/9c4185c457cfc98a6b1c74c7107e8394.webp"
         />
@@ -37,13 +39,21 @@
             to create enchanting images that evoke emotions and inspire awe.
           </p>
         </div>
-        <site-image src="/images/Home/17537fd3f45377fd12276f9653e95dd3.webp" />
+        <parallax-site-image
+          src="/images/Home/17537fd3f45377fd12276f9653e95dd3.webp"
+        />
       </div>
 
       <div class="row image-only">
-        <site-image src="/images/Home/6b51bd3356a853ae5be74b3742214f83.webp" />
-        <site-image src="/images/Home/6d1aee11ee587f8da862c34fd3b582a7.webp" />
-        <site-image src="/images/Home/3a6643cb8f839f7835c98c13a4e24f70.webp" />
+        <parallax-site-image
+          src="/images/Home/6b51bd3356a853ae5be74b3742214f83.webp"
+        />
+        <parallax-site-image
+          src="/images/Home/6d1aee11ee587f8da862c34fd3b582a7.webp"
+        />
+        <parallax-site-image
+          src="/images/Home/3a6643cb8f839f7835c98c13a4e24f70.webp"
+        />
       </div>
 
       <div class="row">
@@ -54,7 +64,7 @@
           clients vision and translate it into stunning visual compositions that
           reflect your brand's identity and message.
         </p>
-        <site-image
+        <parallax-site-image
           src="/images/Home/2319c541d59e20ec4d3458ea26c88ad9.webp"
           :aRatio="false"
         />
@@ -79,23 +89,29 @@
           </p>
         </div>
 
-        <site-image src="/images/Home/f925b54c66129218d392aad65af94b92.webp" />
+        <parallax-site-image
+          src="/images/Home/f925b54c66129218d392aad65af94b92.webp"
+        />
       </div>
 
       <div class="row image-only">
-        <site-image
+        <parallax-site-image
           class="no-mobile"
           src="/images/Home/4cb3dbe4029b1f82262036eaa727c27f.webp"
         />
 
-        <site-image src="/images/Home/846c726339639779cbf4e3a9cf3ca3ed.webp" />
-        <site-image src="/images/Home/43df5d316e46360d6fb01f4bb8624e3f.webp" />
+        <parallax-site-image
+          src="/images/Home/846c726339639779cbf4e3a9cf3ca3ed.webp"
+        />
+        <parallax-site-image
+          src="/images/Home/43df5d316e46360d6fb01f4bb8624e3f.webp"
+        />
 
-        <site-image
+        <parallax-site-image
           class="no-mobile"
           src="/images/Home/c33c22f04c0db03d12ece71c9500f8b1.webp"
         />
-        <site-image
+        <parallax-site-image
           class="no-mobile"
           src="/images/Home/7ae766844aea609f111dba45eed73905.webp"
         />
@@ -218,7 +234,7 @@ export default {
       grid-area: text;
     }
 
-    .site-image__image-wrapper {
+    .parallax-site-image__image-wrapper {
       max-width: 445px;
       grid-area: image;
       aspect-ratio: 445/485;
@@ -232,7 +248,7 @@ export default {
       grid-area: text;
     }
 
-    .site-image__image-wrapper {
+    .parallax-site-image__image-wrapper {
       grid-area: image;
       aspect-ratio: 330/380;
       position: relative;
@@ -249,7 +265,7 @@ export default {
     .copy {
       grid-area: text;
     }
-    .site-image__image-wrapper {
+    .parallax-site-image__image-wrapper {
       grid-area: image;
       aspect-ratio: 445/517;
       position: relative;
@@ -262,7 +278,7 @@ export default {
   .row:nth-child(4) {
     grid-template-columns: 1fr 1fr 1fr;
 
-    .site-image__image-wrapper {
+    .parallax-site-image__image-wrapper {
       position: relative;
 
       &:nth-child(1) {
@@ -291,7 +307,7 @@ export default {
       text-align: center !important;
     }
 
-    .site-image__image-wrapper {
+    .parallax-site-image__image-wrapper {
       grid-area: image;
       position: relative;
       top: 40px;
@@ -310,7 +326,7 @@ export default {
       }
     }
 
-    .site-image__image-wrapper {
+    .parallax-site-image__image-wrapper {
       grid-area: image;
       position: relative;
       top: 100px;
@@ -323,14 +339,14 @@ export default {
     grid-template-areas: "image1 image1 image1 image2 image2 image3 image3" "... image4 image4 ... ... image5 image5";
     row-gap: 50px;
 
-    .site-image__image-wrapper:nth-child(1) {
+    .parallax-site-image__image-wrapper:nth-child(1) {
       grid-area: image1;
       position: relative;
       bottom: 50px;
       right: 30px;
     }
 
-    .site-image__image-wrapper:nth-child(2) {
+    .parallax-site-image__image-wrapper:nth-child(2) {
       grid-area: image2;
       position: relative;
       top: 100px;
@@ -338,18 +354,18 @@ export default {
       aspect-ratio: 300/388;
     }
 
-    .site-image__image-wrapper:nth-child(3) {
+    .parallax-site-image__image-wrapper:nth-child(3) {
       grid-area: image3;
       position: relative;
       left: 40px;
       bottom: 0px;
     }
 
-    .site-image__image-wrapper:nth-child(4) {
+    .parallax-site-image__image-wrapper:nth-child(4) {
       grid-area: image4;
       aspect-ratio: 445/244;
     }
-    .site-image__image-wrapper:nth-child(5) {
+    .parallax-site-image__image-wrapper:nth-child(5) {
       grid-area: image5;
       position: relative;
       top: 50px;
@@ -381,7 +397,7 @@ export default {
       margin: 0 auto;
     }
 
-    .site-image__image-wrapper {
+    .parallax-site-image__image-wrapper {
       bottom: 70px;
     }
   }
@@ -411,7 +427,7 @@ export default {
   .row:nth-child(7) {
     margin-top: 200px;
 
-    .site-image__image-wrapper {
+    .parallax-site-image__image-wrapper {
       &:nth-child(2) {
         top: 200px;
       }

@@ -1,7 +1,7 @@
 <template>
   <div
     class="site-preloader__counter"
-    :class="{ mobile: !desktop }"
+    :class="{ mobile: mobile }"
     ref="counterEl"
   >
     <div class="counter__wrapper">
@@ -50,54 +50,46 @@ export default {
   props: {
     currentPercentCheckpoint: String,
     loadedCount: Number,
-    desktop: Boolean,
-    assetsToLoad: Array,
+    assetsCount: Number,
   },
   emits: ["done-animating"],
-  data() {
-    return {
-      baseFrequency: {
-        x: 0,
-        y: 0,
-      },
-    };
-  },
   methods: {
     getPlaceValue,
     onEnter,
   },
-  setup() {
+  setup(props) {
+    // State
     const { width: windowWidth, height: windowHeight } = useWindowSize();
-    let desktop = computed(() => windowWidth.value >= 724);
-
     const counterEl = ref(null);
     const { height } = useElementBounding(counterEl);
+
+    // Methods
+    function mediaQueryCallback(mobile) {
+      if (!mobile) {
+        gsap.set(counterEl, {
+          y: -(
+            (windowHeight - 64 - height) *
+            (props.loadedCount / props.assetsCount)
+          ),
+        });
+      }
+    }
+
+    // .exe
+    const mobile = useMediaQuery(undefined, mediaQueryCallback);
 
     return {
       windowHeight,
       windowWidth,
-      desktop,
+      mobile,
       counterEl,
       counterElHeight: height,
     };
   },
-
-  watch: {
-    windowHeight(value) {
-      if (this.loadedCount == this.assetsToLoad.length && this.desktop) {
-        gsap.set(".site-preloader__counter", {
-          y: -(
-            (this.windowHeight - 64 - this.counterElHeight) *
-            (this.currentPercentCheckpoint / 100)
-          ),
-        });
-      }
-    },
-  },
 };
 
 function onEnter(el, done) {
-  if (!this.desktop) {
+  if (this.mobile) {
     // allow css based transitions to finish (for 700ms);
     return setTimeout(() => {
       this.$emit("done-animating", true);

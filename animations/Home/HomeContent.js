@@ -42,11 +42,14 @@ class Animations {
     this.el = el;
     this.rows = selectAllFrom(".row", el);
     this.images = selectAllFrom(
-      ".site-image__image-wrapper:not(.home-content__scaled-image) .site-image__image",
+      ".parallax-site-image__image-wrapper:not(.home-content__scaled-image) .site-image__image",
       el
     );
     this.parallaxRow = selectFrom(".row.parallax", el);
-    this.parallaxImage = selectFrom(".site-image__image-wrapper.parallax", el);
+    this.parallaxImage = selectFrom(
+      ".parallax-site-image__image-wrapper.parallax",
+      el
+    );
     setTimeout(() => {
       // Crutch: The Parallax doesn't work immediately if I don't do this;
       this.setParallax();
