@@ -1,6 +1,6 @@
 <template>
   <main class="easter-egg-page" ref="easterPage">
-    <div class="easter-egg-page__wrapper" v-if="desktop">
+    <div class="easter-egg-page__wrapper" v-if="!mobile">
       <ul class="easter-egg-page__photo-list" ref="photoList">
         <li
           class="photo-list__photo"
@@ -30,25 +30,38 @@
 </template>
 
 <script>
-import { useWindowSize } from "@vueuse/core";
 import lockScroll from "~/composables/lockScroll";
 
 import { getBounding, getCssVariable } from "~/utils/utils";
-
 import { gsap } from "gsap";
-
 import { animations } from "~/animations/easter-egg/easter-egg";
+import { assetsToLoad } from "assets/data";
 
 const easterEggAnimations = new animations();
 
 export default {
   setup() {
-    const { width: windowWidth } = useWindowSize();
+    // State
+    const images = assetsToLoad["/3@s73r"].all;
     const scrollLocked = ref(false);
+    const easterPage = ref(null);
+
+    // Methods
+    function mediaQueryCallback(mobile) {
+      if (mobile) {
+        easterEggAnimations.stop();
+      } else {
+        easterEggAnimations.start();
+      }
+    }
+
+    // .exe
     if (process.client) {
       lockScroll(scrollLocked, "easter", true);
 
       onMounted(() => {
+        scrollLocked.value = false;
+        easterEggAnimations.init(easterPage.value);
         gsap.set("body, html", {
           overflow: "hidden",
         });
@@ -60,46 +73,20 @@ export default {
         });
       });
     }
+    const mobile = useMediaQuery(undefined, mediaQueryCallback);
+
     return {
-      windowWidth,
+      mobile,
       scrollLocked,
+      images,
+      easterPage,
     };
   },
   data() {
     return {
       selectedImg: null,
       showPreview: false,
-      images: [
-        "/images/Easter/27d5f262825506cd4723c3d1f67d59af.webp",
-        "/images/Easter/ahmed-carter-XzGIUm4GJGc-unsplash.webp",
-        "/images/Easter/ali-pazani-DyIqeZLhIz8-unsplash.webp",
-        "/images/Easter/dex-ezekiel-M6KkYlhCwuA-unsplash.webp",
-        "/images/Easter/dom-hill-nimElTcTNyY-unsplash.webp",
-        "/images/Easter/drew-tilk-EhmLEzVSx1Q-unsplash.webp",
-        "/images/Easter/huseyin-kilic-2U2wPj0lsbY-unsplash.webp",
-        "/images/Easter/jasmin-chew-nlRIdHSvgro-unsplash.webp",
-        "/images/Easter/jasmin-chew-txy8AZU04iw-unsplash.webp",
-        "/images/Easter/joshua-rondeau-JzSq9sOgq6g-unsplash.webp",
-        "/images/Easter/joshua-rondeau-kaQfPZKYHYs-unsplash.webp",
-        "/images/Easter/khaled-ghareeb-qL_EfyvR07s-unsplash.webp",
-        "/images/Easter/lance-reis-FPYq6DDI1gA-unsplash.webp",
-        "/images/Easter/lance-reis-OzEiSTZlyHw-unsplash.webp",
-        "/images/Easter/lance-reis-RQO2DmrRJFg-unsplash.webp",
-        "/images/Easter/lance-reis-SsrVdOK-SDk-unsplash.webp",
-        "/images/Easter/mery-khachatryan-jKj8q0gXvkk-unsplash.webp",
-        "/images/Easter/mojtaba-mosayebzadeh-tQ8lCKcncx4-unsplash.webp",
-        "/images/Easter/naeim-jafari-s3VxCT4p8FM-unsplash.webp",
-        "/images/Easter/rghiejwee.webp",
-        "/images/Easter/sergi-dolcet-escrig-VtcSGIvYJRY-unsplash.webp",
-        "/images/Easter/simeon-asenov-Wtj5aRVMDZM-unsplash.webp",
-        "/images/Easter/tamara-bellis-CnpWWzoSke4-unsplash.webp",
-        "/images/Easter/thevaler_s-QsrZaSJqG4k-unsplash.webp",
-      ],
     };
-  },
-  mounted() {
-    this.scrollLocked = false;
-    easterEggAnimations.init(this.$refs.easterPage);
   },
   methods: {
     previewImage(i) {
@@ -112,26 +99,25 @@ export default {
     },
     previewEnter(el, done) {
       const scopeSelect = gsap.utils.selector(el);
+      const previewBackdrop = scopeSelect(".preview-container__backdrop");
+      const previewImage = scopeSelect(".preview-container__image");
       const photo = this.$refs.photosList[this.selectedImg];
       const photoBounds = getBounding(photo);
-      const photoHalfX = photoBounds.width / 2;
-      const photoHalfY = photoBounds.height / 2;
-      const photoCenteredX = photoBounds.x + photoHalfX;
-      const photoCenteredY = photoBounds.y + photoHalfY;
+      const photoCenteredX = photoBounds.x + photoBounds.width / 2;
+      const photoCenteredY = photoBounds.y + photoBounds.height / 2;
 
-      const previewImageBounds = getBounding(this.$refs.previewContainerImage);
-      const previewImageHalfX = previewImageBounds.width / 2;
-      const previewImageHalfY = previewImageBounds.height / 2;
-      const previewImageCenteredX = previewImageBounds.x + previewImageHalfX;
-      const previewImageCenteredY = previewImageBounds.y + previewImageHalfY;
+      const windowXCenter = window.innerWidth / 2;
+      const windowYCenter = window.innerHeight / 2;
 
       const photoTransX = parseFloat(getCssVariable(photo, "x"));
       const photoTransY = parseFloat(getCssVariable(photo, "y"));
 
-      const scaleTo = previewImageBounds.width / photoBounds.width;
+      const scaleTo = 500 / photoBounds.width;
 
-      const xTo = previewImageCenteredX - photoCenteredX + photoTransX;
-      const yTo = previewImageCenteredY - photoCenteredY + photoTransY;
+      const xTo = windowXCenter - photoCenteredX + photoTransX;
+      const yTo = windowYCenter - photoCenteredY + photoTransY;
+
+      console.log(yTo, windowXCenter - photoCenteredX);
 
       gsap.set(photo, { "--preview-x": xTo, "--preview-y": yTo });
 
@@ -146,29 +132,18 @@ export default {
         )
         .to(
           photo,
-          {
-            scaleY: scaleTo,
-            duration: 0.8,
-            ease: "power3.inOut",
-          },
+          { scaleY: scaleTo, duration: 0.8, ease: "power3.inOut" },
           "<"
         )
-        .to(
-          scopeSelect(".preview-container__backdrop"),
-          {
-            autoAlpha: 1,
-          },
-          "<+=0.25"
-        )
-        .set(scopeSelect(".preview-container__image"), {
-          visibility: "visible",
-        })
+        .to(previewBackdrop, { autoAlpha: 1 }, "<+=0.25")
+        .set(previewImage, { visibility: "visible" })
         .set(photo, { visibility: "hidden" })
         .call(done)
         .play();
     },
     previewLeave(el, done) {
       const scopeSelect = gsap.utils.selector(el);
+      const previewImage = scopeSelect(".preview-container__image");
       const photo = this.$refs.photosList[this.selectedImg];
 
       const photoX = parseFloat(getCssVariable(photo, "x"));
@@ -179,7 +154,7 @@ export default {
       const tl = gsap
         .timeline({ paused: true })
         .set(photo, { visibility: "visible" })
-        .set(scopeSelect(".preview-container__image"), { visibility: "hidden" })
+        .set(previewImage, { visibility: "hidden" })
         .to(photo, { x: photoX, y: photoY })
         .to(photo, { scaleX: 1, duration: 0.8, ease: "power1.inOut" }, "<")
         .to(photo, { scaleY: 1, duration: 0.8, ease: "power3.inOut" }, "<")
@@ -190,20 +165,6 @@ export default {
           easterEggAnimations.start();
         })
         .play();
-    },
-  },
-  computed: {
-    desktop() {
-      return this.windowWidth >= 724;
-    },
-  },
-  watch: {
-    desktop(value) {
-      if (!value) {
-        easterEggAnimations.stop();
-      } else {
-        easterEggAnimations.start();
-      }
     },
   },
   beforeUnmount() {

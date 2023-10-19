@@ -3,7 +3,6 @@
     <div class="home-hero__video-wrapper">
       <video class="video-wrapper__video" autoplay loop>
         <source src="/images/Home/home-hero-video.webm" />
-        <source src="/images/Home/home-hero-video-compressed.mp4" />
       </video>
     </div>
     <div class="home-hero__copy container">

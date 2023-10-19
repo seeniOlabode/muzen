@@ -17,7 +17,6 @@
       <div class="hero-content__video-wrapper">
         <video class="hero-content__video" autoplay loop>
           <source src="/images/Studio/studio-video-trimmed.webm" />
-          <source src="/images/Studio/studio-video-trimmed-compressed.mp4" />
         </video>
       </div>
     </div>

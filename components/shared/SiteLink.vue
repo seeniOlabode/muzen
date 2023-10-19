@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink class="site-link" :class="[size]" :to="to">{{ text }}</NuxtLink>
+  <NuxtLink class="site-link" :class="[size]" :to="to"> {{ text }}</NuxtLink>
 </template>
 
 <script>

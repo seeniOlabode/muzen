@@ -39,6 +39,7 @@
               :text="link.text"
               :to="link.path"
               color="#FAF7F0"
+              :prefetch="link.prefetch"
             />
           </li>
         </ul>
@@ -60,6 +61,9 @@
 import { menuAnimations } from "~/animations/header/SiteHeaderMobile";
 
 export default {
+  props: {
+    menuLinks: Array,
+  },
   setup() {
     const menuOpen = ref(false);
     if (process.client) {
@@ -71,12 +75,6 @@ export default {
   },
   data() {
     return {
-      menuLinks: [
-        { text: "home", path: "/" },
-        { text: "studio", path: "/studio" },
-        { text: "lookbook", path: "/lookbook" },
-        { text: "contact", path: "/contact" },
-      ],
       animating: false,
     };
   },

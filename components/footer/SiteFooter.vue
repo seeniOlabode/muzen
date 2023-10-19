@@ -19,6 +19,7 @@
             :text="link.text"
             size="sm"
             :to="link.path"
+            :prefetch="link.prefetch"
           />
           <share-link v-else-if="link?.type == 'share'" />
           <action-button
@@ -81,16 +82,19 @@ export default {
             {
               text: "Home",
               path: "/",
+              prefetch: true,
             },
             {
               text: "Studio",
               path: "/studio",
+              prefetch: true,
             },
             {
               text: "Lookbook",
               path: "/lookbook",
+              prefetch: true,
             },
-            { text: "Contact", path: "/contact" },
+            { text: "Contact", path: "/contact", prefetch: true },
           ],
         },
         {
@@ -124,6 +128,7 @@ export default {
             {
               text: "Easter egg",
               path: "/3@s73r",
+              prefetch: false,
             },
           ],
         },

@@ -86,11 +86,11 @@ export class animations {
       {
         yPercent: 100,
         opacity: 0,
-        ease: "power3.out",
-        stagger: 0.15,
-        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.1,
+        duration: 0.45,
       },
-      "end-slide-in-=0.2"
+      "end-slide-in-=0.45"
     );
   }
 
