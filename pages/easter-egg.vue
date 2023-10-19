@@ -37,7 +37,9 @@ import { getBounding, getCssVariable } from "~/utils/utils";
 
 import { gsap } from "gsap";
 
-import { easterEggAnimations } from "~/animations/easter-egg/easter-egg";
+import { animations } from "~/animations/easter-egg/easter-egg";
+
+const easterEggAnimations = new animations();
 
 export default {
   setup() {

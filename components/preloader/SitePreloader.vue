@@ -14,12 +14,18 @@
 import { assetsToLoad as allAssets } from "../../assets/data";
 import { preloadContent } from "~/utils/utils";
 
-let assetsToLoad;
+let assetsToLoad = [];
 
 export default {
   setup(_, context) {
     const route = useRoute(); // .exe
-    assetsToLoad = allAssets[route.fullPath]; // .exe
+    if (process.client) {
+      const mobile = window.innerWidth < 724;
+      assetsToLoad = [
+        ...allAssets[route.fullPath]["all"],
+        ...allAssets[route.fullPath][mobile ? "mobile" : "desktop"],
+      ];
+    }
 
     // State
     const lock = ref(true);

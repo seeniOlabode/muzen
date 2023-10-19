@@ -57,7 +57,6 @@ export default {
   },
   data() {
     return {
-      // TODO: Change this to false;
       assetsLoaded: false,
     };
   },

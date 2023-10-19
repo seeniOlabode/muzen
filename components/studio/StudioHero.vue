@@ -110,12 +110,16 @@ export default {
   left: 0;
   z-index: 10;
   overflow: hidden;
+  background-image: url("/images/Preloader/khaled-ghareeb-rBdkjxJlRaI-unsplash.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .hero-content__video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: none;
 }
 
 .studio-hero__heading {
@@ -167,6 +171,14 @@ export default {
 
   .studio-hero__heading {
     margin-top: 120px;
+  }
+
+  .hero-content__video-wrapper {
+    background: none;
+  }
+
+  .hero-content__video {
+    display: block;
   }
 }
 

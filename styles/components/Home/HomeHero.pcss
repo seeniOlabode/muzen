@@ -22,6 +22,9 @@
   right: 0;
   bottom: 0;
   z-index: 0;
+  background-image: url(/images/Home/home-hero-mobile.webp);
+  background-repeat: none;
+  background-size: cover;
 }
 
 .video-wrapper__video {
@@ -29,6 +32,7 @@
   width: 100%;
   object-fit: cover;
   will-change: transform;
+  display: none;
 }
 
 .home-hero__copy {
@@ -102,13 +106,19 @@
   top: 20%;
 }
 
-/* For Tablest */
+/* For Tablets */
 
 @media screen and (width <= 500px) {
 }
 
 /* Styles for Desktop */
 @media screen and (width >= 724px) {
+  .home-hero__video-wrapper {
+    background-image: none;
+  }
+  .video-wrapper__video {
+    display: block;
+  }
   .home-hero__copy {
     justify-content: end;
     padding-bottom: 100px;

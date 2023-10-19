@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
-import { Draggable } from "gsap/all";
+import { Draggable, ScrollTrigger } from "gsap/all";
 
-gsap.registerPlugin(Draggable);
+gsap.registerPlugin(Draggable, ScrollTrigger);
 
 import { selectFrom, selectAllFrom } from "~/utils/utils";
 
@@ -30,6 +30,46 @@ export class animations {
     );
   }
 
+  setParallax() {
+    const introGraphicImage = selectFrom(
+      ".site-image__image",
+      this.introGraphicEl
+    );
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: this.introGraphicEl,
+        start: "top 80%",
+        end: "bottom 50%",
+        scrub: true,
+      },
+    });
+    tl.to(this.introGraphicEl, {
+      y: -300,
+      ease: "linear",
+    });
+    tl.fromTo(
+      introGraphicImage,
+      {
+        yPercent: -50,
+        ease: "linear",
+      },
+      {
+        yPercent: 50,
+        ease: "linear",
+      },
+
+      "<"
+    );
+    tl.to(
+      introGraphicImage,
+      {
+        scale: 1.5,
+        ease: "linear",
+      },
+      "<"
+    );
+  }
+
   setDraggable() {
     console.log("draggable set");
     this.draggable ||
@@ -50,8 +90,16 @@ export class animations {
     console.log(config);
     this.el = el;
     this.elHeading = selectFrom(".intro__heading", el);
+    this.introGraphicEl = selectFrom(
+      ".intro__graphic .parallax-site-image__image-wrapper",
+      el
+    );
     this.galleryContainer = selectFrom(".lookbook-page__gallery", el);
     this.galleryImages = selectAllFrom(".gallery__image", el);
+    // setTimeout(() => {
+    // Crutch: The Parallax doesn't work immediately if I don't do this;
+    // this.setParallax();
+    // }, 1000);
     this.setEnterAnimations();
     config.desktop && this.setDraggable();
   }

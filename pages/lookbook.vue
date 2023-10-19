@@ -18,7 +18,7 @@
         give customers an idea of how their products can be styled and combined.
       </p>
       <div class="intro__graphic">
-        <site-image
+        <parallax-site-image
           src="/images/Lookbook/f925b54c66129218d392aad65af94b92.webp"
           alt=""
         />
@@ -98,6 +98,7 @@
             src="/images/Lookbook/9192fda08a9092ebd418fdf0f6317ed0.webp"
             alt=""
             class="gallery__image mobile-hidden"
+            :aRatio="false"
           />
           <site-image
             src="/images/Lookbook/8ef59b0c1a22f7f8695b7ec887b84f23.webp"
@@ -198,6 +199,10 @@ export default {
 .intro__graphic {
   grid-area: graphic;
   margin-top: 40px;
+
+  :deep(.site-image__image) {
+    height: 120%;
+  }
 }
 
 .lookbook-page__gallery {

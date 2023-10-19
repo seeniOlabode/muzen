@@ -4,7 +4,7 @@
     :class="[{ 'no-ratio': !aRatio }, customClass]"
   >
     <!-- <NuxtImg :src="src" class="site-image__image" /> -->
-    <site-image :src="src" />
+    <site-image :src="src" :aRatio="aRatio" />
   </div>
 </template>
 
@@ -39,7 +39,7 @@ export default {
 }
 
 .site-image__image {
-  width: 150%;
+  width: 100%;
   height: 150%;
   object-fit: cover;
   will-change: transform;

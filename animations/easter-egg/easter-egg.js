@@ -5,7 +5,7 @@ gsap.registerPlugin(Observer);
 
 import { selectFrom, selectAllFrom } from "~/utils/utils";
 
-class animations {
+export class animations {
   constructor() {
     this.el = null;
     this.galleryXWidth = 3000;
@@ -106,5 +106,3 @@ class animations {
     this.setupImageAnimations();
   }
 }
-
-export const easterEggAnimations = new animations();

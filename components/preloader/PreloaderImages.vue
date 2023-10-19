@@ -58,6 +58,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+  list-style: none;
 }
 
 .image-wrapper__inner {
