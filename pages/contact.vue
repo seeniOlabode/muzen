@@ -59,9 +59,11 @@
 
 <script>
 import { ContactPageAnimations } from "~/animations/contact/contact";
-import { creditsAnimations } from "~/animations/footer/SiteCredits";
+import { animations } from "~/animations/footer/SiteCredits";
 
 import { emitter as $eventBus } from "../plugins/event-bus.js";
+
+const creditsAnimations = new animations();
 
 export default {
   name: "Contact Page",

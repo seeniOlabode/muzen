@@ -65,8 +65,10 @@ import { CustomEase } from "gsap/all";
 import { SplitText } from "~/assets/gsap-premium/SplitText";
 gsap.registerPlugin(CustomEase, SplitText);
 
-import { creditsAnimations } from "~/animations/footer/SiteCredits";
+import { animations } from "~/animations/footer/SiteCredits";
 import { footerAnimations } from "~/animations/footer/SiteFooter";
+
+const creditsAnimations = new animations();
 
 export default {
   data() {
@@ -146,7 +148,7 @@ export default {
   },
   mounted() {
     creditsAnimations.init();
-    footerAnimations.logoIn();
+    setTimeout(() => footerAnimations.logoIn(), 500);
   },
 };
 </script>

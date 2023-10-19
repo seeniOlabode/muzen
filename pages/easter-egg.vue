@@ -32,13 +32,10 @@
 <script>
 import { useWindowSize } from "@vueuse/core";
 import lockScroll from "~/composables/lockScroll";
-import useParentOverflow from "~/composables/useParentOverflow";
 
 import { getBounding, getCssVariable } from "~/utils/utils";
 
 import { gsap } from "gsap";
-import { Observer, CustomEase } from "gsap/all";
-gsap.registerPlugin(Observer, CustomEase);
 
 import { easterEggAnimations } from "~/animations/easter-egg/easter-egg";
 
@@ -48,8 +45,18 @@ export default {
     const scrollLocked = ref(false);
     if (process.client) {
       lockScroll(scrollLocked, "easter", true);
-      useParentOverflow("body");
-      useParentOverflow("html");
+
+      onMounted(() => {
+        gsap.set("body, html", {
+          overflow: "hidden",
+        });
+      });
+
+      onUnmounted(() => {
+        gsap.set("body, html", {
+          overflow: "unset",
+        });
+      });
     }
     return {
       windowWidth,

@@ -1,7 +1,15 @@
 <template>
   <main class="lookbook-page container animated-block" ref="lookbookPage">
     <section class="lookbook-page__intro">
-      <h1 class="intro__heading heading-1">Lookbook</h1>
+      <h1 class="intro__heading heading-1">
+        <span
+          class="intro__heading__char"
+          v-for="(char, i) in title"
+          :key="char + i"
+        >
+          {{ char }}
+        </span>
+      </h1>
       <p class="intro__copy body">
         collection of our photographs that showcase our unique style, some
         fashion trend, or product line. Step into our lookbook, where aesthetics
@@ -104,7 +112,6 @@
 
 <script>
 import { LookbookAnimations } from "~/animations/lookbook/lookbook";
-import { useWindowSize } from "@vueuse/core";
 import { emitter as $eventBus } from "../plugins/event-bus.js";
 
 export default {
@@ -112,19 +119,29 @@ export default {
   setup() {
     useHead({ title: "Muzen Lookbook" });
 
-    const { width: windowWidth } = useWindowSize();
+    function mediaQueryCallback(mobile) {
+      mobile
+        ? LookbookAnimations.stopDraggable()
+        : LookbookAnimations.setDraggable();
+    }
+
+    const mobile = useMediaQuery(undefined, mediaQueryCallback);
 
     const lookbookPage = ref(null);
 
-    let desktop = computed(() => windowWidth.value >= 724);
+    const title = "Lookbook".split("");
 
     function callback1() {
-      LookbookAnimations.init(lookbookPage.value, { desktop: desktop }, false);
+      LookbookAnimations.init(
+        lookbookPage.value,
+        { desktop: !mobile.value },
+        false
+      );
     }
 
     function callback2() {
       $eventBus.on("lookbook-enter-animations", () => {
-        LookbookAnimations.init(lookbookPage.value, { desktop });
+        LookbookAnimations.init(lookbookPage.value, { desktop: !mobile.value });
         $eventBus.off("lookbook-enter-animations");
       });
     }
@@ -132,21 +149,12 @@ export default {
     useMuzenEnter(callback1, callback2);
 
     return {
-      desktop,
       lookbookPage,
+      title,
     };
   },
   data() {
     return {};
-  },
-  watch: {
-    desktop(value) {
-      if (!value) {
-        LookbookAnimations.stopDraggable();
-      } else {
-        LookbookAnimations.setDraggable();
-      }
-    },
   },
   computed: {
     transitioned() {
@@ -173,15 +181,11 @@ export default {
   color: var(--muzen-dark-brown);
   grid-area: heading;
   margin: 0;
-}
-
-:deep(.intro__heading__lines) {
   overflow: hidden;
-  display: none;
-}
 
-:deep(.intro__heading__chars) {
-  will-change: transform;
+  .intro__heading__char {
+    display: inline-block;
+  }
 }
 
 .intro__copy {

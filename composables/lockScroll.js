@@ -1,11 +1,11 @@
-import { useScrollLock } from "@vueuse/core";
 import { lenis } from "~/plugins/lenis";
 
 class lockScroll {
-  constructor() {
+  constructor(dev) {
     this.scrollLocked = false;
     this.componentConsensus = {};
     this.strictLock = true;
+    this.dev = dev || false;
   }
 
   lockScroll(componentName, strict) {
@@ -15,11 +15,11 @@ class lockScroll {
       lenis.stop();
     }
     this.componentConsensus[componentName] = strict;
-    console.log(`${componentName} locked scroll`);
+    this.dev && console.log(`${componentName} locked scroll`);
   }
 
   unlockScroll(componentName) {
-    console.log(`${componentName} is trying to unlock scroll`);
+    this.dev && console.log(`${componentName} is trying to unlock scroll`);
     if (this.strictLock) {
       this.componentConsensus[componentName] = false;
       const values = Object.values(this.componentConsensus);
@@ -27,9 +27,10 @@ class lockScroll {
         return (acc = acc || v);
       }, false);
       if (strictLockPersists) {
-        console.log(
-          `${componentName} failed to unlock scoll: strict lock persists`
-        );
+        this.dev &&
+          console.log(
+            `${componentName} failed to unlock scoll: strict lock persists`
+          );
         return null;
       }
     }
@@ -37,14 +38,14 @@ class lockScroll {
       this.scrollLocked = false;
       this.componentConsensus = {};
       lenis.start();
-      console.log(`${componentName} unlocked scroll`);
+      this.dev && console.log(`${componentName} unlocked scroll`);
     } else {
-      `${componentName} didn't unlock scroll`;
+      this.dev && console.log(`${componentName} didn't unlock scroll`);
     }
   }
 
   unsubscribe(componentName) {
-    console.log(`${componentName} is trying to unsubscribe`);
+    this.dev && console.log(`${componentName} is trying to unsubscribe`);
     delete this.componentConsensus[componentName];
     if (Object.keys(this.componentConsensus) === 0) {
       this.unlockScroll(componentName);
@@ -56,8 +57,9 @@ class lockScroll {
       }, false);
       this.strictLock = strictLockPersists;
     }
-    console.log(`${componentName} has unsubscribed from lockScroll`);
-    console.log(this);
+    this.dev &&
+      console.log(`${componentName} has unsubscribed from lockScroll`);
+    this.dev && console.log(this);
   }
 }
 

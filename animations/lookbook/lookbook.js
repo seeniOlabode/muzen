@@ -1,10 +1,9 @@
 import { gsap } from "gsap";
-import { ScrollTrigger, CustomEase, Draggable } from "gsap/all";
-import { SplitText } from "~/assets/gsap-premium/SplitText";
+import { Draggable } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger, CustomEase, Draggable, SplitText);
+gsap.registerPlugin(Draggable);
 
-import { selectFrom, selectAllFrom, elementHasWidth } from "~/utils/utils";
+import { selectFrom, selectAllFrom } from "~/utils/utils";
 
 class animations {
   constructor() {
@@ -20,7 +19,7 @@ class animations {
       autoAlpha: 1,
     });
     tl.from(
-      this.elHeadingSplit.chars,
+      ".intro__heading__char",
       {
         yPercent: 100,
         duration: 0.8,
@@ -32,11 +31,13 @@ class animations {
   }
 
   setDraggable() {
-    this.draggable = Draggable.create(this.galleryImages, {
-      dragResistance: 0.1,
-      bounds: this.galleryContainer,
-      zIndexBoost: false,
-    });
+    console.log("draggable set");
+    this.draggable ||
+      (this.draggable = Draggable.create(this.galleryImages, {
+        dragResistance: 0.1,
+        bounds: this.galleryContainer,
+        zIndexBoost: false,
+      }));
   }
 
   stopDraggable() {
@@ -46,13 +47,9 @@ class animations {
   }
 
   init(el, config, transitioned = true) {
+    console.log(config);
     this.el = el;
     this.elHeading = selectFrom(".intro__heading", el);
-    this.elHeadingSplit = new SplitText(this.elHeading, {
-      type: "lines,words,chars",
-      charsClass: "intro__heading__chars",
-      linesClass: "intro__heading__lines",
-    });
     this.galleryContainer = selectFrom(".lookbook-page__gallery", el);
     this.galleryImages = selectAllFrom(".gallery__image", el);
     this.setEnterAnimations();

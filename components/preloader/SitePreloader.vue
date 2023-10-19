@@ -4,7 +4,7 @@
     <site-preloader-counter
       :currentPercentCheckpoint="counterPercentCheckpoint"
       :loaded-count="loadedCount"
-      :desktop="desktop"
+      :desktop="!mobile"
       :assets-to-load="assetsToLoad"
       @done-animating="updateCounterPercent"
     />
@@ -13,15 +13,18 @@
 
 <script>
 import { gsap } from "gsap";
-import { useWindowSize, useElementBounding } from "@vueuse/core";
+import { assetsToLoad as allAssets } from "../../assets/data";
+import { preloadContent } from "~/utils/utils";
 
-import { assetsToLoad } from "../../assets/data";
+let assetsToLoad;
 
 export default {
   setup(_, context) {
-    const { width: windowWidth } = useWindowSize();
-    let desktop = computed(() => windowWidth.value >= 724);
+    const route = useRoute(); // .exe
+    assetsToLoad = allAssets[route.fullPath]; // .exe
 
+    // State
+    const lock = ref(true);
     const percentages = ref([]);
     const loadedCount = ref(0);
     const interval = ref(Math.ceil(assetsToLoad.length / 5));
@@ -30,9 +33,9 @@ export default {
     const changeImage = ref(false);
     const loadingStarted = ref(false);
     const animating = ref(false);
-
     const unwatchCurrentPercentCheckpoint = ref(null);
 
+    // Computed
     const currentPercentCheckpoint = computed(() => {
       if (loadedCount.value === assetsToLoad.length) {
         return percentages.value[percentages.value.length - 1];
@@ -42,20 +45,23 @@ export default {
         : "000";
     });
 
-    const unwatchLoadedCount = watch(loadedCount, (value) => {
-      let changeInterval = Math.ceil(assetsToLoad.length / 3);
-      if (value % changeInterval === 0 && displayedImageIndex.value != 2) {
-        changeImage.value = true;
-      }
-    });
+    // Methods
+
+    function mediaQueryCallback(mobile) {
+      mobile ||
+        gsap.set(".site-preloader__counter", {
+          y: -(
+            (this.windowHeight - 64 - this.counterElHeight) *
+            (this.loadedCount / assetsToLoad.length)
+          ),
+        });
+    }
 
     function updateCounterPercent() {
       animating.value = false;
 
       const current = currentPercentCheckpoint.value;
       const counter = counterPercentCheckpoint.value;
-
-      console.log(current, counter);
 
       if (Number(current) > Number(counter)) {
         unwatchCurrentPercentCheckpoint.value &&
@@ -82,48 +88,13 @@ export default {
       }
     }
 
-    const lock = ref(true);
-    if (process.client) {
-      lockScroll(lock, "site-preloader");
-    }
-
-    async function preloadContent(content, i) {
-      return new Promise((r) => {
-        const preloadImage = () => {
-          const image = new Image();
-          image.onload = r;
-          image.onerror = r;
-          image.src = content;
-        };
-        const preloadVideo = () => {
-          const video = document.createElement("video");
-          video.src = content;
-          video.preload = "auto";
-          video.addEventListener("loadeddata", r);
-          video.addEventListener("error", r);
-        };
-
-        try {
-          if (content.endsWith(".webm")) {
-            preloadVideo();
-          } else {
-            preloadImage();
-          }
-        } catch (err) {
-          console.log(err, content, i);
-        }
-      });
-    }
-
     async function finishLoading() {
       watch(
         animating,
         (value) => {
-          value &&
+          !value &&
             setTimeout(() => {
-              console.log(value);
               context.emit("assets-loaded", true);
-              console.log("finish set");
             }, 2000);
         },
         { immediate: true }
@@ -141,7 +112,7 @@ export default {
 
         loadedCount.value++;
 
-        if (i % interval.value && counterPercentCheckpoint.value === "000") {
+        if (!(i % interval.value) && counterPercentCheckpoint.value === "000") {
           counterPercentCheckpoint.value = percentages.value[0];
         }
 
@@ -153,6 +124,11 @@ export default {
     }
 
     async function load() {
+      if (loadingStarted.value) {
+        return;
+      }
+
+      loadingStarted.value = true;
       // Prepare for loading
       const percentPerAsset = (1 / assetsToLoad.length) * 100;
       const toThreeDigits = (num) => {
@@ -173,40 +149,39 @@ export default {
       loadAssets();
     }
 
+    // Watchers
+    const unwatchLoadedCount = watch(loadedCount, (value) => {
+      let changeInterval = Math.ceil(assetsToLoad.length / 3);
+      if (value % changeInterval === 0 && displayedImageIndex.value != 2) {
+        changeImage.value = true;
+      }
+    });
+
+    // Composables
+    const mobile = useMediaQuery(undefined, mediaQueryCallback);
+
+    if (process.client) {
+      lockScroll(lock, "site-preloader");
+    }
+
+    onBeforeMount(() => {
+      if (process.client) {
+        window.addEventListener("load", load);
+      }
+    });
+
     onMounted(() => {
       load();
     });
     return {
       assetsToLoad,
-      windowWidth,
-      desktop,
-      percentages,
+      mobile,
       currentPercentCheckpoint,
       counterPercentCheckpoint,
       loadedCount,
-      interval,
       displayedImageIndex,
-      changeImage,
       updateCounterPercent,
-      loadingStarted,
     };
-  },
-  data() {
-    return {
-      animating: false,
-    };
-  },
-  watch: {
-    desktop(value, formerValue) {
-      if (value && !formerValue) {
-        gsap.set(".site-preloader__counter", {
-          y: -(
-            (this.windowHeight - 64 - this.counterElHeight) *
-            (this.loadedCount / assetsToLoad.length)
-          ),
-        });
-      }
-    },
   },
 };
 </script>

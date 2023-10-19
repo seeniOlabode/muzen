@@ -38,32 +38,6 @@
       </Transition>
     </div>
   </div>
-
-  <svg id="preloader-filters">
-    <filter
-      id="zap-out"
-      x="-20%"
-      y="-20%"
-      width="140%"
-      height="140%"
-      ref="zapOutEl"
-    >
-      <feTurbulence
-        type="turbulence"
-        :baseFrequency="`${baseFrequency.x} ${baseFrequency.y}`"
-        numOctaves="2"
-        seed="2"
-        result="NOISE"
-      />
-      <feDisplacementMap
-        in="SourceGraphic"
-        in2="NOISE"
-        xChannelSelector="R"
-        yChannelSelector="G"
-        scale="10"
-      />
-    </filter>
-  </svg>
 </template>
 
 <script>

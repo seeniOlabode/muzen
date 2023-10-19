@@ -1,10 +1,9 @@
 import { gsap } from "gsap";
-import { ScrollTrigger, CustomEase, Draggable } from "gsap/all";
-import { SplitText } from "~/assets/gsap-premium/SplitText";
+import { ScrollTrigger } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger, CustomEase, Draggable, SplitText);
+gsap.registerPlugin(ScrollTrigger);
 
-import { selectFrom, selectAllFrom, elementHasWidth } from "~/utils/utils";
+import { selectFrom, selectAllFrom } from "~/utils/utils";
 
 class animations {
   constructor() {

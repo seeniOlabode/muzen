@@ -4,7 +4,7 @@ import { SplitText } from "~/assets/gsap-premium/SplitText";
 
 gsap.registerPlugin(CustomEase, SplitText);
 
-class animations {
+export class animations {
   constructor() {
     this.enterTl = null;
     this.quoteSplit = null;
@@ -215,5 +215,3 @@ class animations {
     }
   }
 }
-
-export const creditsAnimations = new animations();

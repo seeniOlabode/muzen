@@ -1,14 +1,8 @@
-import {
-  select,
-  selectFrom,
-  selectAllFrom,
-  recursiveStagger,
-} from "~/utils/utils";
+import { selectFrom, selectAllFrom } from "~/utils/utils";
 
 import { gsap } from "gsap";
-import { ScrollTrigger, CustomEase } from "gsap/all";
-import { SplitText } from "~/assets/gsap-premium/SplitText";
-gsap.registerPlugin(ScrollTrigger, SplitText, CustomEase);
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 
 class Animations {
   constructor() {
@@ -42,19 +36,6 @@ class Animations {
         id: "parallax",
       },
     });
-    // const toScale = window.innerWidth / this.scaledImg.clientWidth;
-    // gsap.to(this.scaledImg, {
-    //   scale: toScale,
-    //   transformOrigin: "center",
-    //   scrollTrigger: {
-    //     trigger: this.scaledImg,
-    //     start: "top bottom",
-    //     end: "top 20%",
-    //     scrub: true,
-    //     pin: true,
-    //     pinReparent: true,
-    //   },
-    // });
   }
 
   init(el) {
@@ -66,11 +47,10 @@ class Animations {
     );
     this.parallaxRow = selectFrom(".row.parallax", el);
     this.parallaxImage = selectFrom(".site-image__image-wrapper.parallax", el);
-    this.scaledImg = selectFrom(
-      ".row:nth-child(6) .site-image__image-wrapper.home-content__scaled-image",
-      el
-    );
-    this.setParallax();
+    setTimeout(() => {
+      // Crutch: The Parallax doesn't work immediately if I don't do this;
+      this.setParallax();
+    }, 0);
   }
 
   destroy() {

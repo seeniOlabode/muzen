@@ -1,8 +1,9 @@
 import { gsap } from "gsap";
-import { ScrollTrigger, CustomEase } from "gsap/all";
-gsap.registerPlugin(ScrollTrigger, CustomEase);
+import { CustomEase } from "gsap/all";
 import { selectAllFrom } from "~/utils/utils";
 import { emitter } from "~/plugins/event-bus";
+
+gsap.registerPlugin(CustomEase);
 
 class animations {
   constructor() {

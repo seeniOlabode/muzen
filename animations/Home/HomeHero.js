@@ -1,8 +1,8 @@
 import { gsap } from "gsap";
-import { ScrollTrigger, CustomEase, Draggable } from "gsap/all";
+import { ScrollTrigger, Draggable } from "gsap/all";
 import { SplitText } from "~/assets/gsap-premium/SplitText";
 
-gsap.registerPlugin(ScrollTrigger, CustomEase, Draggable, SplitText);
+gsap.registerPlugin(ScrollTrigger, Draggable, SplitText);
 
 import { select, selectAllFrom } from "~/utils/utils";
 

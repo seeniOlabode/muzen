@@ -52,3 +52,30 @@ export const getCssVariable = (element, variableName) => {
     .trim();
   return variableValue;
 };
+export async function preloadContent(content, i) {
+  return new Promise((r) => {
+    const preloadImage = () => {
+      const image = new Image();
+      image.onload = r;
+      image.onerror = r;
+      image.src = content;
+    };
+    const preloadVideo = () => {
+      const video = document.createElement("video");
+      video.src = content;
+      video.preload = "auto";
+      video.addEventListener("loadeddata", r);
+      video.addEventListener("error", r);
+    };
+
+    try {
+      if (content.endsWith(".webm")) {
+        preloadVideo();
+      } else {
+        preloadImage();
+      }
+    } catch (err) {
+      console.log(err, content, i);
+    }
+  });
+}

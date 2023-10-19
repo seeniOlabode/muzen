@@ -18,7 +18,11 @@
       :class="{ 'fouc-fix': !transitioned, hidden: !assetsLoaded }"
     />
     <Transition @leave="footerLeave">
-      <site-footer v-show="!['Contact', 'Easter Egg'].includes($route.name)" />
+      <site-footer
+        v-show="
+          !['Contact', 'Easter Egg'].includes($route.name) && assetsLoaded
+        "
+      />
     </Transition>
   </div>
   <page-transition ref="pageTrans" />
@@ -113,15 +117,6 @@ export default {
       }
     },
   },
-  // beforeMount() {
-  //   const main = select("body");
-  //   console.log(main);
-  //   main.onload = () => {
-  //     alert("ah");
-  //     console.log("ahh");
-  //     main.onload = null;
-  //   };
-  // },
   mounted() {
     appAnimations.init(this.$refs.pageTrans.$refs.pageTransition, {
       scrollToTop: this.scrollToTop,

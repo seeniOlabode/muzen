@@ -4,7 +4,7 @@
     :class="[{ 'no-ratio': !aRatio }, customClass]"
   >
     <!-- <NuxtImg :src="src" class="site-image__image" /> -->
-    <img :src="src" alt="" class="site-image__image" />
+    <img :src="src" :alt="alt || 'Muzen Image'" class="site-image__image" />
   </div>
 </template>
 
@@ -12,6 +12,7 @@
 export default {
   props: {
     src: String,
+    alt: String,
     aRatio: {
       type: Boolean,
       default: true,

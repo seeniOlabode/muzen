@@ -108,6 +108,8 @@
 <script>
 import { HomeContentAnimations } from "~/animations/Home/HomeContent";
 
+import { emitter as $eventBus } from "~/plugins/event-bus";
+
 export default {
   inject: ["getTransitioned"],
   computed: {
@@ -115,18 +117,23 @@ export default {
       return this.getTransitioned();
     },
   },
-  mounted() {
-    if (this.transitioned) {
-      this.$eventBus.on("home-enter-animation", () => {
-        HomeContentAnimations.init(this.$refs.homeContent);
-        this.$eventBus.off("home-enter-animation");
-      });
-    } else {
-      HomeContentAnimations.init(this.$refs.homeContent);
+  setup() {
+    const homeContent = ref(null);
+    function callback1() {
+      HomeContentAnimations.init(homeContent.value);
     }
-  },
-  unmounted() {
-    // HomeContentAnimations.destroy();
+
+    function callback2() {
+      $eventBus.on("home-enter-animation", () => {
+        HomeContentAnimations.init(homeContent.value);
+        $eventBus.off("home-enter-animation");
+      });
+    }
+    useMuzenEnter(callback1, callback2);
+
+    return {
+      homeContent,
+    };
   },
 };
 </script>
