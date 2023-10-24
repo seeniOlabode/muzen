@@ -53,9 +53,26 @@ export class animations {
         .addLabel("end-slide-in");
 
       this.creditsReveal(tl);
+      // this.mobileReveal(tl);
       tl.play();
     });
   }
+
+  // mobileReveal(tl) {
+  //     tl.from(
+  //       ".heading-1 .site-credits__transition",
+  //       {
+  //         yPercent: 100,
+  //         rotate: 10,
+  //         ease: "circ.out",
+  //         duration: 0.5,
+  //       },
+  //       "end-slide-in-=0.85"
+  //     );
+  //   gsap.utils.toArray(".credits__cred-group").forEach((credGroup, i) => {
+  //     if ()
+  //   })
+  // }
 
   creditsReveal(tl) {
     tl.from(

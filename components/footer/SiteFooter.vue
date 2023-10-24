@@ -72,6 +72,14 @@ import { footerAnimations } from "~/animations/footer/SiteFooter";
 const creditsAnimations = new animations();
 
 export default {
+  setup() {
+    function callback1() {
+      creditsAnimations.init();
+      footerAnimations.logoIn();
+    }
+
+    useMuzenEnter(callback1, callback1);
+  },
   data() {
     return {
       creditsOpen: false,
@@ -150,10 +158,6 @@ export default {
         this.animating = true;
       }
     },
-  },
-  mounted() {
-    creditsAnimations.init();
-    setTimeout(() => footerAnimations.logoIn(), 500);
   },
 };
 </script>

@@ -96,10 +96,7 @@ export class animations {
     );
     this.galleryContainer = selectFrom(".lookbook-page__gallery", el);
     this.galleryImages = selectAllFrom(".gallery__image", el);
-    // setTimeout(() => {
-    // Crutch: The Parallax doesn't work immediately if I don't do this;
-    // this.setParallax();
-    // }, 1000);
+    this.setParallax();
     this.setEnterAnimations();
     config.desktop && this.setDraggable();
   }

@@ -10,7 +10,7 @@ class animations {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".site-footer",
-        start: "clamp(bottom -120%)",
+        start: "top 30%",
         onEnter: () => {
           console.log("logo-in trigger");
         },
