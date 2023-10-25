@@ -7,8 +7,14 @@
     @mouseleave="showInfo = false"
     @click="copyLink"
   />
-  <div v-show="showInfo" class="info-box">
-    {{ text }} <img src="/icons/link.svg" alt="" />
+  <div
+    v-show="showInfo"
+    class="info-box"
+    :class="{ copied: text === 'Copied!' }"
+  >
+    {{ text }}
+
+    <img src="/icons/link.svg" alt="" />
   </div>
 </template>
 
@@ -32,6 +38,7 @@ export default {
     return {
       text: "Copy link address",
       showInfo: false,
+      timeout: null,
     };
   },
   methods: {
@@ -40,10 +47,11 @@ export default {
       this.copy(this.source);
       this.text = "Copied!";
 
-      setTimeout(() => {
+      this.timeout && clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
         this.text = "Copy link address";
         this.source = "muzen.netlify.com";
-      }, 1000);
+      }, 2000);
     },
   },
 };
@@ -56,11 +64,15 @@ export default {
   background: #282828;
   padding: 8px 20px;
   border-radius: 24px;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   align-items: center;
   gap: 15px;
   font-size: 14px;
   line-height: 14px;
+  transition: 0.25s;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 img {

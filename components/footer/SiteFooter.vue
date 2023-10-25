@@ -33,8 +33,24 @@
       </ul>
     </div>
     <div class="site-footer__creators">
-      <p class="creators__credit">Design by Tosin</p>
-      <p class="creators__credit">Development by Bode</p>
+      <p class="creators__credit">
+        Design by
+        <site-link
+          to="https://x.com/tolzyhub"
+          text="Tosin"
+          size="sm"
+          class="creator__twitter"
+        />
+      </p>
+      <p class="creators__credit">
+        Development by
+        <site-link
+          to="https://x.com/bodeslomo"
+          text="Bode"
+          size="sm"
+          class="creator__twitter"
+        />
+      </p>
     </div>
     <div class="site-footer__logo">
       <h2 class="logo__word">
@@ -46,8 +62,24 @@
           {{ char }}
         </span>
       </h2>
-      <p class="creators__credit">Design by Tosin</p>
-      <p class="creators__credit">Development by Bode</p>
+      <p class="creators__credit">
+        Design by
+        <site-link
+          to="https://x.com/tolzyhub"
+          text="Tosin"
+          size="sm"
+          class="creator__twitter"
+        />
+      </p>
+      <p class="creators__credit">
+        Development by
+        <site-link
+          to="https://x.com/bodeslomo"
+          text="Bode"
+          size="sm"
+          class="creator__twitter"
+        />
+      </p>
     </div>
 
     <transition @enter="creditsEnter" @leave="creditsLeave">
@@ -216,6 +248,12 @@ export default {
   will-change: opacity visibility;
 }
 
+.creator__twitter.site-link {
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 400;
+}
+
 .site-footer__logo {
   /* position: absolute; */
   left: 20px;
@@ -234,6 +272,12 @@ export default {
   .creators__credit {
     font-size: 16px;
     display: none;
+
+    .creator__twitter.site-link {
+      font-size: 16px;
+      line-height: 1;
+      font-weight: 400;
+    }
   }
 
   .creators__credit:nth-child(2) {

@@ -117,8 +117,6 @@ export default {
       const xTo = windowXCenter - photoCenteredX + photoTransX;
       const yTo = windowYCenter - photoCenteredY + photoTransY;
 
-      console.log(yTo, windowXCenter - photoCenteredX);
-
       gsap.set(photo, { "--preview-x": xTo, "--preview-y": yTo });
 
       const tl = gsap
@@ -404,7 +402,7 @@ export default {
 }
 
 .easter-egg-page__preview-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   right: 0;

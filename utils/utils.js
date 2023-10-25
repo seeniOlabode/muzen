@@ -79,3 +79,10 @@ export async function preloadContent(content, i) {
     }
   });
 }
+export function addDOMEventWatcher({ el, event, callback }) {
+  el.addEventListener(event, callback);
+
+  return function () {
+    el.removeEventListener("event", callback);
+  };
+}

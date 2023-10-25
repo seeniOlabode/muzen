@@ -96,6 +96,7 @@ export class animations {
   }
 
   init(el) {
+    this.observer && this.start();
     this.el = el;
     this.elPhotoList = selectFrom(".easter-egg-page__photo-list", el);
     this.elPreview = selectFrom(".easter-egg-page__preview-container", el);

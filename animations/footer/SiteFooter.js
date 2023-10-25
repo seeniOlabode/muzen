@@ -10,14 +10,10 @@ class animations {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".site-footer",
-        start: "top 30%",
-        onEnter: () => {
-          console.log("logo-in trigger");
-        },
+        start: "bottom 130%",
       },
     });
 
-    console.log(ScrollTrigger);
     tl.from(".site-footer__logo .logo__char", {
       yPercent: 150,
       duration: 1,

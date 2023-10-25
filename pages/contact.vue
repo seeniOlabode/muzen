@@ -43,8 +43,26 @@
         DISCUSS
       </p>
       <div class="content__creators">
-        <p class="creators__credit">Design by Tosin</p>
-        <p class="creators__credit">Development by Bode</p>
+        <p class="creators__credit">
+          Design by
+          <site-link
+            to="https://x.com/tolzyhub"
+            text=" Tosin"
+            size="sm"
+            class="creator__twitter"
+            color="#1c1816"
+          />
+        </p>
+        <p class="creators__credit">
+          Development by
+          <site-link
+            to="https://x.com/bodeslomo"
+            text=" Bode"
+            size="sm"
+            class="creator__twitter"
+            color="#1c1816"
+          />
+        </p>
       </div>
     </section>
     <transition @enter="creditsEnter" @leave="creditsLeave">
@@ -182,7 +200,16 @@ export default {
 }
 
 .creators__credit {
+  display: flex;
+  gap: 4px;
+  align-items: center;
   will-change: transform;
+}
+
+.creator__twitter.site-link {
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 400;
 }
 
 @media screen and (width >= 724px) {
@@ -223,6 +250,12 @@ export default {
     font-family: var(--muzen-dm);
     margin-top: 20px;
     overflow: hidden;
+  }
+
+  .creator__twitter.site-link {
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 500;
   }
 }
 

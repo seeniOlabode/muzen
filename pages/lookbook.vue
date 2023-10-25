@@ -151,6 +151,10 @@ export default {
 
     useMuzenEnter(callback1, callback2);
 
+    onUnmounted(() => {
+      LookbookAnimations.kill();
+    });
+
     return {
       lookbookPage,
       title,

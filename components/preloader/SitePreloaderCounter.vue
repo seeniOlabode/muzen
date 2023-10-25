@@ -117,9 +117,6 @@ function onEnter(el, done) {
       (this.windowHeight - 64 - this.counterElHeight) *
       (this.currentPercentCheckpoint / 100)
     ),
-    onComplete: () => {
-      console.log("done");
-    },
   });
 
   tl.add(transYTl.play(), "start");
