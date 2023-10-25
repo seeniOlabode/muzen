@@ -92,7 +92,7 @@ export default {
           rel: "stylesheet",
         },
         {
-          href: "./muzen-favicon.png",
+          href: "/muzen-favicon.png",
           type: "image/png",
           rel: "icon",
         },

@@ -51,6 +51,7 @@
             size="sm"
             class="creator__twitter"
             color="#1c1816"
+            :newTab="true"
           />
         </p>
         <p class="creators__credit">
@@ -61,6 +62,7 @@
             size="sm"
             class="creator__twitter"
             color="#1c1816"
+            :newTab="true"
           />
         </p>
       </div>

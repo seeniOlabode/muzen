@@ -1,5 +1,12 @@
 <template>
-  <NuxtLink class="site-link" :class="[size]" :to="to"> {{ text }}</NuxtLink>
+  <NuxtLink
+    class="site-link"
+    :class="[size]"
+    :to="to"
+    :target="newTab && '_blank'"
+  >
+    {{ text }}</NuxtLink
+  >
 </template>
 
 <script>
@@ -14,6 +21,10 @@ export default {
     color: {
       type: String,
       default: "#FFF",
+    },
+    newTab: {
+      type: Boolean,
+      default: false,
     },
   },
 };

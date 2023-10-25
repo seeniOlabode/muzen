@@ -40,6 +40,7 @@
           text="Tosin"
           size="sm"
           class="creator__twitter"
+          :newTab="true"
         />
       </p>
       <p class="creators__credit">
@@ -49,6 +50,7 @@
           text="Bode"
           size="sm"
           class="creator__twitter"
+          :newTab="true"
         />
       </p>
     </div>
@@ -69,6 +71,7 @@
           text="Tosin"
           size="sm"
           class="creator__twitter"
+          :newTab="true"
         />
       </p>
       <p class="creators__credit">
@@ -78,6 +81,7 @@
           text="Bode"
           size="sm"
           class="creator__twitter"
+          :newTab="true"
         />
       </p>
     </div>
