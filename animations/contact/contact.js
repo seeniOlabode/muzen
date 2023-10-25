@@ -139,7 +139,7 @@ export class animations {
 
   handleResize() {
     this.resizeHandler = () => {
-      this.resizeSplits();
+      this.revertSplits();
     };
     window.addEventListener("resize", this.resizeHandler);
   }
