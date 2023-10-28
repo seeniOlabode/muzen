@@ -3,7 +3,7 @@
     class="site-link"
     :class="[size]"
     :to="to"
-    :target="newTab && '_blank'"
+    :target="newTab ? '_blank' : '_self'"
   >
     {{ text }}</NuxtLink
   >

@@ -176,6 +176,7 @@ export default {
   /* height: 100vh; */
   padding-top: 144px;
   background-color: var(--muzen-light-brown);
+  /* overflow: hidden; */
 }
 
 .lookbook-page__intro {
@@ -233,6 +234,8 @@ export default {
 }
 
 .gallery__image {
+  width: 100%;
+  height: 100%;
   &.mobile-hidden {
     display: none;
   }

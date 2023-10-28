@@ -112,7 +112,11 @@ export default {
       const photoTransX = parseFloat(getCssVariable(photo, "x"));
       const photoTransY = parseFloat(getCssVariable(photo, "y"));
 
-      const scaleTo = 500 / photoBounds.width;
+      let scaleTo = 500 / photoBounds.width;
+
+      if (scaleTo * photoBounds.height > 0.7 * window.innerHeight) {
+        scaleTo = (0.7 * window.innerHeight) / photoBounds.height;
+      }
 
       const xTo = windowXCenter - photoCenteredX + photoTransX;
       const yTo = windowYCenter - photoCenteredY + photoTransY;
@@ -428,5 +432,8 @@ export default {
   position: relative;
   z-index: 10;
   visibility: hidden;
+  max-height: 70vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

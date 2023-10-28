@@ -21,24 +21,16 @@ export class animations {
     });
     tl.set(this.el, {
       autoAlpha: 1,
-    })
-      .from(
-        ".intro__heading__char",
-        {
-          yPercent: 100,
-          duration: 0.8,
-          ease: "power2.out",
-          stagger: 0.05,
-        },
-        !this.transitioned ? ">+=0.2" : ""
-      )
-      .from(
-        this.introGraphicImage,
-        {
-          scale: 1.5,
-        },
-        "<"
-      );
+    }).from(
+      ".intro__heading__char",
+      {
+        yPercent: 100,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.05,
+      },
+      !this.transitioned ? ">+=0.2" : ""
+    );
   }
 
   setParallax() {

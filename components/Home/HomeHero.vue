@@ -5,7 +5,7 @@
         <source src="/images/Home/home-hero-video.webm" />
       </video>
     </div>
-    <div class="home-hero__copy container">
+    <div class="home-hero__copy">
       <p class="copy__body body">
         Muzen is a fashion photography studio based in Asgard, Nethers.
       </p>

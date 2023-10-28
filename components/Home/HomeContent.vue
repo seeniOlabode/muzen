@@ -170,6 +170,7 @@ export default {
 .home-content {
   padding-top: 40px;
   padding-bottom: 96px;
+  overflow: hidden;
 }
 
 .inner-wrapper {
