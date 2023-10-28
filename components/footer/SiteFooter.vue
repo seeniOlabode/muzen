@@ -40,6 +40,7 @@
           text="Tosin"
           size="sm"
           class="creator__twitter"
+          color="rgba(255,255,255,0.88)"
           :newTab="true"
         />
       </p>
@@ -50,6 +51,7 @@
           text="Bode"
           size="sm"
           class="creator__twitter"
+          color="rgba(255,255,255,0.88)"
           :newTab="true"
         />
       </p>
@@ -71,6 +73,7 @@
           text="Tosin"
           size="sm"
           class="creator__twitter"
+          color="rgba(255,255,255,0.88)"
           :newTab="true"
         />
       </p>
@@ -81,6 +84,7 @@
           text="Bode"
           size="sm"
           class="creator__twitter"
+          color="rgba(255,255,255,0.88)"
           :newTab="true"
         />
       </p>

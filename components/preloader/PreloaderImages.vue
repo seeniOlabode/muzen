@@ -76,13 +76,13 @@ export default {
 
 /* Enter Animations */
 .loader-image-enter-active {
-  transition: transform 1.5s cubic-bezier(0, 0.16, 0.5, 1);
+  transition: transform 1s cubic-bezier(0, 0.16, 0.5, 1);
 
   .image-wrapper__inner {
-    transition: transform 1.5s cubic-bezier(0, 0.16, 0.5, 1);
+    transition: transform 1s cubic-bezier(0, 0.16, 0.5, 1);
 
     .image-wrapper__image {
-      transition: transform 1.5s cubic-bezier(0, 0.16, 0.5, 1);
+      transition: transform 1s cubic-bezier(0, 0.16, 0.5, 1);
     }
   }
 }
@@ -115,7 +115,7 @@ export default {
 
 /* Leave Animations */
 .loader-image-leave-active {
-  transition: 1.5s;
+  transition: 1s;
 }
 .loader-image-leave-from {
   opacity: 1;
