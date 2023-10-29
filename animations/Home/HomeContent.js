@@ -38,7 +38,7 @@ class Animations {
     });
   }
 
-  init(el) {
+  init(el, desktop) {
     this.el = el;
     this.rows = selectAllFrom(".row", el);
     this.images = selectAllFrom(

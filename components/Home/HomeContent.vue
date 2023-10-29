@@ -145,7 +145,17 @@ export default {
         $eventBus.off("home-enter-animation");
       });
     }
+
+    function mediaQueryCallback(mobile) {
+      if (mobile) {
+        HomeContentAnimations.setup || HomeContentAnimations.destroy();
+      } else {
+        HomeContentAnimations.setup ||
+          HomeContentAnimations.init(homeContent.value);
+      }
+    }
     useMuzenEnter(callback1, callback2);
+    useMediaQuery(undefined, mediaQueryCallback);
 
     return {
       homeContent,
@@ -201,6 +211,13 @@ export default {
     .body:nth-child(2) {
       margin-top: 0;
     }
+  }
+}
+
+@media screen and (width <= 549px) {
+  :deep(.site-image__image) {
+    height: 100%;
+    transform: translate(0) !important;
   }
 }
 
