@@ -6,7 +6,7 @@ export default function useMediaQuery(breakpoint = 724, callback) {
       let oldValue = mobile.value;
       mobile.value = e.target.innerWidth < breakpoint;
       if (oldValue !== mobile.value) {
-        callback(mobile.value);
+        callback && callback(mobile.value);
       }
     }
     onMounted(() => {

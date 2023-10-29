@@ -19,8 +19,9 @@ let assetsToLoad = [];
 export default {
   setup(_, context) {
     const route = useRoute(); // .exe
+    let mobile;
     if (process.client) {
-      const mobile = window.innerWidth < 724;
+      mobile = window.innerWidth < 724;
       assetsToLoad = [
         ...allAssets[route.fullPath]["all"],
         ...allAssets[route.fullPath][mobile ? "mobile" : "desktop"],
@@ -142,6 +143,20 @@ export default {
       loadAssets();
     }
 
+    function loadOthers() {
+      const othersToLoad = [];
+      console.log(othersToLoad);
+      for (const path in allAssets) {
+        if (path !== route.fullPath) {
+          othersToLoad.push(...allAssets[path]["all"]);
+          othersToLoad.push(...allAssets[path][mobile ? "mobile" : "desktop"]);
+        }
+      }
+      othersToLoad.forEach((c) => {
+        preloadContent(c);
+      });
+    }
+
     // Watchers
     const unwatchLoadedCount = watch(loadedCount, (value) => {
       let changeInterval = Math.ceil(assetsToLoad.length / 3);
@@ -167,6 +182,10 @@ export default {
 
     onBeforeUnmount(() => {
       window.removeEventListener("load", load);
+    });
+
+    onUnmounted(() => {
+      loadOthers();
     });
     return {
       assetsToLoad,

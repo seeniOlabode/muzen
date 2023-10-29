@@ -367,6 +367,9 @@ export default {
     .creators__credit {
       display: block;
     }
+    .logo__word {
+      font-size: 29.5vw;
+    }
   }
 }
 

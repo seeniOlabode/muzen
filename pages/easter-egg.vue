@@ -42,7 +42,7 @@ const easterEggAnimations = new animations();
 export default {
   setup() {
     // State
-    const images = assetsToLoad["/3@s73r"].all;
+    const images = assetsToLoad["/3@s73r"].desktop;
     const scrollLocked = ref(false);
     const easterPage = ref(null);
 

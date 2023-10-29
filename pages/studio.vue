@@ -156,7 +156,6 @@ export default {
   background-size: cover;
   background-position: 0 40%;
   width: 100%;
-
   &.mobile__hidden {
     display: none;
   }
@@ -184,6 +183,12 @@ export default {
 
   .section__image {
     margin-top: 40px;
+    filter: grayscale(1);
+    transition: filter 1s;
+
+    &:hover {
+      filter: grayscale(0);
+    }
 
     &.mobile__hidden {
       display: unset;

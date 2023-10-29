@@ -15,7 +15,7 @@
         your vision to life.
       </p>
       <div class="hero-content__video-wrapper">
-        <video class="hero-content__video" autoplay loop>
+        <video class="hero-content__video" autoplay loop v-if="!mobile">
           <source src="/images/Studio/studio-video-trimmed.webm" />
         </video>
       </div>
@@ -55,9 +55,11 @@ export default {
     }
 
     useMuzenEnter(callback1, callback2);
+    const mobile = useMediaQuery();
 
     return {
       studioHero,
+      mobile,
     };
   },
 };
