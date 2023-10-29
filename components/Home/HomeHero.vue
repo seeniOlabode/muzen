@@ -35,16 +35,11 @@
 
 <script>
 import { HomeHeroAnimations } from "~/animations/Home/HomeHero";
-import { gsap } from "gsap";
-import { Draggable } from "gsap/all";
-
 import { emitter as $eventBus } from "../../plugins/event-bus.js";
-
-gsap.registerPlugin(Draggable);
 
 export default {
   inject: ["getTransitioned"],
-  setup(props) {
+  setup() {
     const homeHero = ref(null);
     function callback1() {
       HomeHeroAnimations.init(homeHero.value, false);
