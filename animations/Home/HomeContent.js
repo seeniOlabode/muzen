@@ -10,9 +10,11 @@ class Animations {
     this.images = null;
     this.parallaxImage = null;
     this.scaledImg = null;
+    this.setup = false;
   }
 
   setParallax() {
+    this.setup = true;
     this.images.forEach((image) => {
       gsap.from(image, {
         yPercent: -50,
@@ -39,6 +41,9 @@ class Animations {
   }
 
   init(el, desktop) {
+    if (!desktop) {
+      return;
+    }
     this.el = el;
     this.rows = selectAllFrom(".row", el);
     this.images = selectAllFrom(

@@ -136,26 +136,18 @@ export default {
   setup() {
     const homeContent = ref(null);
     function callback1() {
-      HomeContentAnimations.init(homeContent.value);
+      HomeContentAnimations.init(homeContent.value, !mobile.value);
     }
 
     function callback2() {
       $eventBus.on("home-enter-animation", () => {
-        HomeContentAnimations.init(homeContent.value);
+        HomeContentAnimations.init(homeContent.value, !mobile.value);
         $eventBus.off("home-enter-animation");
       });
     }
 
-    function mediaQueryCallback(mobile) {
-      if (mobile) {
-        HomeContentAnimations.setup || HomeContentAnimations.destroy();
-      } else {
-        HomeContentAnimations.setup ||
-          HomeContentAnimations.init(homeContent.value);
-      }
-    }
     useMuzenEnter(callback1, callback2);
-    useMediaQuery(undefined, mediaQueryCallback);
+    const mobile = useMediaQuery(undefined, undefined);
 
     return {
       homeContent,

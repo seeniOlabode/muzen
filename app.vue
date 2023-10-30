@@ -106,7 +106,6 @@ export default {
   },
   methods: {
     async pageTransitionLeave(el, done) {
-      return done();
       this.transitioning = true;
       await appAnimations.leave(el, done, this.$route.meta.mitt);
       this.transitioning = false;
