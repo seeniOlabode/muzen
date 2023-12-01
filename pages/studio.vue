@@ -109,7 +109,7 @@ export default {
 
 <style scoped>
 .studio-page {
-  /* height: 100vh; */
+  /* height: calc((var(--vh, 1vh) * 100)); */
   padding-bottom: 96px;
   background-color: var(--muzen-light-brown);
   overflow: hidden;

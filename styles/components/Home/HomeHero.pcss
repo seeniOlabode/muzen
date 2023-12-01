@@ -8,12 +8,12 @@
 
 .home-hero {
   position: relative;
-  height: 100vh;
+  height: calc((var(--vh, 1vh) * 100));
   width: 100vw;
   overflow: hidden;
   display: flex;
   justify-content: end;
-  align-items: start;
+  align-items: center;
   padding-top: 150px;
 }
 
@@ -44,12 +44,8 @@
   justify-items: start;
   align-items: flex-end;
   z-index: 10;
-  margin-top: calc(500px - 30vw);
   padding-right: 16px;
-
-  @media screen and (height <= 750px) {
-    margin-top: calc(500px - 40vw);
-  }
+  margin-bottom: 150px;
 }
 
 .copy__body {
@@ -128,7 +124,11 @@
 
 @media screen and (width >= 500px) {
   .home-hero {
-    height: clamp(685px, 100vh, 100vh);
+    height: clamp(
+      685px,
+      calc((var(--vh, 1vh) * 100)),
+      calc((var(--vh, 1vh) * 100))
+    );
   }
   .home-hero__logo {
     bottom: 0px;

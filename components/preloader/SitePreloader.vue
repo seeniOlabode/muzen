@@ -66,6 +66,9 @@ export default {
         const setDisplayedImg =
           changeImage.value ||
           current === percentagesArray[percentagesArray.length - 1];
+        if (Number(counterPercentCheckpoint.value) === 100) {
+          finishLoading();
+        }
         if (setDisplayedImg) {
           animating.value = true;
           displayedImageIndex.value =
@@ -100,7 +103,7 @@ export default {
 
       const loadAssetsLoop = async () => {
         if (i >= assetsToLoad.length) {
-          return finishLoading();
+          return null;
         }
         await preloadContent(assetsToLoad[i], i);
 

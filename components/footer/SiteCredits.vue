@@ -98,7 +98,7 @@ export default {
   position: fixed;
   left: 0;
   right: 0;
-  height: 100vh;
+  height: calc((var(--vh, 1vh) * 100));
   top: 0;
   z-index: 50;
   color: var(--muzen-dark-brown);
@@ -116,7 +116,7 @@ export default {
 }
 
 .site-credits__content {
-  min-height: 50vh;
+  min-height: calc((var(--vh, 1vh) * 50));
   height: fit-content;
   position: relative;
   display: flex;

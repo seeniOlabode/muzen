@@ -173,7 +173,7 @@ export default {
 
 <style scoped>
 .lookbook-page {
-  /* height: 100vh; */
+  /* height: calc((var(--vh, 1vh) * 100)); */
   padding-top: 144px;
   background-color: var(--muzen-light-brown);
   /* overflow: hidden; */

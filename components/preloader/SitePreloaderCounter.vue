@@ -94,33 +94,21 @@ function onEnter(el, done) {
     return setTimeout(() => {
       this.$emit("done-animating", true);
       done();
-    }, 700);
+    }, 1500);
   }
-  const tl = gsap.timeline({
-    paused: true,
-    onComplete: () => {
-      this.$emit("done-animating", true);
-      done();
-    },
-    duration: 0.7,
-  });
 
-  tl.addLabel("start", 0);
-  tl.addLabel("up-move", "+=0.3");
-
-  const transYTl = gsap.timeline({
-    paused: true,
-  });
-
-  transYTl.to(".site-preloader__counter", {
+  gsap.to(".site-preloader__counter", {
     y: -(
       (this.windowHeight - 64 - this.counterElHeight) *
       (this.currentPercentCheckpoint / 100)
     ),
+    duration: 1.5,
+    ease: "circ.inOut",
+    onComplete: () => {
+      this.$emit("done-animating", true);
+      done();
+    },
   });
-
-  tl.add(transYTl.play(), "start");
-  tl.play();
 }
 </script>
 

@@ -134,7 +134,7 @@ export default {
   padding-top: 144px;
   padding-bottom: 96px;
   background-color: var(--muzen-light-brown);
-  min-height: 100vh;
+  min-height: calc((var(--vh, 1vh) * 100));
 }
 
 .contact-page__content {

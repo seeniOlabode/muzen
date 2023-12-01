@@ -337,7 +337,11 @@ export default {
 @media screen and (width >= 724px) {
   .site-footer {
     padding-top: 100px;
-    min-height: clamp(684px, 100vh, 100vh);
+    min-height: clamp(
+      684px,
+      calc((var(--vh, 1vh) * 100)),
+      calc((var(--vh, 1vh) * 100))
+    );
     display: flex;
     flex-direction: column;
     justify-content: space-between;

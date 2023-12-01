@@ -178,14 +178,14 @@ export default {
 
 <style scoped>
 .easter-egg-page {
-  height: 100vh;
+  height: calc((var(--vh, 1vh) * 100));
   width: 100vw;
   overflow: hidden;
 }
 
 .easter-egg-page__wrapper {
   width: 100vw;
-  height: 100vh;
+  height: calc((var(--vh, 1vh) * 100));
   overflow: hidden;
 }
 
