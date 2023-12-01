@@ -66,9 +66,6 @@ export default {
         const setDisplayedImg =
           changeImage.value ||
           current === percentagesArray[percentagesArray.length - 1];
-        if (Number(counterPercentCheckpoint.value) === 100) {
-          finishLoading();
-        }
         if (setDisplayedImg) {
           animating.value = true;
           displayedImageIndex.value =
@@ -83,6 +80,10 @@ export default {
           updateCounterPercent
         );
       }
+
+      if (Number(counterPercentCheckpoint.value) == 100) {
+        finishLoading();
+      }
     }
 
     async function finishLoading() {
@@ -92,7 +93,7 @@ export default {
           !value &&
             setTimeout(() => {
               context.emit("assets-loaded", true);
-            }, 2000);
+            }, 1500);
         },
         { immediate: true }
       );

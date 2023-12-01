@@ -57,36 +57,42 @@ export class animations {
   }
 
   setContentCopyAnimations(tl) {
-    const creditsButton = selectFrom(".action-button", this.elContentCopy);
-    creditsButton.classList.toggle("highlight");
     tl.from(
-      this.contentCopySplit.lines,
+      this.elContentCopy,
       {
-        yPercent: 100,
+        yPercent: 20,
         autoAlpha: 0,
         duration: 1,
         ease: "circ.out",
-        stagger: 0.1,
       },
       "copy-in"
     );
-    tl.add(() => creditsButton.classList.toggle("highlight"));
+    // const creditsButton = selectFrom(".action-button", this.elContentCopy);
+    // creditsButton.classList.toggle("highlight");
+    // tl.from(
+    //   this.contentCopySplit.lines,
+    //   {
+    //     yPercent: 100,
+    //     autoAlpha: 0,
+    //     duration: 1,
+    //     ease: "circ.out",
+    //     stagger: 0.1,
+    //   },
+    //   "copy-in"
+    // );
+    // tl.add(() => creditsButton.classList.toggle("highlight"));
   }
 
   setContentCtaAnimations(tl) {
-    this.contentCtaSplit.lines.forEach((l, i) => {
-      const words = selectAllFrom(".content__cta__words", l);
-      tl.from(
-        words,
-        {
-          yPercent: 100,
-          duration: 1,
-          // rotate: 5,
-          ease: "circ.out",
-        },
-        "cta-in+=" + i * 0.1
-      );
-    });
+    tl.from(
+      this.elContentCta,
+      {
+        yPercent: 20,
+        autoAlpha: 0,
+        ease: "circ.out",
+      },
+      "cta-in+="
+    );
   }
 
   setContentImageAnimations(tl) {
@@ -119,12 +125,6 @@ export class animations {
       lineThreshold: 1,
       linesClass: "content__copy__lines",
       wordsClass: "content__copy__words",
-    });
-    this.contentCtaSplit = new SplitText(this.elContentCta, {
-      type: "words,lines",
-      lineThreshold: 1,
-      linesClass: "content__cta__lines",
-      wordsClass: "content__cta__words",
     });
     this.handleResize();
   }
@@ -162,7 +162,6 @@ export class animations {
       ".content__creators .creators__credit",
       el
     );
-    this.split();
 
     this.setEnterAnimations();
   }

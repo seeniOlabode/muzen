@@ -39,8 +39,10 @@
         />
       </div>
       <p class="content__cta">
-        IF YOU HAVE A POTENTIAL PROJECT OR COLLABORATION THAT YOU'D LIKE TO
-        DISCUSS
+        <a href="mailto:seeniolabode8734@gmail.com">
+          IF YOU HAVE A POTENTIAL PROJECT OR COLLABORATION THAT YOU'D LIKE TO
+          DISCUSS
+        </a>
       </p>
       <div class="content__creators">
         <p class="creators__credit">
@@ -134,13 +136,13 @@ export default {
   padding-top: 144px;
   padding-bottom: 96px;
   background-color: var(--muzen-light-brown);
-  min-height: calc((var(--vh, 1vh) * 100));
+  min-height: 100vh;
 }
 
 .contact-page__content {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-areas: "heading heading heading heading heading heading" "... copy copy copy copy copy" "graphic graphic graphic graphic graphic graphic" "cta cta cta cta cta cta";
+  grid-template-areas: "heading heading heading heading heading heading" "... copy copy copy copy copy" "graphic graphic graphic graphic graphic graphic" "cta cta cta cta cta cta" "creators creators creators creators creators creators";
 }
 
 .content__animation-span {
@@ -193,12 +195,40 @@ export default {
   font-size: clamp(0px, 32px, 8vw);
 }
 
+.content__cta a {
+  color: var(--muzen-dark-brown);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.content__cta:hover a {
+  text-decoration: underline;
+}
+
 :deep(.content__cta__lines) {
   overflow: hidden;
 }
 
 .content__creators {
-  display: none;
+  /* display: none; */
+}
+
+.content__creators {
+  display: block;
+  grid-area: creators;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: var(--muzen-dm);
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.creator__twitter.site-link {
+  font-size: 18px !important;
+  line-height: 1 !important;
+  font-weight: 500 !important;
 }
 
 .creators__credit {
@@ -240,24 +270,6 @@ export default {
 
   .content__cta {
     font-size: clamp(0px, 48px, 8vw);
-  }
-
-  .content__creators {
-    display: block;
-    grid-area: creators;
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-    font-weight: 500;
-    font-family: var(--muzen-dm);
-    margin-top: 20px;
-    overflow: hidden;
-  }
-
-  .creator__twitter.site-link {
-    font-size: 18px;
-    line-height: 1;
-    font-weight: 500;
   }
 }
 

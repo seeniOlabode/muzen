@@ -69,13 +69,13 @@ export default {
 .studio-hero__logo {
   margin-top: 44px;
   font-family: var(--muzen-nohemi);
-  font-size: 27vw;
+  font-size: 29vw;
   display: flex;
   justify-content: space-between;
   line-height: 0.6;
   padding-top: 100px;
   overflow: hidden;
-  letter-spacing: 2.5px;
+  letter-spacing: -1px;
   position: relative;
   right: 4px;
   color: var(--muzen-dark-brown);
@@ -149,14 +149,14 @@ export default {
 
 @media screen and (width >= 500px) {
   .studio-hero__logo {
-    font-size: 28vw;
+    font-size: 29.55vw;
   }
 }
 
 @media screen and (width >= 724px) {
   .studio-hero__logo {
     margin-top: 72px;
-    font-size: 28vw;
+    font-size: 28.75vw;
   }
 
   .studio-hero__hero-content {
@@ -185,13 +185,13 @@ export default {
 
 @media screen and (width >= 900px) {
   .studio-hero__logo {
-    font-size: 28.5vw;
+    font-size: 29vw;
   }
 }
 
 @media screen and (width >= 1400px) {
   .studio-hero__logo {
-    font-size: 29.5vw;
+    font-size: 30vw;
   }
 }
 </style>

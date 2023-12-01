@@ -315,9 +315,10 @@ export default {
   justify-content: space-between;
   width: 100%;
   grid-area: logo;
-  font-size: 28vw;
+  font-size: 29.5vw;
   line-height: 0.66;
   padding-top: 50px;
+  letter-spacing: -1px;
 }
 
 .logo__char {
@@ -372,7 +373,7 @@ export default {
       display: block;
     }
     .logo__word {
-      font-size: 29.5vw;
+      font-size: 29.7vw;
     }
   }
 }
