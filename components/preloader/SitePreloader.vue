@@ -149,16 +149,17 @@ export default {
 
     function loadOthers() {
       const othersToLoad = [];
-      console.log(othersToLoad);
       for (const path in allAssets) {
         if (path !== route.fullPath) {
           othersToLoad.push(...allAssets[path]["all"]);
           othersToLoad.push(...allAssets[path][mobile ? "mobile" : "desktop"]);
         }
       }
+      console.log(othersToLoad);
       othersToLoad.forEach((c) => {
         preloadContent(c);
       });
+      console.log("all-loaded");
     }
 
     // Watchers

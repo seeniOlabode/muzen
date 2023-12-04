@@ -26,6 +26,7 @@
     </Transition>
   </div>
   <page-transition ref="pageTrans" />
+  <scroll-bar />
 </template>
 
 <script>

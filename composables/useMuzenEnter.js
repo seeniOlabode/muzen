@@ -11,12 +11,12 @@ export default function (callback1, callback2) {
     if (!transitioned.value) {
       unwatch.value = watch(assetsLoaded, (value) => {
         if (value) {
-          callback1();
+          callback1?.();
           unwatch.value();
         }
       });
     } else {
-      callback2();
+      callback2?.();
     }
   });
 

@@ -315,7 +315,7 @@ export default {
   justify-content: space-between;
   width: 100%;
   grid-area: logo;
-  font-size: 29.5vw;
+  font-size: 28vw;
   line-height: 0.66;
   padding-top: 50px;
   letter-spacing: -1px;
@@ -333,6 +333,12 @@ export default {
 .logo-space-filler {
   margin-top: 186px;
   height: 40px;
+}
+
+@media screen and (width >= 500px) {
+  .logo__word {
+    font-size: 29.5vw;
+  }
 }
 
 @media screen and (width >= 724px) {

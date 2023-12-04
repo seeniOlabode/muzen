@@ -69,7 +69,7 @@ export default {
 .studio-hero__logo {
   margin-top: 44px;
   font-family: var(--muzen-nohemi);
-  font-size: 29vw;
+  font-size: 28.5vw;
   display: flex;
   justify-content: space-between;
   line-height: 0.6;

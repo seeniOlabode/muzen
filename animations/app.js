@@ -28,6 +28,7 @@ class animations {
           .play()
           .add(() => {
             done();
+            emitter.emit("scrollbar-page-in", true);
           }, "done");
       }
     });
