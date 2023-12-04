@@ -7,7 +7,7 @@
           <site-link
             :to="link.path"
             :text="link.text"
-            color="var(--muzen-dark-brown)"
+            color="white"
             size="md"
             :prefetch="link.prefetch"
           />

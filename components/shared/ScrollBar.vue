@@ -40,7 +40,7 @@ export default {
         }
         thumbOpacityTimeout = setTimeout(() => {
           thumbOpacity.value = 0;
-        }, 2000);
+        }, 1000);
         thumbOpacity.value = 1;
         thumbTransform.value =
           (htmlEl.scrollTop / (htmlEl.scrollHeight - window.innerHeight)) *
@@ -82,7 +82,6 @@ export default {
   width: 12px;
   display: flex;
   justify-content: center;
-  mix-blend-mode: multiply;
 }
 
 .scrollbar__thumb {
