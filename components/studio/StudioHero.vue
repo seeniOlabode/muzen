@@ -69,7 +69,7 @@ export default {
 .studio-hero__logo {
   margin-top: 44px;
   font-family: var(--muzen-nohemi);
-  font-size: 28.5vw;
+  font-size: 27.5vw;
   display: flex;
   justify-content: space-between;
   line-height: 0.6;
@@ -145,6 +145,12 @@ export default {
   bottom: 10%;
   font-weight: 400;
   font-family: var(--muzen-nohemi);
+}
+
+@media screen and (width >=400px) {
+  .studio-hero__logo {
+    font-size: 28.5vw;
+  }
 }
 
 @media screen and (width >= 500px) {
