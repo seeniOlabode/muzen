@@ -104,9 +104,9 @@ export default {
     function callback2() {
       console.log("worked");
 
-      $eventBus.on("studio-enter-animation", () => {
+      $eventBus.on("studio-enter-animations", () => {
         StudioAnimations.init(studioAboutUs.value, !mobile.value);
-        $eventBus.off("studio-enter-animation");
+        $eventBus.off("studio-enter-animations");
       });
     }
 
