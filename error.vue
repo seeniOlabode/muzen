@@ -50,17 +50,17 @@ export default {
       pages: [
         {
           text: "Home",
-          photo: "/images/Error/d187b7ccef14ee808b3c89bcc232f925.jpeg",
+          photo: "/images/Error/d187b7ccef14ee808b3c89bcc232f925.webp",
           path: "/",
         },
         {
           text: "Studio",
-          photo: "/images/Error/12df30bd9f1f1319e95e98f28a866f0b.jpeg",
+          photo: "/images/Error/12df30bd9f1f1319e95e98f28a866f0b.webp",
           path: "/studio",
         },
         {
           text: "Lookbook",
-          photo: "/images/Error/27517fff4251b722e24daacc88563bd3.jpeg",
+          photo: "/images/Error/27517fff4251b722e24daacc88563bd3.webp",
           path: "/lookbook",
         },
         {

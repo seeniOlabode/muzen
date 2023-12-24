@@ -134,7 +134,7 @@ export default {
 <style scoped>
 .contact-page {
   padding-top: 144px;
-  padding-bottom: 96px;
+  padding-bottom: 20px;
   background-color: var(--muzen-light-brown);
   min-height: 100vh;
 }

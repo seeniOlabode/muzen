@@ -28,6 +28,9 @@
                   : 'visible',
               width: parseInt(currentPercentCheckpoint, 10) < 10 ? '0' : 'auto',
             }"
+            :class="{
+              faster: getPlaceValue(currentPercentCheckpoint, 2) == 1,
+            }"
           >
             {{ getPlaceValue(currentPercentCheckpoint, 2) }}
           </span>

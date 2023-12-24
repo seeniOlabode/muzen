@@ -1,9 +1,14 @@
 <template>
   <section class="home-hero animated-block" ref="homeHero">
     <div class="home-hero__video-wrapper">
-      <video class="video-wrapper__video" autoplay loop>
-        <source src="/images/Home/home-hero-video.webm" />
-      </video>
+      <video
+        class="video-wrapper__video"
+        src="/images/Home/home-hero-video.webm"
+        autoplay
+        loop
+        muted
+        ref="heroVideoEl"
+      ></video>
     </div>
     <div class="home-hero__copy">
       <p class="copy__body body">
@@ -41,13 +46,17 @@ export default {
   inject: ["getTransitioned"],
   setup() {
     const homeHero = ref(null);
+    const heroVideoEl = ref(null);
+
     function callback1() {
       HomeHeroAnimations.init(homeHero.value, false);
+      heroVideoEl.value.play();
     }
 
     function callback2() {
       $eventBus.on("home-enter-animation", () => {
         HomeHeroAnimations.init(homeHero.value);
+        heroVideoEl.value.play();
         $eventBus.off("home-enter-animation");
       });
     }
@@ -56,6 +65,7 @@ export default {
 
     return {
       homeHero,
+      heroVideoEl,
     };
   },
   computed: {

@@ -15,6 +15,9 @@
             quality="20"
             loading="eager"
             preload
+            style="aspect-ratio: 22/26; object-fit: cover"
+            width="330"
+            height="390"
           />
         </div>
       </li>

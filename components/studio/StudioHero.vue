@@ -15,7 +15,14 @@
         your vision to life.
       </p>
       <div class="hero-content__video-wrapper">
-        <video class="hero-content__video" autoplay loop v-if="!mobile">
+        <video
+          class="hero-content__video"
+          autoplay
+          loop
+          muted
+          v-if="!mobile"
+          ref="studioHeroEl"
+        >
           <source src="/images/Studio/studio-video-trimmed.webm" />
         </video>
       </div>
@@ -42,14 +49,17 @@ export default {
   },
   setup() {
     const studioHero = ref(null);
+    const studioHeroEl = ref(null);
 
     function callback1() {
       StudioHeroAnimations.init(studioHero.value, false);
+      studioHeroEl.value.play();
     }
 
     function callback2() {
       $eventBus.on("studio-enter-animations", () => {
         StudioHeroAnimations.init(studioHero.value);
+        studioHeroEl.value.play();
         $eventBus.off("studio-enter-animations");
       });
     }
@@ -60,6 +70,7 @@ export default {
     return {
       studioHero,
       mobile,
+      studioHeroEl,
     };
   },
 };
