@@ -31,24 +31,6 @@
 
 <script>
 import { appAnimations } from "~/animations/app";
-
-useSeoMeta({
-  description:
-    "Muzen is a fashion photography studio based in Asgard, Nethers. We are dedicated to capturing the essence of style and beauty through our lens. Our passion lies in creating captivating visual stories that elevate fashion to an art form.",
-  ogTitle: "Muzen",
-  ogDescription:
-    "Muzen is a fashion photography studio based in Asgard, Nethers. We are dedicated to capturing the essence of style and beauty through our lens. Our passion lies in creating captivating visual stories that elevate fashion to an art form.",
-  ogImage:
-    "https://firebasestorage.googleapis.com/v0/b/bode-project-a4bc4.appspot.com/o/muzen-logo.png?alt=media&token=b2b35a96-f809-4b73-af0e-48994baba701",
-  ogUrl: "muzen.netlify.com",
-  twitterTitle: "Muzen",
-  twitterDescription:
-    "Muzen is a fashion photography studio based in Asgard, Nethers. We are dedicated to capturing the essence of style and beauty through our lens. Our passion lies in creating captivating visual stories that elevate fashion to an art form.",
-  twitterImage:
-    "https://firebasestorage.googleapis.com/v0/b/bode-project-a4bc4.appspot.com/o/muzen-logo.png?alt=media&token=b2b35a96-f809-4b73-af0e-48994baba701",
-  twitterCard: "A fashion studio",
-});
-
 export default {
   provide() {
     return {
@@ -73,6 +55,23 @@ export default {
         }
       });
     }
+    useSeoMeta({
+      description:
+        "Muzen is a fashion photography studio based in Asgard, Nethers. We are dedicated to capturing the essence of style and beauty through our lens. Our passion lies in creating captivating visual stories that elevate fashion to an art form.",
+      ogTitle: "Muzen",
+      ogDescription:
+        "Muzen is a fashion photography studio based in Asgard, Nethers. We are dedicated to capturing the essence of style and beauty through our lens. Our passion lies in creating captivating visual stories that elevate fashion to an art form.",
+      ogImage:
+        "https://firebasestorage.googleapis.com/v0/b/bode-project-a4bc4.appspot.com/o/muzen-logo.png?alt=media&token=b2b35a96-f809-4b73-af0e-48994baba701",
+      ogUrl: "muzen.netlify.com",
+      twitterTitle: "Muzen",
+      twitterDescription:
+        "Muzen is a fashion photography studio based in Asgard, Nethers. We are dedicated to capturing the essence of style and beauty through our lens. Our passion lies in creating captivating visual stories that elevate fashion to an art form.",
+      twitterImage:
+        "https://firebasestorage.googleapis.com/v0/b/bode-project-a4bc4.appspot.com/o/muzen-logo.png?alt=media&token=b2b35a96-f809-4b73-af0e-48994baba701",
+      twitterCard: "A fashion studio",
+    });
+
     useHead({
       title: "Muzen",
       htmlAttrs: {
