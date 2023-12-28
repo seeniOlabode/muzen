@@ -8,11 +8,10 @@
         v-show="i == displayedImageIndex"
       >
         <div class="image-wrapper__inner">
-          <img
+          <site-image
             :src="img"
             alt="Preloader Image"
             class="image-wrapper__image"
-            quality="20"
             loading="eager"
             preload
             style="aspect-ratio: 22/26; object-fit: cover"

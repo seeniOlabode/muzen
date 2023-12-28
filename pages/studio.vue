@@ -97,13 +97,10 @@ export default {
       title: "Muzen Studio",
     });
     function callback1() {
-      console.log("worked");
       StudioAnimations.init(studioAboutUs.value, !mobile.value);
     }
 
     function callback2() {
-      console.log("worked");
-
       $eventBus.on("studio-enter-animations", () => {
         StudioAnimations.init(studioAboutUs.value, !mobile.value);
         $eventBus.off("studio-enter-animations");

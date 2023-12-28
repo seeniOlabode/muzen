@@ -155,11 +155,9 @@ export default {
           othersToLoad.push(...allAssets[path][mobile ? "mobile" : "desktop"]);
         }
       }
-      console.log(othersToLoad);
       othersToLoad.forEach((c) => {
         preloadContent(c);
       });
-      console.log("all-loaded");
     }
 
     // Watchers
