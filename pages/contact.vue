@@ -39,7 +39,9 @@
         />
       </div>
       <p class="content__cta">
-        <a href="mailto:seeniolabode8734@gmail.com">
+        <a
+          href="mailto:elufidipebenjamin@gmail.com?cc=seeniolabode8734@gmail.com"
+        >
           IF YOU HAVE A POTENTIAL PROJECT OR COLLABORATION THAT YOU'D LIKE TO
           DISCUSS
         </a>
