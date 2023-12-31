@@ -41,6 +41,7 @@
       <p class="content__cta">
         <a
           href="mailto:elufidipebenjamin@gmail.com?cc=seeniolabode8734@gmail.com"
+          target="_blank"
         >
           IF YOU HAVE A POTENTIAL PROJECT OR COLLABORATION THAT YOU'D LIKE TO
           DISCUSS
