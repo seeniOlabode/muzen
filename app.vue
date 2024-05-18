@@ -19,9 +19,7 @@
     />
     <Transition @leave="footerLeave">
       <site-footer
-        v-show="
-          !['Contact', 'Easter Egg'].includes($route.name) && assetsLoaded
-        "
+        v-show="!['Contact', 'Archive'].includes($route.name) && assetsLoaded"
       />
     </Transition>
   </div>
@@ -125,12 +123,12 @@ export default {
     appAnimations.init(this.$refs.pageTrans.$refs.pageTransition, {
       scrollToTop: this.scrollToTop,
     });
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-    window.addEventListener("resize", () => {
+    function vhSetter() {
       let vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
-    });
+    }
+    vhSetter();
+    window.addEventListener("resize", vhSetter);
   },
 };
 </script>

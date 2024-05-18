@@ -29,10 +29,10 @@ export default <RouterConfig>{
       },
     },
     {
-      name: "Easter Egg",
-      path: "/3@s73r",
+      name: "Archive",
+      path: "/archive",
       component: () =>
-        import(`~/pages/easter-egg.vue`).then((r) => r.default || r),
+        import(`~/pages/archive.vue`).then((r) => r.default || r),
       meta: {
         mitt: [{ name: "footer-leave", time: "done" }],
       },

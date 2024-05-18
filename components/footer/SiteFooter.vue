@@ -156,14 +156,6 @@ export default {
               },
             },
             {
-              text: "Request content removal",
-              type: "button",
-              action: () => {
-                window.location.href =
-                  "mailto:seeniolabode8734@gmail.com?subject=Request Content Removal";
-              },
-            },
-            {
               text: "Share link",
               path: "/share-link",
               type: "share",
@@ -174,8 +166,16 @@ export default {
           header: "bonus",
           links: [
             {
-              text: "Easter egg",
-              path: "/3@s73r",
+              text: "Request content removal",
+              type: "button",
+              action: () => {
+                window.location.href =
+                  "mailto:seeniolabode8734@gmail.com?subject=Request Content Removal";
+              },
+            },
+            {
+              text: "Archive",
+              path: "/archive",
               prefetch: false,
             },
           ],

@@ -68,7 +68,7 @@ export const assetsToLoad = {
     mobile: [],
     desktop: [],
   },
-  "/3@s73r": {
+  "/archive": {
     all: [],
     mobile: [],
     desktop: [

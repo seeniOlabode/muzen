@@ -17,7 +17,11 @@
 
     <Transition @enter="previewEnter" @leave="previewLeave">
       <div v-show="showPreview" class="easter-egg-page__preview-container">
-        <div class="preview-container__backdrop" @click="closePreview"></div>
+        <div
+          class="preview-container__backdrop"
+          @click="closePreview"
+          ref="previewBackdrop"
+        ></div>
         <img
           class="preview-container__image"
           :src="images[selectedImg]"
@@ -42,7 +46,7 @@ const easterEggAnimations = new animations();
 export default {
   setup() {
     // State
-    const images = assetsToLoad["/3@s73r"].desktop;
+    const images = assetsToLoad["/archive"].desktop;
     const scrollLocked = ref(false);
     const easterPage = ref(null);
 
@@ -86,6 +90,7 @@ export default {
     return {
       selectedImg: null,
       showPreview: false,
+      SCALE_WIDTH_TO: 500,
     };
   },
   methods: {
@@ -97,44 +102,83 @@ export default {
     closePreview() {
       this.showPreview = false;
     },
-    previewEnter(el, done) {
-      const scopeSelect = gsap.utils.selector(el);
-      const previewBackdrop = scopeSelect(".preview-container__backdrop");
-      const previewImage = scopeSelect(".preview-container__image");
-      const photo = this.$refs.photosList[this.selectedImg];
-      const photoBounds = getBounding(photo);
-      const photoCenteredX = photoBounds.x + photoBounds.width / 2;
-      const photoCenteredY = photoBounds.y + photoBounds.height / 2;
+    getPhotoCurrentTranslateValues(photo) {
+      return {
+        x: parseFloat(getCssVariable(photo, "x")),
+        y: parseFloat(getCssVariable(photo, "y")),
+      };
+    },
+    getCurrentPhotoHeightAfterScale(scaleBy) {
+      return scaleBy * this.currentPhotoBounding.height;
+    },
+    getScaleTarget() {
+      let scaleBy = this.SCALE_WIDTH_TO / this.currentPhotoBounding.width;
 
-      const windowXCenter = window.innerWidth / 2;
-      const windowYCenter = window.innerHeight / 2;
+      let seventyViewHeight = 0.7 * window.innerHeight;
 
-      const photoTransX = parseFloat(getCssVariable(photo, "x"));
-      const photoTransY = parseFloat(getCssVariable(photo, "y"));
-
-      let scaleTo = 500 / photoBounds.width;
-
-      if (scaleTo * photoBounds.height > 0.7 * window.innerHeight) {
-        scaleTo = (0.7 * window.innerHeight) / photoBounds.height;
+      if (this.getCurrentPhotoHeightAfterScale(scaleBy) > seventyViewHeight) {
+        // scale by height to 70vh instead
+        return seventyViewHeight / this.currentPhotoBounding.height;
+      } else {
+        // scale by width to 500px;
+        return scaleBy;
       }
+    },
+    getWindowCenterCoordinates() {
+      return {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+      };
+    },
+    getTargetCoordinates() {
+      const windowCenterCoordinates = this.getWindowCenterCoordinates();
 
-      const xTo = windowXCenter - photoCenteredX + photoTransX;
-      const yTo = windowYCenter - photoCenteredY + photoTransY;
+      return {
+        x:
+          windowCenterCoordinates.x -
+          this.currentPhotoCoordinates.x +
+          this.currentPhotoTranslateValues.x,
+        y:
+          windowCenterCoordinates.y -
+          this.currentPhotoCoordinates.y +
+          this.currentPhotoTranslateValues.y,
+      };
+    },
+    getCurrentPhotoTargetValues() {
+      const { x: targetX, y: targetY } = this.getTargetCoordinates();
+      const targetScale = this.getScaleTarget(this.currentPhoto);
 
-      gsap.set(photo, { "--preview-x": xTo, "--preview-y": yTo });
+      return {
+        scale: targetScale,
+        x: targetX,
+        y: targetY,
+      };
+    },
+    previewEnter(el, done) {
+      const previewBackdrop = this.$refs.previewBackdrop;
+      const previewImage = this.$refs.previewContainerImage;
+
+      const {
+        x: targetX,
+        y: targetY,
+        scale: targetScale,
+      } = this.getCurrentPhotoTargetValues();
+
+      const photo = this.currentPhoto;
 
       const tl = gsap
         .timeline({ paused: true })
         .set(photo, { zIndex: 10000 })
-        .to(photo, { x: xTo, y: yTo, duration: 0.8, ease: "circ.out" })
+        .addLabel("start")
+        .to(photo, { x: targetX, y: targetY, duration: 0.8, ease: "circ.out" })
         .to(
           photo,
-          { scaleX: scaleTo, ease: "power1.inOut", duration: 0.8 },
+          { scaleX: targetScale, ease: "power1.inOut", duration: 0.8 },
           "<"
         )
         .to(
           photo,
-          { scaleY: scaleTo, duration: 0.8, ease: "power3.inOut" },
+          { scaleY: targetScale, duration: 0.8, ease: "power3.inOut" },
           "<"
         )
         .to(previewBackdrop, { autoAlpha: 1 }, "<+=0.25")
@@ -172,6 +216,39 @@ export default {
   beforeUnmount() {
     this.showPreview = false;
     this.selectedImg = null;
+  },
+  computed: {
+    currentPhoto() {
+      if (this.selectedImg) {
+        return this.$refs.photosList[this.selectedImg];
+      } else {
+        return null;
+      }
+    },
+    currentPhotoBounding() {
+      if (this.currentPhoto) {
+        return getBounding(this.currentPhoto);
+      } else {
+        return null;
+      }
+    },
+    currentPhotoCoordinates() {
+      const bounding = this.currentPhotoBounding;
+      if (bounding) {
+        return {
+          x: bounding.x + bounding.width / 2,
+          y: bounding.y + bounding.height / 2,
+        };
+      }
+    },
+    currentPhotoTranslateValues() {
+      if (this.currentPhoto) {
+        return {
+          x: parseFloat(getCssVariable(this.currentPhoto, "x")),
+          y: parseFloat(getCssVariable(this.currentPhoto, "y")),
+        };
+      }
+    },
   },
 };
 </script>

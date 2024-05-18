@@ -33,12 +33,12 @@ class Animations {
   }
 
   setEnterAnimations() {
-    this.copySplit = new SplitText(this.elCopyBodies, {
-      type: "lines,words",
-      lineThreshold: 1,
-      linesClass: "hero__lines",
-      wordsClass: "hero__words",
-    });
+    // this.copySplit = new SplitText(this.elCopyBodies, {
+    //   type: "lines,words",
+    //   lineThreshold: 1,
+    //   linesClass: "hero__lines",
+    //   wordsClass: "hero__words",
+    // });
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -48,16 +48,16 @@ class Animations {
     tl.set(this.el, {
       autoAlpha: 1,
     });
-    tl.from(
-      this.copySplit.lines,
-      {
-        yPercent: 100,
-        opacity: 0,
-        stagger: 0.12,
-        duration: 0.5,
-      },
-      !this.transitioned ? ">+=0.5" : ""
-    );
+    // tl.from(
+    //   this.copySplit.lines,
+    //   {
+    //     yPercent: 100,
+    //     opacity: 0,
+    //     stagger: 0.12,
+    //     duration: 0.5,
+    //   },
+    //   !this.transitioned ? ">+=0.5" : ""
+    // );
     tl.from(
       this.logoChars,
       {

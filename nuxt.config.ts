@@ -34,7 +34,7 @@ export default defineNuxtConfig({
     "/": { prerender: true },
     "/lookbook": { prerender: true },
     "/studio": { prerender: true },
-    "/3@s73r": { prerender: true },
+    "/archive": { prerender: false },
     "/contact": { prerender: true },
   },
 });
