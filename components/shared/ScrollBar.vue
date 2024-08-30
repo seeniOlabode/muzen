@@ -96,4 +96,11 @@ export default {
   opacity: 1 !important;
   /* scale: 1.05; */
 }
+
+@supports (-webkit-touch-callout: none) {
+  /* CSS specific to iOS devices */
+  .scrollbar__container {
+    display: none;
+  }
+}
 </style>
